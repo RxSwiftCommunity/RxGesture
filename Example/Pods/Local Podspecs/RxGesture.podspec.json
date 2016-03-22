@@ -1,0 +1,35 @@
+{
+  "name": "RxGesture",
+  "version": "0.1.0",
+  "summary": "A short description of RxGesture.",
+  "description": "",
+  "homepage": "https://github.com/icanzilb/RxGesture",
+  "license": "MIT",
+  "authors": {
+    "Marin Todorov": "marin@underplot.com"
+  },
+  "source": {
+    "git": "https://github.com/icanzilb/RxGesture.git",
+    "tag": "0.1.0"
+  },
+  "social_media_url": "https://twitter.com/icanzilb",
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "RxGesture": [
+      "Pod/Assets/*.png"
+    ]
+  },
+  "frameworks": "UIKit",
+  "dependencies": {
+    "RxSwift": [
+
+    ],
+    "RxCocoa": [
+
+    ]
+  }
+}

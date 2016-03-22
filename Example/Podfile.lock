@@ -1,0 +1,40 @@
+PODS:
+  - FBSnapshotTestCase (2.0.7):
+    - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
+  - FBSnapshotTestCase/Core (2.0.7)
+  - FBSnapshotTestCase/SwiftSupport (2.0.7):
+    - FBSnapshotTestCase/Core
+  - Nimble (3.0.0)
+  - Nimble-Snapshots (3.0.0):
+    - FBSnapshotTestCase (~> 2.0.7)
+    - Nimble
+    - Quick
+  - Quick (0.8.0)
+  - RxCocoa (2.3.0):
+    - RxSwift (~> 2.3)
+  - RxGesture (0.1.0):
+    - RxCocoa
+    - RxSwift
+  - RxSwift (2.3.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - Nimble (= 3.0.0)
+  - Nimble-Snapshots
+  - Quick (~> 0.8.0)
+  - RxGesture (from `../`)
+
+EXTERNAL SOURCES:
+  RxGesture:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
+  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  Nimble-Snapshots: ab41dd737dcd33a0b0cb005a30465fef70b7207a
+  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  RxCocoa: cde4e993f496d2577bc3ba8b7dc7bf55a4ed809a
+  RxGesture: bc552ec6e75f27847f8911bd2dcdbd399f2f93dd
+  RxSwift: 0df59cc5edf28a31dbf83b049220b4b8e76b07c8
+
+COCOAPODS: 0.39.0
