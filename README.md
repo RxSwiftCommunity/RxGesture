@@ -6,9 +6,13 @@
 
 ## Usage
 
+![](Pod/Assets/demo.gif)
+
 To run the example project, clone the repo, in the __Example__ folder open `RxGesture.xcworkspace`.
 
 You _might_ need to run `pod install` from the Example directory first.
+
+---
 
 __RxGesture__ allows you to easily turn any view into a tappable or swipeable control like so:
 
