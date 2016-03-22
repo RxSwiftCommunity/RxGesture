@@ -55,12 +55,14 @@ extension UIView {
     /// Reactive wrapper for view gestures. You can observe a single gesture or multiple gestures
     /// (e.g. swipe left and right); the value the Observable emits is the type of the concrete gesture
     /// out of the list you are observing.
+    ///
+    /// rx_gesture can't error, shares side effects and is subscribed/observed on main scheduler
     /// - parameter type: list of types you want to observe like `[.Tap]` or `[.SwipeLeft, .SwipeRight]`
-    /// - returns: `Observable<RxGestureTypeOptions>` that emits any type one of the desired gestures is performed on the view
+    /// - returns: `ControlEvent<RxGestureTypeOptions>` that emits any type one of the desired gestures is performed on the view
     /// - seealso: `RxCocoa` adds `rx_tap` to `NSButton/UIButton` and is sufficient if you only need to subscribe
     ///   on taps on buttons. `RxGesture` on the other hand enables `userInteractionEnabled` and handles gestures on any view
 
-    public func rx_gesture(type: RxGestureTypeOptions) -> Observable<RxGestureTypeOptions> {
+    public func rx_gesture(type: RxGestureTypeOptions) -> ControlEvent<RxGestureTypeOptions> {
         let source: Observable<RxGestureTypeOptions> = Observable.create { [weak self] observer in
             MainScheduler.ensureExecutingOnScheduler()
             
@@ -116,7 +118,7 @@ extension UIView {
             }
         }.takeUntil(rx_deallocated)
         
-        return source
+        return ControlEvent(events: source)
     }
     
     private func directionForGestureType(type: RxGestureTypeOptions) -> UISwipeGestureRecognizerDirection? {
