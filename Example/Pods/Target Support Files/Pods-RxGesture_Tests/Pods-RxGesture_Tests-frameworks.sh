@@ -87,17 +87,11 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-RxGesture_Tests/RxCocoa.framework"
   install_framework "Pods-RxGesture_Tests/RxGesture.framework"
   install_framework "Pods-RxGesture_Tests/RxSwift.framework"
-  install_framework "Pods-RxGesture_Tests/FBSnapshotTestCase.framework"
-  install_framework "Pods-RxGesture_Tests/Nimble.framework"
-  install_framework "Pods-RxGesture_Tests/Nimble_Snapshots.framework"
   install_framework "Pods-RxGesture_Tests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-RxGesture_Tests/RxCocoa.framework"
   install_framework "Pods-RxGesture_Tests/RxGesture.framework"
   install_framework "Pods-RxGesture_Tests/RxSwift.framework"
-  install_framework "Pods-RxGesture_Tests/FBSnapshotTestCase.framework"
-  install_framework "Pods-RxGesture_Tests/Nimble.framework"
-  install_framework "Pods-RxGesture_Tests/Nimble_Snapshots.framework"
   install_framework "Pods-RxGesture_Tests/Quick.framework"
 fi

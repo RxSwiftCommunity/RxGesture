@@ -1,12 +1,12 @@
 {
   "name": "RxGesture",
   "version": "0.1.0",
-  "summary": "A short description of RxGesture.",
-  "description": "",
+  "summary": "RxSwfit reactive wrapper for view gestures.",
+  "description": "RxSwfit reactive wrapper for view gestures. It lets you to easily observe\na single gesture like tap or a custom group of gestures on a view. You can \ncombine taps, presses, or swipes in any direction",
   "homepage": "https://github.com/icanzilb/RxGesture",
   "license": "MIT",
   "authors": {
-    "Marin Todorov": "marin@underplot.com"
+    "Marin Todorov": "touch-code-magazine@underplot.com"
   },
   "source": {
     "git": "https://github.com/icanzilb/RxGesture.git",

@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         //release previous recognizers
         stepBag = DisposeBag()
         
-        info.text = infoList[step]
+        info.text = "\(step+1). \(infoList[step])"
         code.text = codeList[step]
         
         //add current step recognizer
