@@ -47,7 +47,7 @@ pod "RxGesture"
 
 ## Author
 
-Marin Todorov, [www.underplot.com](www.underplot.com)
+Marin Todorov, [http://www.underplot.com](www.underplot.com)
 
 ## License
 
