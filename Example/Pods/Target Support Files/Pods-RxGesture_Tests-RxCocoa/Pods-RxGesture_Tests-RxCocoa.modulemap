@@ -1,0 +1,6 @@
+framework module RxCocoa {
+  umbrella header "Pods-RxGesture_Tests-RxCocoa-umbrella.h"
+
+  export *
+  module * { export * }
+}

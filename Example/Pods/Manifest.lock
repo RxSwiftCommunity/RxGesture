@@ -1,11 +1,10 @@
 PODS:
   - Quick (0.8.0)
-  - RxCocoa (2.3.0):
-    - RxSwift (~> 2.3)
-  - RxGesture (0.1.0):
-    - RxCocoa
-    - RxSwift
-  - RxSwift (2.3.0)
+  - RxCocoa (2.3.1):
+    - RxSwift (~> 2.3.1)
+  - RxGesture (0.1.3):
+    - RxCocoa (~> 2.3.1)
+  - RxSwift (2.3.1)
 
 DEPENDENCIES:
   - Quick (~> 0.8.0)
@@ -17,8 +16,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
-  RxCocoa: cde4e993f496d2577bc3ba8b7dc7bf55a4ed809a
-  RxGesture: fa08136234ed371a58594fc02bd4a7d1b514133b
-  RxSwift: 0df59cc5edf28a31dbf83b049220b4b8e76b07c8
+  RxCocoa: a2baaf3462b989559a51dce59d78fbebb8fe0afa
+  RxGesture: 4f69b9d5852dfa16b34887cd1d383c8a02792b9a
+  RxSwift: 829b2843e9eddc77a02cb3f5117f0d55f8f646f1
 
 COCOAPODS: 0.39.0

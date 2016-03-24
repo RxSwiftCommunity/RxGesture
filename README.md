@@ -32,6 +32,25 @@ myView.rx_gesture([.Tap, .SwipeUp, .SwipeDown]).subscribeNext {_ in
 
 `rx_gesture` is defined as `Observable<RxGestureTypeOptions>` so what it emits is the concrete type of the gesture that was triggered (handy if you are observing more than one type)
 
+On __iOS__ RXGesture supports:
+
+ - .Tap
+ - .SwipeLeft, SwipeRight, SwipeUp, SwipeDown
+ - .LongPress
+
+On __OSX__ RXGesture supports:
+
+ - .Click
+ - .RightClick
+
+If you are writing multi-platform code you can eventually write:
+
+```swift
+myView.rx_gesture([.Tap, .Click]).subscribeNext {...}
+```
+
+To observe for the concrete gesture on each platform.
+
 ## Requirements
 
 This library depends on both __RxSwift__ and __RxCocoa__.
@@ -44,6 +63,12 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "RxGesture"
 ```
+
+## TODO
+
+- support more gestures like Pan and Rotate
+- defo add tests
+- make pr to rxcocoa to add native support for rx_event to `NSGestureRecognizer` and remove the implementation from this repo
 
 ## Author
 
