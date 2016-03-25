@@ -1,8 +1,14 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'RxGesture_Example', :exclusive => true do
-  pod 'RxGesture', :path => '../'
+target 'RxGesture_iOS_Demo', :exclusive => true do
+    platform :ios, '8.3'
+    pod 'RxGesture', :path => '../'
+end
+
+target 'RxGesture_OSX_Demo', :exclusive => true do
+    platform :osx, '10.10'
+    pod 'RxGesture', :path => '../'
 end
 
 target 'RxGesture_Tests', :exclusive => true do
