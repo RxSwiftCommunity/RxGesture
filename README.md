@@ -70,9 +70,9 @@ pod "RxGesture"
 - defo add tests
 - make pr to rxcocoa to add native support for rx_event to `NSGestureRecognizer` and remove the implementation from this repo
 
-## Author
+## Thanks
 
-Marin Todorov, [www.underplot.com](http://www.underplot.com)
+Everyone in the RxSwift Slack channel 💯
 
 ## License
 

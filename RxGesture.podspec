@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "RxGesture"
-  s.version          = "0.1.4"
+  s.version          = "0.1.5"
   s.summary          = "RxSwfit reactive wrapper for view gestures."
 
   s.description      = <<-DESC
@@ -14,10 +14,10 @@ Pod::Spec.new do |s|
 					  combine taps, presses, or swipes in any direction
                        DESC
 
-  s.homepage         = "https://github.com/icanzilb/RxGesture"
+  s.homepage         = "https://github.com/RxSwiftCommunity/RxGesture"
   s.license          = 'MIT'
   s.author           = { "Marin Todorov" => "touch-code-magazine@underplot.com" }
-  s.source           = { :git => "https://github.com/icanzilb/RxGesture.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/RxSwiftCommunity/RxGesture.git", :tag => s.version.to_s }
 
   s.requires_arc = true
 
