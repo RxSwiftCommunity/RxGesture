@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Marin Todorov http://www.underplot.com
+// Copyright (c) RxSwiftCommunity
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -40,6 +40,9 @@ private class GestureTarget {
     var handler: (()->Void)?
 }
 
+//
+// TODO: Make a PR to RxCocoa to add rx_event to NSGestureRecognizer and remove this file from this repo
+//
 extension NSGestureRecognizer {
     
     /**
