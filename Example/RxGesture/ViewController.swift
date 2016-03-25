@@ -16,7 +16,8 @@ let infoList = [
     "Swipe the square down",
     "Swipe horizontally (e.g. left or right)",
     "Do a long press",
-    "Do either a tap, long press, or swipe in any direction"
+    "Rotate with two fingers",
+    "Do either a tap, long press, rotate, or swipe in any direction"
 ]
 
 let codeList = [
@@ -24,6 +25,7 @@ let codeList = [
     "myView.rx_gesture(.SwipeDown).subscribeNext {...}",
     "myView.rx_gesture([.SwipeLeft, .SwipeRight]).subscribeNext {",
     "myView.rx_gesture(.LongPress).subscribeNext {...}",
+    "myView.rx_gesture(.Rotate).subscribeNext {...}",
     "myView.rx_gesture(RxGestureTypeOptions.all()).subscribeNext {...}"
 ]
 
@@ -41,7 +43,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         nextStep😁.scan(0, accumulator: {acc, _ in
-            return acc < 4 ? acc + 1 : 0
+            return acc < 5 ? acc + 1 : 0
         })
         .startWith(0)
         .subscribeNext(step)
@@ -88,8 +90,17 @@ class ViewController: UIViewController {
                     self?.nextStep😁.onNext()
                 })
                 }.addDisposableTo(stepBag)
+            
+        case 4:
+            myView.rx_gesture(.Rotate).subscribeNext {[weak self] _ in
+                UIView.animateWithDuration(1.0, animations: {
+                    let currentTransform = self?.myView.transform
+                    self?.myView.transform = CGAffineTransformRotate(currentTransform ?? CGAffineTransform(), CGFloat(M_PI))
+                    self?.nextStep😁.onNext()
+                })
+                }.addDisposableTo(stepBag)
 
-        case 4: //any gesture
+        case 5: //any gesture
             myView.rx_gesture(RxGestureTypeOptions.all()).subscribeNext {[weak self] _ in
                 UIView.animateWithDuration(0.5, animations: {
                     self?.myView.transform = CGAffineTransformIdentity
