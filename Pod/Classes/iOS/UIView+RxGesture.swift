@@ -81,6 +81,16 @@ extension UIView {
                 )
             }
             
+            //rotate
+            if type.contains(.Rotate) {
+                let rotate = UIRotationGestureRecognizer()
+                control.addGestureRecognizer(rotate)
+                gestures.append(
+                    rotate.rx_event.map {_ in RxGestureTypeOptions.Rotate}
+                        .bindNext(observer.onNext)
+                )
+            }
+            
             //dispose gestures
             return AnonymousDisposable {
                 for gesture in gestures {
@@ -99,4 +109,7 @@ extension UIView {
         if type == .SwipeDown  { return .Down  }
         return nil
     }
+    
+    
+    
 }

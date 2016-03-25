@@ -46,6 +46,8 @@ public struct RxGestureTypeOptions : OptionSetType, Hashable {
     
     public static var LongPress  = RxGestureTypeOptions(rawValue: 1 << 5)
     
+    public static var Rotate   = RxGestureTypeOptions(rawValue: 1 << 6)
+    
     //: OSX gestures
     public static var Click  = RxGestureTypeOptions(rawValue: 1 << 10)
     public static var RightClick  = RxGestureTypeOptions(rawValue: 1 << 11)
@@ -53,7 +55,7 @@ public struct RxGestureTypeOptions : OptionSetType, Hashable {
     //: all gestures
     public static func all() -> RxGestureTypeOptions {
         return [
-            /* iOS */ .Tap, .SwipeLeft, .SwipeRight, .SwipeUp, .SwipeDown, .LongPress,
+            /* iOS */ .Tap, .SwipeLeft, .SwipeRight, .SwipeUp, .SwipeDown, .LongPress, .Rotate,
             /* OSX */ .Click, .RightClick
         ]
     }
