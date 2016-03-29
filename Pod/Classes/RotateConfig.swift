@@ -30,12 +30,16 @@ public struct RotateConfig {
     public let type: Type
     public var recognizer: AnyObject?
     
-    public static let Ended: RotateConfig = {
-        return RotateConfig(rotation: 0, type: .Ended, recognizer: nil)
+    public static let Began: RotateConfig = {
+        return RotateConfig(rotation: 0, type: .Began, recognizer: nil)
     }()
-    
+
     public static let Changed: RotateConfig = {
         return RotateConfig(rotation: 0, type: .Changed, recognizer: nil)
+    }()
+
+    public static let Ended: RotateConfig = {
+        return RotateConfig(rotation: 0, type: .Ended, recognizer: nil)
     }()
     
     public static let Any: RotateConfig = {

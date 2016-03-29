@@ -38,7 +38,7 @@ public enum RxGestureTypeOption: Equatable {
     
     public static func all() -> [RxGestureTypeOption] {
         return [
-            .Tap, .SwipeLeft, .SwipeRight, .SwipeUp, .SwipeDown, .LongPress, .Pan(.Any),
+            .Tap, .SwipeLeft, .SwipeRight, .SwipeUp, .SwipeDown, .LongPress, .Pan(.Any), Rotate(.Any),
             .Click, .RightClick
         ]
     }
