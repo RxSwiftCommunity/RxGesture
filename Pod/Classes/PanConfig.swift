@@ -18,46 +18,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import RxSwift
-import RxCocoa
+import Foundation
 
-/// An enumeration to provide a list of valid gestures
-public enum RxGestureTypeOption: Equatable {
-    
-    //: iOS gestures
-    case Tap
-    case SwipeLeft, SwipeRight, SwipeUp, SwipeDown
-    case LongPress
-    
-    //: Shared gestures
-    case Pan(PanConfig)
-    
-    //: OSX gestures
-    case Click, RightClick
-    
-    public static func all() -> [RxGestureTypeOption] {
-        return [
-            .Tap, .SwipeLeft, .SwipeRight, .SwipeUp, .SwipeDown, .LongPress, .Pan(.Any),
-            .Click, .RightClick
-        ]
+public struct PanConfig {
+    public enum Type {
+        case Began, Changed, Ended, Any
     }
-}
-
-public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
-    switch (lhs, rhs) {
-
-    case (.Tap, .Tap): fallthrough
-    case (.SwipeLeft, .SwipeLeft): fallthrough
-    case (.SwipeRight, .SwipeRight): fallthrough
-    case (.SwipeUp, .SwipeUp): fallthrough
-    case (.SwipeDown, .SwipeDown): fallthrough
-    case (.LongPress, .LongPress): fallthrough
-    case (.Pan, .Pan): fallthrough
-    case (.Click, .Click): fallthrough
-    case (.RightClick, .RightClick):
-        
-    return true
-        
-    default: return false
-    }
+    
+    #if os(iOS)
+    public let translation: CGPoint
+    public let velocity: CGPoint
+    #elseif os(OSX)
+    public let translation: NSPoint
+    public let velocity: NSPoint
+    #endif
+    
+    public let type: Type
+    public var recognizer: AnyObject?
+    
+    public static let Ended: PanConfig = {
+        return PanConfig(translation: .zero, velocity: .zero, type: .Ended, recognizer: nil)
+    }()
+    
+    public static let Changed: PanConfig = {
+        return PanConfig(translation: .zero, velocity: .zero, type: .Changed, recognizer: nil)
+    }()
+    
+    public static let Any: PanConfig = {
+        return PanConfig(translation: .zero, velocity: .zero, type: .Any, recognizer: nil)
+    }()
 }
