@@ -697,9 +697,25 @@
                             </textField>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="J7o-ag-sCE">
                                 <rect key="frame" x="252" y="154" width="100" height="100"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PxO-V0-c9c">
+                                        <rect key="frame" x="-2" y="42" width="104" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="FJH-j3-NDm"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="0in-3i-hAG">
+                                            <font key="font" metaFont="systemSemibold" size="13"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="31T-Kj-b7X"/>
                                     <constraint firstAttribute="height" constant="100" id="SeR-Rt-Y3Z"/>
+                                    <constraint firstItem="PxO-V0-c9c" firstAttribute="centerY" secondItem="J7o-ag-sCE" secondAttribute="centerY" id="eNU-Lw-WWY"/>
+                                    <constraint firstItem="PxO-V0-c9c" firstAttribute="centerX" secondItem="J7o-ag-sCE" secondAttribute="centerX" id="sb5-0F-MGQ"/>
+                                    <constraint firstItem="PxO-V0-c9c" firstAttribute="width" secondItem="J7o-ag-sCE" secondAttribute="width" id="yLr-1i-cS1"/>
                                 </constraints>
                             </customView>
                         </subviews>
@@ -718,6 +734,7 @@
                         <outlet property="code" destination="5vr-DT-1jj" id="lmD-Bd-HuA"/>
                         <outlet property="info" destination="lTO-sj-z2M" id="PSu-ib-OjC"/>
                         <outlet property="myView" destination="J7o-ag-sCE" id="JSp-mW-x8x"/>
+                        <outlet property="myViewText" destination="PxO-V0-c9c" id="GTP-Pm-UmJ"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
