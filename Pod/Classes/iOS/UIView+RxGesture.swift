@@ -44,7 +44,8 @@ extension UIView {
             
             control.userInteractionEnabled = true
             
-            var gestures = [Disposable]()
+            var gestures = [(UIGestureRecognizer?, Disposable)]()
+            
             let type = type.count > 0 ? type : RxGestureTypeOption.all()
             
             //taps
@@ -52,8 +53,8 @@ extension UIView {
                 let tap = UITapGestureRecognizer()
                 control.addGestureRecognizer(tap)
                 gestures.append(
-                    tap.rx_event.map {_ in RxGestureTypeOption.Tap}
-                        .bindNext(observer.onNext)
+                    (tap, tap.rx_event.map {_ in RxGestureTypeOption.Tap}
+                        .bindNext(observer.onNext))
                 )
             }
             
@@ -65,8 +66,8 @@ extension UIView {
                         swipe.direction = swipeDirection
                         control.addGestureRecognizer(swipe)
                         gestures.append(
-                            swipe.rx_event.map {_ in direction}
-                                .bindNext(observer.onNext)
+                            (swipe, swipe.rx_event.map {_ in direction}
+                                .bindNext(observer.onNext))
                         )
                     }
                 }
@@ -77,8 +78,8 @@ extension UIView {
                 let press = UILongPressGestureRecognizer()
                 control.addGestureRecognizer(press)
                 gestures.append(
-                    press.rx_event.map {_ in RxGestureTypeOption.LongPress}
-                        .bindNext(observer.onNext)
+                    (press, press.rx_event.map {_ in RxGestureTypeOption.LongPress}
+                        .bindNext(observer.onNext))
                 )
             }
             
@@ -127,12 +128,12 @@ extension UIView {
                         }
                         
                         guard config.translation != .zero && config.velocity != .zero else {
-                            gestures.append(panObservable.bindNext(observer.onNext))
+                            gestures.append((recognizer, panObservable.bindNext(observer.onNext)))
                             break
                         }
                         
                         gestures.append(
-                            panObservable.filter { gesture in
+                            (recognizer, panObservable.filter { gesture in
                                 switch gesture {
                                 case (.Pan(let values)):
                                     return (values.translation.x >= config.translation.x || values.translation.y >= config.translation.y)
@@ -140,7 +141,7 @@ extension UIView {
                                 default: return false
                                 }
                             }
-                            .bindNext(observer.onNext)
+                            .bindNext(observer.onNext))
                         )
                     default: break
                     }
@@ -150,7 +151,10 @@ extension UIView {
             
             //dispose gestures
             return AnonymousDisposable {
-                for gesture in gestures {
+                for (recognizer, gesture) in gestures {
+                    if let recognizer = recognizer {
+                        control.removeGestureRecognizer(recognizer)
+                    }
                     gesture.dispose()
                 }
             }
