@@ -192,6 +192,8 @@ class MacViewController: NSViewController {
             
         default: break
         }
+        
+        print("active gestures: \(myView.gestureRecognizers.count)")
     }
 
 }
