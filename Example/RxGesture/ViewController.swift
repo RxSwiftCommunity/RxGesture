@@ -17,6 +17,7 @@ let infoList = [
     "Swipe horizontally (e.g. left or right)",
     "Do a long press",
     "Drag the square to a different location",
+    "Rotate the square",
     "Do either a tap, long press, or swipe in any direction"
 ]
 
@@ -26,6 +27,7 @@ let codeList = [
     "myView.rx_gesture(.SwipeLeft, .SwipeRight).subscribeNext {",
     "myView.rx_gesture(.LongPress).subscribeNext {...}",
     "myView.rx_gesture(.Pan(.Changed), .Pan(.Ended)]).subscribeNext {...}",
+    "myView.rx_gesture(.Rotate(.Changed), .Rotate(.Ended)]).subscribeNext {...}",
     "myView.rx_gesture().subscribeNext {...}"
 ]
 
@@ -44,7 +46,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         nextStep😁.scan(0, accumulator: {acc, _ in
-            return acc < 5 ? acc + 1 : 0
+            return acc < 6 ? acc + 1 : 0
         })
         .startWith(0)
         .subscribeNext(step)
@@ -118,9 +120,31 @@ class ViewController: UIViewController {
                     })
                 default: break
                 }
+                }.addDisposableTo(stepBag)
+            
+        case 5: //rotating
+            myView.rx_gesture(.Rotate(.Changed)).subscribeNext {[weak self] gesture in
+                switch gesture {
+                case .Rotate(let data):
+                    self?.myViewText.text = "angle: \(data.rotation)"
+                    self?.myView.transform = CGAffineTransformMakeRotation(data.rotation)
+                default: break
+                }
             }.addDisposableTo(stepBag)
             
-        case 5: //any gesture
+            myView.rx_gesture(.Rotate(.Ended)).subscribeNext {[weak self] gesture in
+                switch gesture {
+                case .Rotate(_):
+                    UIView.animateWithDuration(0.5, animations: {
+                        self?.myViewText.text = nil
+                        self?.myView.transform = CGAffineTransformIdentity
+                        self?.nextStep😁.onNext()
+                    })
+                default: break
+                }
+                }.addDisposableTo(stepBag)
+            
+        case 6: //any gesture
             myView.rx_gesture().subscribeNext {[weak self] _ in
                 guard let this = self else {return}
                 UIView.animateWithDuration(0.5, animations: {

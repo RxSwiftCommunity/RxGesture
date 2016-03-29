@@ -89,11 +89,7 @@ extension UIView {
                 //create or find existing recognizer
                 var recognizer: UIPanGestureRecognizer
                 
-                let existingPan = self?.gestureRecognizers?.filter({item -> Bool in
-                    return item is UIPanGestureRecognizer
-                }).first as? UIPanGestureRecognizer
-                
-                if let existingPan = existingPan {
+                if let existingPan = self?.gestureRecognizers?.filter({ $0 is UIPanGestureRecognizer }).first as? UIPanGestureRecognizer {
                     recognizer = existingPan
                 } else {
                     recognizer = UIPanGestureRecognizer()
@@ -119,12 +115,12 @@ extension UIView {
                             let recognizer = recognizer as! UIPanGestureRecognizer
                             
                             //current values
-                            let config = PanConfig(
+                            let newConfig = PanConfig(
                                 translation: recognizer.translationInView(self?.superview),
                                 velocity: recognizer.translationInView(self?.superview),
                                 type: config.type,
                                 recognizer: recognizer)
-                            return RxGestureTypeOption.Pan(config)
+                            return RxGestureTypeOption.Pan(newConfig)
                         }
                         
                         guard config.translation != .zero && config.velocity != .zero else {
@@ -142,6 +138,63 @@ extension UIView {
                                 }
                             }
                             .bindNext(observer.onNext))
+                        )
+                    default: break
+                    }
+                }
+                
+            }
+            
+            //rotating
+            if type.contains(.Rotate(.Any)) {
+                
+                //create or find existing recognizer
+                var recognizer: UIRotationGestureRecognizer
+                
+                if let existingRotate = self?.gestureRecognizers?.filter({ $0 is UIRotationGestureRecognizer }).first as? UIRotationGestureRecognizer {
+                    recognizer = existingRotate
+                } else {
+                    recognizer = UIRotationGestureRecognizer()
+                    control.addGestureRecognizer(recognizer)
+                }
+                
+                //observable
+                let rotateEvent = recognizer.rx_event.shareReplay(1)
+                
+                //rotating
+                for rotateGesture in type where rotateGesture == .Rotate(.Any) {
+                    
+                    switch rotateGesture {
+                    case (.Rotate(let config)):
+                        //observe rotating
+                        let rotateObservable = rotateEvent.filter {recognizer -> Bool in
+                            if config.type == .Began && recognizer.state != .Began {return false}
+                            if config.type == .Changed && recognizer.state != .Changed {return false}
+                            if config.type == .Ended && recognizer.state != .Ended {return false}
+                            return true
+                            }
+                            .map { recognizer -> RxGestureTypeOption in
+                                let recognizer = recognizer as! UIRotationGestureRecognizer
+                                
+                                //current values
+                                let newConfig = RotateConfig(rotation: recognizer.rotation, type: config.type, recognizer: recognizer)
+                                return RxGestureTypeOption.Rotate(newConfig)
+                        }
+                        
+                        guard config.rotation != 0 else {
+                            gestures.append(rotateObservable.bindNext(observer.onNext))
+                            break
+                        }
+                        
+                        gestures.append(
+                            rotateObservable.filter { gesture in
+                                switch gesture {
+                                case (.Rotate(let values)):
+                                    return values.rotation > config.rotation
+                                default: return false
+                                }
+                                }
+                                .bindNext(observer.onNext)
                         )
                     default: break
                     }
