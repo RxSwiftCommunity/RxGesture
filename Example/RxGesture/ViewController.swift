@@ -16,6 +16,7 @@ let infoList = [
     "Swipe the square down",
     "Swipe horizontally (e.g. left or right)",
     "Do a long press",
+    "Drag the square to a different location",
     "Do either a tap, long press, or swipe in any direction"
 ]
 
@@ -24,12 +25,14 @@ let codeList = [
     "myView.rx_gesture(.SwipeDown).subscribeNext {...}",
     "myView.rx_gesture([.SwipeLeft, .SwipeRight]).subscribeNext {",
     "myView.rx_gesture(.LongPress).subscribeNext {...}",
+    "myView.rx_gesture([.Panning(.zero), .DidPan(.zero)]).subscribeNext {...}",
     "myView.rx_gesture(RxGestureTypeOptions.all()).subscribeNext {...}"
 ]
 
 class ViewController: UIViewController {
 
     @IBOutlet var myView: UIView!
+    @IBOutlet var myViewText: UILabel!
     @IBOutlet var info: UILabel!
     @IBOutlet var code: UITextView!
     
@@ -41,7 +44,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         nextStep😁.scan(0, accumulator: {acc, _ in
-            return acc < 4 ? acc + 1 : 0
+            return acc < 5 ? acc + 1 : 0
         })
         .startWith(0)
         .subscribeNext(step)
@@ -84,15 +87,31 @@ class ViewController: UIViewController {
         case 3: //long press
             myView.rx_gesture(.LongPress).subscribeNext {[weak self] _ in
                 UIView.animateWithDuration(0.5, animations: {
-                    self?.myView.backgroundColor = UIColor.redColor()
+                    self?.myView.transform = CGAffineTransformIdentity
                     self?.nextStep😁.onNext()
                 })
-                }.addDisposableTo(stepBag)
+            }.addDisposableTo(stepBag)
 
-        case 4: //any gesture
-            myView.rx_gesture(RxGestureTypeOptions.all()).subscribeNext {[weak self] _ in
+        case 4: //panning
+            myView.rx_gesture([.Panning(.zero), .DidPan(.zero)]).subscribeNext {[weak self] gesture in
+                switch gesture {
+                case (.Panning(let offset)):
+                    self?.myViewText.text = "(\(offset.x), \(offset.y))"
+                    self?.myView.transform = CGAffineTransformMakeTranslation(offset.x, offset.y)
+                case (.DidPan(_)):
+                    UIView.animateWithDuration(0.5, animations: {
+                        self?.myViewText.text = nil
+                        self?.myView.transform = CGAffineTransformIdentity
+                        self?.nextStep😁.onNext()
+                    })
+                default: break
+                }
+            }.addDisposableTo(stepBag)
+            
+        case 5: //any gesture
+            myView.rx_gesture(RxGestureTypeOption.all()).subscribeNext {[weak self] _ in
                 UIView.animateWithDuration(0.5, animations: {
-                    self?.myView.transform = CGAffineTransformIdentity
+                    self?.myView.backgroundColor = UIColor.redColor()
                     self?.nextStep😁.onNext()
                 })
                 }.addDisposableTo(stepBag)
