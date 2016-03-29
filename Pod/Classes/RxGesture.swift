@@ -31,6 +31,7 @@ public enum RxGestureTypeOption: Equatable {
     
     //: Shared gestures
     case Pan(PanConfig)
+    case Rotate(RotateConfig)
     
     //: OSX gestures
     case Click, RightClick
@@ -53,6 +54,7 @@ public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
     case (.SwipeDown, .SwipeDown): fallthrough
     case (.LongPress, .LongPress): fallthrough
     case (.Pan, .Pan): fallthrough
+    case (.Rotate, .Rotate): fallthrough
     case (.Click, .Click): fallthrough
     case (.RightClick, .RightClick):
         
