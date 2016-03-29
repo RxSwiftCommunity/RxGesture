@@ -1,6 +1,0 @@
-framework module RxGesture {
-  umbrella header "Pods-RxGesture_Tests-RxGesture-umbrella.h"
-
-  export *
-  module * { export * }
-}
