@@ -29,14 +29,14 @@
                                     <constraint firstAttribute="height" constant="21" id="Wjs-u7-xpl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUF-y6-oN7">
-                                <rect key="frame" x="260" y="110" width="80" height="80"/>
+                                <rect key="frame" x="250" y="100" width="100" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="BYX-hF-EJi">
-                                        <rect key="frame" x="0.0" y="30" width="80" height="21"/>
+                                        <rect key="frame" x="0.0" y="40" width="100" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="MTs-3z-dIx"/>
                                         </constraints>
@@ -47,9 +47,9 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.25612482479941157" blue="0.29293124432128048" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="32A-6O-3fu"/>
+                                    <constraint firstAttribute="height" constant="100" id="32A-6O-3fu"/>
                                     <constraint firstItem="BYX-hF-EJi" firstAttribute="centerX" secondItem="vUF-y6-oN7" secondAttribute="centerX" id="480-zi-YbU"/>
-                                    <constraint firstAttribute="width" constant="80" id="WaN-Xp-sQX"/>
+                                    <constraint firstAttribute="width" constant="100" id="WaN-Xp-sQX"/>
                                     <constraint firstItem="BYX-hF-EJi" firstAttribute="centerY" secondItem="vUF-y6-oN7" secondAttribute="centerY" id="XfE-O8-IMa"/>
                                     <constraint firstItem="BYX-hF-EJi" firstAttribute="width" secondItem="vUF-y6-oN7" secondAttribute="width" id="g5i-az-CjO"/>
                                 </constraints>
