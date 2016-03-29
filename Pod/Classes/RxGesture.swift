@@ -21,41 +21,45 @@
 import RxSwift
 import RxCocoa
 
-/// An OptionSetType to provide a list of valid gestures
-public struct RxGestureTypeOptions : OptionSetType, Hashable {
+/// An enumeration to provide a list of valid gestures
+public enum RxGestureTypeOption: Equatable {
     
-    private let raw: UInt
-    
-    public init(rawValue: UInt) {
-        raw = rawValue
-    }
-    public var rawValue: UInt {
-        return raw
-    }
-    
-    public var hashValue: Int { return Int(rawValue) }
-
-    public static var None = RxGestureTypeOptions(rawValue: 0)
-
     //: iOS gestures
-    public static var Tap  = RxGestureTypeOptions(rawValue: 1 << 0)
-    public static var SwipeLeft  = RxGestureTypeOptions(rawValue: 1 << 1)
-    public static var SwipeRight = RxGestureTypeOptions(rawValue: 1 << 2)
-    public static var SwipeUp    = RxGestureTypeOptions(rawValue: 1 << 3)
-    public static var SwipeDown  = RxGestureTypeOptions(rawValue: 1 << 4)
+    case Tap
+    case SwipeLeft, SwipeRight, SwipeUp, SwipeDown
+    case LongPress
     
-    public static var LongPress  = RxGestureTypeOptions(rawValue: 1 << 5)
+    //: Shared gestures
+    case Pan(PanConfig)
+    case Rotate(RotateConfig)
     
     //: OSX gestures
-    public static var Click  = RxGestureTypeOptions(rawValue: 1 << 10)
-    public static var RightClick  = RxGestureTypeOptions(rawValue: 1 << 11)
-
-    //: all gestures
-    public static func all() -> RxGestureTypeOptions {
+    case Click, RightClick
+    
+    public static func all() -> [RxGestureTypeOption] {
         return [
-            /* iOS */ .Tap, .SwipeLeft, .SwipeRight, .SwipeUp, .SwipeDown, .LongPress,
-            /* OSX */ .Click, .RightClick
+            .Tap, .SwipeLeft, .SwipeRight, .SwipeUp, .SwipeDown, .LongPress, .Pan(.Any),
+            .Click, .RightClick
         ]
     }
-    
+}
+
+public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
+    switch (lhs, rhs) {
+
+    case (.Tap, .Tap): fallthrough
+    case (.SwipeLeft, .SwipeLeft): fallthrough
+    case (.SwipeRight, .SwipeRight): fallthrough
+    case (.SwipeUp, .SwipeUp): fallthrough
+    case (.SwipeDown, .SwipeDown): fallthrough
+    case (.LongPress, .LongPress): fallthrough
+    case (.Pan, .Pan): fallthrough
+    case (.Rotate, .Rotate): fallthrough
+    case (.Click, .Click): fallthrough
+    case (.RightClick, .RightClick):
+        
+    return true
+        
+    default: return false
+    }
 }

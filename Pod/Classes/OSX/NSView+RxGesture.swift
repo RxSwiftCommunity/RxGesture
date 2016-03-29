@@ -33,11 +33,11 @@ extension NSView {
     /// - seealso: `RxCocoa` adds `rx_tap` to `NSButton/UIButton` and is sufficient if you only need to subscribe
     ///   on taps on buttons. `RxGesture` on the other hand enables `userInteractionEnabled` and handles gestures on any view
 
-    public func rx_gesture(type: RxGestureTypeOptions) -> ControlEvent<RxGestureTypeOptions> {
-        let source: Observable<RxGestureTypeOptions> = Observable.create { [weak self] observer in
+    public func rx_gesture(type: RxGestureTypeOption...) -> ControlEvent<RxGestureTypeOption> {
+        let source: Observable<RxGestureTypeOption> = Observable.create { [weak self] observer in
             MainScheduler.ensureExecutingOnScheduler()
             
-            guard let control = self where !type.isEmpty else {
+            guard let control = self else {
                 observer.on(.Completed)
                 return NopDisposable.instance
             }
@@ -50,7 +50,7 @@ extension NSView {
                 click.buttonMask = 1 << 0
                 control.addGestureRecognizer(click)
                 gestures.append(
-                    click.rx_event.map {_ in RxGestureTypeOptions.Click}
+                    click.rx_event.map {_ in RxGestureTypeOption.Click}
                         .bindNext(observer.onNext)
                 )
             }
@@ -61,9 +61,129 @@ extension NSView {
                 click.buttonMask = 1 << 1
                 control.addGestureRecognizer(click)
                 gestures.append(
-                    click.rx_event.map {_ in RxGestureTypeOptions.RightClick}
+                    click.rx_event.map {_ in RxGestureTypeOption.RightClick}
                         .bindNext(observer.onNext)
                 )
+            }
+
+            //panning
+            if type.contains(.Pan(.Any)) {
+                
+                //create or find existing recognizer
+                var recognizer: NSPanGestureRecognizer
+                
+                if let existingPan = self?.gestureRecognizers.filter({ $0 is NSPanGestureRecognizer }).first as? NSPanGestureRecognizer {
+                    recognizer = existingPan
+                } else {
+                    recognizer = NSPanGestureRecognizer()
+                    control.addGestureRecognizer(recognizer)
+                }
+                
+                //observable
+                let panEvent = recognizer.rx_event.shareReplay(1)
+                
+                //panning
+                for panGesture in type where panGesture == .Pan(.Any) {
+                    
+                    switch panGesture {
+                    case (.Pan(let config)):
+                        
+                        //observe panning
+                        let panObservable = panEvent.filter {recognizer -> Bool in
+                            if config.type == .Began && recognizer.state != .Began {return false}
+                            if config.type == .Changed && recognizer.state != .Changed {return false}
+                            if config.type == .Ended && recognizer.state != .Ended {return false}
+                            return true
+                        }
+                        .map {[weak self] recognizer -> RxGestureTypeOption in
+                            let recognizer = recognizer as! NSPanGestureRecognizer
+                            
+                            //current values
+                            let config = PanConfig(
+                                translation: recognizer.translationInView(self?.superview),
+                                velocity: recognizer.translationInView(self?.superview),
+                                type: config.type,
+                                recognizer: recognizer)
+                            return RxGestureTypeOption.Pan(config)
+                        }
+                        
+                        guard config.translation != .zero && config.velocity != .zero else {
+                            gestures.append(panObservable.bindNext(observer.onNext))
+                            break
+                        }
+                        
+                        gestures.append(
+                            panObservable.filter { gesture in
+                                switch gesture {
+                                case (.Pan(let values)):
+                                    return (values.translation.x >= config.translation.x || values.translation.y >= config.translation.y)
+                                        && (values.translation.x >= config.translation.x || values.translation.y >= config.translation.y)
+                                default: return false
+                                }
+                            }
+                            .bindNext(observer.onNext)
+                        )
+                    default: break
+                    }
+                }
+                
+            }
+            
+            //rotating
+            if type.contains(.Rotate(.Any)) {
+                
+                //create or find existing recognizer
+                var recognizer: NSRotationGestureRecognizer
+                
+                if let existingRotate = self?.gestureRecognizers.filter({ $0 is NSRotationGestureRecognizer }).first as? NSRotationGestureRecognizer {
+                    recognizer = existingRotate
+                } else {
+                    recognizer = NSRotationGestureRecognizer()
+                    control.addGestureRecognizer(recognizer)
+                }
+                
+                //observable
+                let rotateEvent = recognizer.rx_event.shareReplay(1)
+                
+                //rotating
+                for rotateGesture in type where rotateGesture == .Rotate(.Any) {
+                    
+                    switch rotateGesture {
+                    case (.Rotate(let config)):
+                        //observe rotating
+                        let rotateObservable = rotateEvent.filter {recognizer -> Bool in
+                            if config.type == .Began && recognizer.state != .Began {return false}
+                            if config.type == .Changed && recognizer.state != .Changed {return false}
+                            if config.type == .Ended && recognizer.state != .Ended {return false}
+                            return true
+                            }
+                            .map { recognizer -> RxGestureTypeOption in
+                                let recognizer = recognizer as! NSRotationGestureRecognizer
+                                
+                                //current values
+                                let newConfig = RotateConfig(rotation: recognizer.rotation, type: config.type, recognizer: recognizer)
+                                return RxGestureTypeOption.Rotate(newConfig)
+                        }
+                        
+                        guard config.rotation != 0 else {
+                            gestures.append(rotateObservable.bindNext(observer.onNext))
+                            break
+                        }
+                        
+                        gestures.append(
+                            rotateObservable.filter { gesture in
+                                switch gesture {
+                                case (.Rotate(let values)):
+                                    return values.rotation > config.rotation
+                                default: return false
+                                }
+                                }
+                                .bindNext(observer.onNext)
+                        )
+                    default: break
+                    }
+                }
+                
             }
             
             //dispose gestures
