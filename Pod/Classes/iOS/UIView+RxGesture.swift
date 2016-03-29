@@ -182,19 +182,19 @@ extension UIView {
                         }
                         
                         guard config.rotation != 0 else {
-                            gestures.append(rotateObservable.bindNext(observer.onNext))
+                            gestures.append((recognizer, rotateObservable.bindNext(observer.onNext)))
                             break
                         }
                         
                         gestures.append(
-                            rotateObservable.filter { gesture in
+                            (recognizer, rotateObservable.filter { gesture in
                                 switch gesture {
                                 case (.Rotate(let values)):
                                     return values.rotation > config.rotation
                                 default: return false
                                 }
-                                }
-                                .bindNext(observer.onNext)
+                            }
+                            .bindNext(observer.onNext))
                         )
                     default: break
                     }

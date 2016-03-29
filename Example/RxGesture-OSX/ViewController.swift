@@ -158,8 +158,8 @@ class MacViewController: NSViewController {
                     if let state = (data.recognizer as? NSGestureRecognizer)?.state {
                         switch state {
                         case .Changed:
-                            this.myViewText.stringValue = "angle: \(data.rotation)"
-                            this.myView.layer!.transform = CATransform3DMakeRotation(data.rotation, 0, 0, 0)
+                            this.myViewText.stringValue = String(format: "angle: %.2f", data.rotation)
+                            this.myView.layer!.transform = CATransform3DMakeRotation(data.rotation, 0, 0, 1)
                             
                         case .Ended:
                             this.myViewText.stringValue = ""

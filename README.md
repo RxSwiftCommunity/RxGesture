@@ -38,13 +38,14 @@ On __iOS__ RXGesture supports:
  - .SwipeLeft, SwipeRight, SwipeUp, SwipeDown
  - .LongPress
  - .Pan(.Began), .Pan(.Changed), .Pan(.Ended), .Pan(.Any)
+ - .Rotate(.Began), .Rotate(.Changed), .Rotate(.Ended), .Rotate(.Any)
 
 On __OSX__ RXGesture supports:
 
  - .Click
  - .RightClick
- - .Panning(NSPoint), .DidPan(NSPoint)
  - .Pan(.Began), .Pan(.Changed), .Pan(.Ended), .Pan(.Any) (if used in one call to `rx_gesture` until `NSGestureRecognizer` implements `rx_event`)
+ - .Rotate(.Began), .Rotate(.Changed), .Rotate(.Ended), .Rotate(.Any) (if used in one call to `rx_gesture` until `NSGestureRecognizer` implements `rx_event`)
 
 If you are writing multi-platform code you can eventually write:
 
@@ -71,6 +72,8 @@ myView.rx_gesture(.Pan(.Changed)).subscribeNext {[weak self] gesture in
 ```
 
 Pattern match the associated value of type `PanConfig` to get the translation, velocity, and a ref to the recognizer itself.
+
+__The demo app includes examples for all recognizers__.
 
 ## Requirements
 

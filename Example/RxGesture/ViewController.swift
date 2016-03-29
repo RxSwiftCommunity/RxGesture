@@ -120,29 +120,31 @@ class ViewController: UIViewController {
                     })
                 default: break
                 }
-                }.addDisposableTo(stepBag)
+            }.addDisposableTo(stepBag)
             
         case 5: //rotating
             myView.rx_gesture(.Rotate(.Changed)).subscribeNext {[weak self] gesture in
+                guard let this = self else {return}
                 switch gesture {
                 case .Rotate(let data):
-                    self?.myViewText.text = "angle: \(data.rotation)"
-                    self?.myView.transform = CGAffineTransformMakeRotation(data.rotation)
+                    this.myViewText.text = String(format: "angle: %.2f", data.rotation)
+                    this.myView.transform = CGAffineTransformMakeRotation(data.rotation)
                 default: break
                 }
             }.addDisposableTo(stepBag)
             
             myView.rx_gesture(.Rotate(.Ended)).subscribeNext {[weak self] gesture in
+                guard let this = self else {return}
                 switch gesture {
                 case .Rotate(_):
                     UIView.animateWithDuration(0.5, animations: {
-                        self?.myViewText.text = nil
-                        self?.myView.transform = CGAffineTransformIdentity
-                        self?.nextStep😁.onNext()
+                        this.myViewText.text = nil
+                        this.myView.transform = CGAffineTransformIdentity
+                        this.nextStep😁.onNext()
                     })
                 default: break
                 }
-                }.addDisposableTo(stepBag)
+            }.addDisposableTo(stepBag)
             
         case 6: //any gesture
             myView.rx_gesture().subscribeNext {[weak self] _ in
@@ -156,6 +158,6 @@ class ViewController: UIViewController {
         default: break
         }
         
-        print(myView.gestureRecognizers?.count)
+        print("active gestures: \(myView.gestureRecognizers!.count)")
     }
 }
