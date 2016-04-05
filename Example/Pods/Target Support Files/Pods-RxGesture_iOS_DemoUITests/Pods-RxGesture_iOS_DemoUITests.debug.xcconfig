@@ -1,9 +1,0 @@
-EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_FRAMEWORK_BUILD_PATH"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_FRAMEWORK_BUILD_PATH/RxCocoa.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/RxGesture.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/RxSwift.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "RxCocoa" -framework "RxGesture" -framework "RxSwift"
-OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
-PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods-RxGesture_iOS_DemoUITests
-PODS_ROOT = ${SRCROOT}/Pods

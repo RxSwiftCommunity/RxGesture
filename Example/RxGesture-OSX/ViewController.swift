@@ -135,7 +135,7 @@ class MacViewController: NSViewController {
                             
                             let anim = CABasicAnimation(keyPath: "transform")
                             anim.duration = 0.5
-                            anim.fromValue = NSValue(CATransform3D: self!.myView.layer!.transform)
+                            anim.fromValue = NSValue(CATransform3D: self.myView.layer!.transform)
                             anim.toValue = NSValue(CATransform3D: CATransform3DIdentity)
                             self.myView.layer!.addAnimation(anim, forKey: nil)
                             self.myView.layer!.transform = CATransform3DIdentity
@@ -166,7 +166,7 @@ class MacViewController: NSViewController {
                             
                             let anim = CABasicAnimation(keyPath: "transform")
                             anim.duration = 0.5
-                            anim.fromValue = NSValue(CATransform3D: self!.myView.layer!.transform)
+                            anim.fromValue = NSValue(CATransform3D: self.myView.layer!.transform)
                             anim.toValue = NSValue(CATransform3D: CATransform3DIdentity)
                             self.myView.layer!.addAnimation(anim, forKey: nil)
                             self.myView.layer!.transform = CATransform3DIdentity
@@ -180,7 +180,7 @@ class MacViewController: NSViewController {
                     
                     let anim = CABasicAnimation(keyPath: "transform")
                     anim.duration = 0.5
-                    anim.fromValue = NSValue(CATransform3D: self!.myView.layer!.transform)
+                    anim.fromValue = NSValue(CATransform3D: self.myView.layer!.transform)
                     anim.toValue = NSValue(CATransform3D: CATransform3DIdentity)
                     self.myView.layer!.addAnimation(anim, forKey: nil)
                     self.myView.layer!.transform = CATransform3DIdentity
