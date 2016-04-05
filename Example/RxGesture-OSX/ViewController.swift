@@ -68,47 +68,47 @@ class MacViewController: NSViewController {
         switch step {
         case 0: //left click recognizer
             myView.rx_gesture(.Click).subscribeNext {[weak self] _ in
-                guard let this = self else {return}
+                guard let `self` = self else {return}
                 
-                this.myView.layer!.backgroundColor = NSColor.blueColor().CGColor
+                self.myView.layer!.backgroundColor = NSColor.blueColor().CGColor
                 
                 let anim = CABasicAnimation(keyPath: "backgroundColor")
                 anim.fromValue = NSColor.redColor().CGColor
                 anim.toValue = NSColor.blueColor().CGColor
-                this.myView.layer!.addAnimation(anim, forKey: nil)
+                self.myView.layer!.addAnimation(anim, forKey: nil)
 
-                this.nextStep😁.onNext()
+                self.nextStep😁.onNext()
             }.addDisposableTo(stepBag)
             
         case 1: //right click recognizer
             myView.rx_gesture(.RightClick).subscribeNext {[weak self] _ in
-                guard let this = self else {return}
+                guard let `self` = self else {return}
                 
-                this.myView.layer!.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
+                self.myView.layer!.transform = CATransform3DMakeScale(1.5, 1.5, 1.5)
 
                 let anim = CABasicAnimation(keyPath: "transform")
                 anim.duration = 0.5
                 anim.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
                 anim.toValue = NSValue(CATransform3D: CATransform3DMakeScale(1.5, 1.5, 1.5))
-                this.myView.layer!.addAnimation(anim, forKey: nil)
+                self.myView.layer!.addAnimation(anim, forKey: nil)
                 
-                this.nextStep😁.onNext()
+                self.nextStep😁.onNext()
             }.addDisposableTo(stepBag)
             
         case 2: //any button
             myView.rx_gesture(.Click, .RightClick).subscribeNext {[weak self] _ in
-                guard let this = self else {return}
+                guard let `self` = self else {return}
                 
-                this.myView.layer!.transform = CATransform3DIdentity
-                this.myView.layer!.backgroundColor = NSColor.redColor().CGColor
+                self.myView.layer!.transform = CATransform3DIdentity
+                self.myView.layer!.backgroundColor = NSColor.redColor().CGColor
                 
                 let anim = CABasicAnimation(keyPath: "transform")
                 anim.duration = 0.5
                 anim.fromValue = NSValue(CATransform3D: CATransform3DMakeScale(1.5, 1.5, 1.5))
                 anim.toValue = NSValue(CATransform3D: CATransform3DIdentity)
-                this.myView.layer!.addAnimation(anim, forKey: nil)
+                self.myView.layer!.addAnimation(anim, forKey: nil)
                 
-                this.nextStep😁.onNext()
+                self.nextStep😁.onNext()
             }.addDisposableTo(stepBag)
             
         case 3: //pan
@@ -120,27 +120,27 @@ class MacViewController: NSViewController {
             //
             
             myView.rx_gesture(.Pan(.Changed), .Pan(.Ended)).subscribeNext {[weak self] gesture in
-                guard let this = self else {return}
+                guard let `self` = self else {return}
                 
                 switch gesture {
                 case .Pan(let data):
                     if let state = (data.recognizer as? NSGestureRecognizer)?.state {
                         switch state {
                         case .Changed:
-                            this.myViewText.stringValue = String(format: "(%.f, %.f)", arguments: [data.translation.x, data.translation.y])
-                            this.myView.layer!.transform = CATransform3DMakeTranslation(data.translation.x, data.translation.y, 0.0)
+                            self.myViewText.stringValue = String(format: "(%.f, %.f)", arguments: [data.translation.x, data.translation.y])
+                            self.myView.layer!.transform = CATransform3DMakeTranslation(data.translation.x, data.translation.y, 0.0)
                         
                         case .Ended:
-                            this.myViewText.stringValue = ""
+                            self.myViewText.stringValue = ""
                             
                             let anim = CABasicAnimation(keyPath: "transform")
                             anim.duration = 0.5
-                            anim.fromValue = NSValue(CATransform3D: self!.myView.layer!.transform)
+                            anim.fromValue = NSValue(CATransform3D: self.myView.layer!.transform)
                             anim.toValue = NSValue(CATransform3D: CATransform3DIdentity)
-                            this.myView.layer!.addAnimation(anim, forKey: nil)
-                            this.myView.layer!.transform = CATransform3DIdentity
+                            self.myView.layer!.addAnimation(anim, forKey: nil)
+                            self.myView.layer!.transform = CATransform3DIdentity
                             
-                            this.nextStep😁.onNext()
+                            self.nextStep😁.onNext()
                         default: break
                         }
                     }
@@ -151,41 +151,41 @@ class MacViewController: NSViewController {
         case 4: //rotate or click
             
             myView.rx_gesture(.Rotate(.Changed), .Rotate(.Ended), .Click).subscribeNext {[weak self] gesture in
-                guard let this = self else {return}
+                guard let `self` = self else {return}
                 
                 switch gesture {
                 case .Rotate(let data):
                     if let state = (data.recognizer as? NSGestureRecognizer)?.state {
                         switch state {
                         case .Changed:
-                            this.myViewText.stringValue = String(format: "angle: %.2f", data.rotation)
-                            this.myView.layer!.transform = CATransform3DMakeRotation(data.rotation, 0, 0, 1)
+                            self.myViewText.stringValue = String(format: "angle: %.2f", data.rotation)
+                            self.myView.layer!.transform = CATransform3DMakeRotation(data.rotation, 0, 0, 1)
                             
                         case .Ended:
-                            this.myViewText.stringValue = ""
+                            self.myViewText.stringValue = ""
                             
                             let anim = CABasicAnimation(keyPath: "transform")
                             anim.duration = 0.5
-                            anim.fromValue = NSValue(CATransform3D: self!.myView.layer!.transform)
+                            anim.fromValue = NSValue(CATransform3D: self.myView.layer!.transform)
                             anim.toValue = NSValue(CATransform3D: CATransform3DIdentity)
-                            this.myView.layer!.addAnimation(anim, forKey: nil)
-                            this.myView.layer!.transform = CATransform3DIdentity
+                            self.myView.layer!.addAnimation(anim, forKey: nil)
+                            self.myView.layer!.transform = CATransform3DIdentity
                             
-                            this.nextStep😁.onNext()
+                            self.nextStep😁.onNext()
                         default: break
                         }
                     }
                 case .Click:
-                    this.myViewText.stringValue = ""
+                    self.myViewText.stringValue = ""
                     
                     let anim = CABasicAnimation(keyPath: "transform")
                     anim.duration = 0.5
-                    anim.fromValue = NSValue(CATransform3D: self!.myView.layer!.transform)
+                    anim.fromValue = NSValue(CATransform3D: self.myView.layer!.transform)
                     anim.toValue = NSValue(CATransform3D: CATransform3DIdentity)
-                    this.myView.layer!.addAnimation(anim, forKey: nil)
-                    this.myView.layer!.transform = CATransform3DIdentity
+                    self.myView.layer!.addAnimation(anim, forKey: nil)
+                    self.myView.layer!.transform = CATransform3DIdentity
                     
-                    this.nextStep😁.onNext()
+                    self.nextStep😁.onNext()
                 default: break
                 }
             }.addDisposableTo(stepBag)

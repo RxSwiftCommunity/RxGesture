@@ -52,6 +52,16 @@
                ReferencedContainer = "container:RxGesture.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9C94D1C61CB3F33F00F94AEE"
+               BuildableName = "RxGesture_iOS_DemoUITests.xctest"
+               BlueprintName = "RxGesture_iOS_DemoUITests"
+               ReferencedContainer = "container:RxGesture.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
