@@ -11,10 +11,9 @@ target 'RxGesture_OSX_Demo', :exclusive => true do
     pod 'RxGesture', :path => '../'
 end
 
-#target 'RxGesture_Tests', :exclusive => true do
-#  pod 'RxGesture', :path => '../'
-#  pod 'Quick', '~> 0.8.0'
-#  pod 'Nimble', '3.0.0'
-#  pod 'FBSnapshotTestCase'
-#  pod 'Nimble-Snapshots'
-#end
+target 'RxGesture_iOS_DemoUITests', :exclusive => true do
+  platform :ios, '8.3'
+  pod 'RxGesture', :path => '../'
+  pod 'RxCocoa'
+  pod 'RxSwift'
+end

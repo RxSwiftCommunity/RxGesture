@@ -1,0 +1,6 @@
+framework module RxSwift {
+  umbrella header "Pods-RxGesture_iOS_DemoUITests-RxSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

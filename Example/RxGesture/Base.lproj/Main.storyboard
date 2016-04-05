@@ -23,8 +23,9 @@
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KuI-df-hG7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="label" text="info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KuI-df-hG7">
                                 <rect key="frame" x="10" y="275" width="590" height="21"/>
+                                <accessibility key="accessibilityConfiguration" hint="label" identifier="label"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Wjs-u7-xpl"/>
                                 </constraints>
@@ -32,7 +33,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUF-y6-oN7">
+                            <view contentMode="scaleToFill" restorationIdentifier="square" translatesAutoresizingMaskIntoConstraints="NO" id="vUF-y6-oN7" userLabel="square">
                                 <rect key="frame" x="250" y="100" width="100" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="BYX-hF-EJi">
@@ -46,6 +47,9 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.25612482479941157" blue="0.29293124432128048" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration" hint="square" identifier="square">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="32A-6O-3fu"/>
                                     <constraint firstItem="BYX-hF-EJi" firstAttribute="centerX" secondItem="vUF-y6-oN7" secondAttribute="centerX" id="480-zi-YbU"/>

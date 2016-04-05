@@ -6,7 +6,9 @@ PODS:
   - RxSwift (2.3.1)
 
 DEPENDENCIES:
+  - RxCocoa
   - RxGesture (from `../`)
+  - RxSwift
 
 EXTERNAL SOURCES:
   RxGesture:

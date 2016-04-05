@@ -1,0 +1,6 @@
+framework module Pods_RxGesture_iOS_DemoUITests {
+  umbrella header "Pods-RxGesture_iOS_DemoUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

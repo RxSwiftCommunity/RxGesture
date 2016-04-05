@@ -13,18 +13,31 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		9C94D1D81CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C94D1D71CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests.swift */; };
 		9CBB5C931CA3D9C30089E3EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB5C921CA3D9C30089E3EA /* AppDelegate.swift */; };
 		9CBB5C951CA3D9C30089E3EA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB5C941CA3D9C30089E3EA /* ViewController.swift */; };
 		9CBB5C971CA3D9C30089E3EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CBB5C961CA3D9C30089E3EA /* Assets.xcassets */; };
 		9CBB5C9A1CA3D9C30089E3EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CBB5C981CA3D9C30089E3EA /* Main.storyboard */; };
+		B69B5E33291095854514154C /* Pods_RxGesture_iOS_DemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53B2E194AD43D2E2828173C9 /* Pods_RxGesture_iOS_DemoUITests.framework */; };
 		BF6F5C2CC8077810B9797A97 /* Pods_RxGesture_iOS_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADA338FA79F360D014C3A762 /* Pods_RxGesture_iOS_Demo.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9C94D1DA1CB3F3F600F94AEE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = RxGesture_iOS_Demo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1017D6BC061D6199974900B9 /* Pods_RxGesture_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxGesture_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2318903E5096B0D250136D79 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		38B401A90B84CD65848376CE /* Pods-RxGesture_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_Tests/Pods-RxGesture_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		4C5480B43647363F76AEA0E8 /* Pods-RxGesture_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_Tests/Pods-RxGesture_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		53B2E194AD43D2E2828173C9 /* Pods_RxGesture_iOS_DemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxGesture_iOS_DemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B475A39F0019D7FEBD7120F /* Pods-RxGesture_iOS_Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_iOS_Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_iOS_Demo/Pods-RxGesture_iOS_Demo.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RxGesture_iOS_Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxGesture_iOS_Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -33,9 +46,13 @@
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		66A5C8519EA3F028C9B185B9 /* Pods-RxGesture_iOS_Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_iOS_Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_iOS_Demo/Pods-RxGesture_iOS_Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		69CF83E6C796A2C5F96F6763 /* Pods-RxGesture_iOS_DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_iOS_DemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_iOS_DemoUITests/Pods-RxGesture_iOS_DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9C94D1D51CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxGesture_iOS_DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C94D1D71CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxGesture_iOS_DemoUITests.swift; sourceTree = "<group>"; };
+		9C94D1D91CB3F3F600F94AEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C94D1DF1CB3F9AC00F94AEE /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = "Pods/../build/Debug/Pods-RxGesture_OSX_Demo/RxCocoa.framework"; sourceTree = "<group>"; };
+		9C94D1E01CB3F9AC00F94AEE /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "Pods/../build/Debug/Pods-RxGesture_OSX_Demo/RxSwift.framework"; sourceTree = "<group>"; };
 		9CBB5C901CA3D9C30089E3EA /* RxGesture_OSX_Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxGesture_OSX_Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CBB5C921CA3D9C30089E3EA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CBB5C941CA3D9C30089E3EA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +64,7 @@
 		ADA338FA79F360D014C3A762 /* Pods_RxGesture_iOS_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxGesture_iOS_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA5E5F8794395306DA818D0 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		AF63BBBE9A534DC328A92B7C /* Pods_RxGesture_OSX_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxGesture_OSX_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C178D4E5A3C3C5C1F7950F1A /* Pods-RxGesture_iOS_DemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_iOS_DemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_iOS_DemoUITests/Pods-RxGesture_iOS_DemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C9A937B26AACD00AF6B69878 /* Pods-RxGesture_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_Example/Pods-RxGesture_Example.release.xcconfig"; sourceTree = "<group>"; };
 		DF283FC5DD480AB44969C8EF /* Pods-RxGesture_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_Example/Pods-RxGesture_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		E739B66E41C1697FCDAEFCBA /* Pods-RxGesture_OSX_Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_OSX_Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_OSX_Demo/Pods-RxGesture_OSX_Demo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -58,6 +76,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF6F5C2CC8077810B9797A97 /* Pods_RxGesture_iOS_Demo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C94D1D21CB3F3F600F94AEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B69B5E33291095854514154C /* Pods_RxGesture_iOS_DemoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +104,7 @@
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* RxGesture iOS Example  */,
 				9CBB5C911CA3D9C30089E3EA /* RxGesture OSX Example */,
-				607FACE81AFB9204008FA782 /* Tests */,
+				9C94D1D61CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				795666671AE182E2A2B54285 /* Pods */,
 				DBB6C45CE5FC3994913798D8 /* Frameworks */,
@@ -90,6 +116,7 @@
 			children = (
 				607FACD01AFB9204008FA782 /* RxGesture_iOS_Demo.app */,
 				9CBB5C901CA3D9C30089E3EA /* RxGesture_OSX_Demo.app */,
+				9C94D1D51CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,23 +143,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		607FACE81AFB9204008FA782 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
-				607FACE91AFB9204008FA782 /* Supporting Files */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		607FACE91AFB9204008FA782 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				607FACEA1AFB9204008FA782 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,8 +164,19 @@
 				A56F67D493C614116351C91F /* Pods-RxGesture_OSX_Demo.release.xcconfig */,
 				66A5C8519EA3F028C9B185B9 /* Pods-RxGesture_iOS_Demo.debug.xcconfig */,
 				5B475A39F0019D7FEBD7120F /* Pods-RxGesture_iOS_Demo.release.xcconfig */,
+				C178D4E5A3C3C5C1F7950F1A /* Pods-RxGesture_iOS_DemoUITests.debug.xcconfig */,
+				69CF83E6C796A2C5F96F6763 /* Pods-RxGesture_iOS_DemoUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		9C94D1D61CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9C94D1D71CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests.swift */,
+				9C94D1D91CB3F3F600F94AEE /* Info.plist */,
+			);
+			path = RxGesture_iOS_DemoUITests;
 			sourceTree = "<group>";
 		};
 		9CBB5C911CA3D9C30089E3EA /* RxGesture OSX Example */ = {
@@ -174,9 +195,12 @@
 		DBB6C45CE5FC3994913798D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C94D1DF1CB3F9AC00F94AEE /* RxCocoa.framework */,
+				9C94D1E01CB3F9AC00F94AEE /* RxSwift.framework */,
 				1017D6BC061D6199974900B9 /* Pods_RxGesture_Tests.framework */,
 				AF63BBBE9A534DC328A92B7C /* Pods_RxGesture_OSX_Demo.framework */,
 				ADA338FA79F360D014C3A762 /* Pods_RxGesture_iOS_Demo.framework */,
+				53B2E194AD43D2E2828173C9 /* Pods_RxGesture_iOS_DemoUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -203,6 +227,26 @@
 			productName = RxGesture;
 			productReference = 607FACD01AFB9204008FA782 /* RxGesture_iOS_Demo.app */;
 			productType = "com.apple.product-type.application";
+		};
+		9C94D1D41CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C94D1DE1CB3F3F600F94AEE /* Build configuration list for PBXNativeTarget "RxGesture_iOS_DemoUITests" */;
+			buildPhases = (
+				9803E7D6AB513FE758D8A489 /* Check Pods Manifest.lock */,
+				9C94D1D11CB3F3F600F94AEE /* Sources */,
+				9C94D1D21CB3F3F600F94AEE /* Frameworks */,
+				9C94D1D31CB3F3F600F94AEE /* Resources */,
+				BC2238757EC83D77432942A0 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9C94D1DB1CB3F3F600F94AEE /* PBXTargetDependency */,
+			);
+			name = RxGesture_iOS_DemoUITests;
+			productName = RxGesture_iOS_DemoUITests;
+			productReference = 9C94D1D51CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		9CBB5C8F1CA3D9C30089E3EA /* RxGesture_OSX_Demo */ = {
 			isa = PBXNativeTarget;
@@ -237,6 +281,10 @@
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
+					9C94D1D41CB3F3F600F94AEE = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
 					9CBB5C8F1CA3D9C30089E3EA = {
 						CreatedOnToolsVersion = 7.3;
 					};
@@ -257,6 +305,7 @@
 			targets = (
 				607FACCF1AFB9204008FA782 /* RxGesture_iOS_Demo */,
 				9CBB5C8F1CA3D9C30089E3EA /* RxGesture_OSX_Demo */,
+				9C94D1D41CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -269,6 +318,13 @@
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C94D1D31CB3F3F600F94AEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +400,36 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		9803E7D6AB513FE758D8A489 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BC2238757EC83D77432942A0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxGesture_iOS_DemoUITests/Pods-RxGesture_iOS_DemoUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D342BEE7D96A7A722DC3AB8A /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -386,6 +472,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9C94D1D11CB3F3F600F94AEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C94D1D81CB3F3F600F94AEE /* RxGesture_iOS_DemoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9CBB5C8C1CA3D9C30089E3EA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -396,6 +490,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9C94D1DB1CB3F3F600F94AEE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* RxGesture_iOS_Demo */;
+			targetProxy = 9C94D1DA1CB3F3F600F94AEE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		607FACD91AFB9204008FA782 /* Main.storyboard */ = {
@@ -535,6 +637,43 @@
 			};
 			name = Release;
 		};
+		9C94D1DC1CB3F3F600F94AEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C178D4E5A3C3C5C1F7950F1A /* Pods-RxGesture_iOS_DemoUITests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug/Pods-RxGesture_OSX_Demo",
+				);
+				INFOPLIST_FILE = RxGesture_iOS_DemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.underplot.RxGesture-iOS-DemoUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RxGesture_iOS_Demo;
+			};
+			name = Debug;
+		};
+		9C94D1DD1CB3F3F600F94AEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69CF83E6C796A2C5F96F6763 /* Pods-RxGesture_iOS_DemoUITests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug/Pods-RxGesture_OSX_Demo",
+				);
+				INFOPLIST_FILE = RxGesture_iOS_DemoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.underplot.RxGesture-iOS-DemoUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = RxGesture_iOS_Demo;
+			};
+			name = Release;
+		};
 		9CBB5C9C1CA3D9C30089E3EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E739B66E41C1697FCDAEFCBA /* Pods-RxGesture_OSX_Demo.debug.xcconfig */;
@@ -587,6 +726,15 @@
 			buildConfigurations = (
 				607FACF01AFB9204008FA782 /* Debug */,
 				607FACF11AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C94D1DE1CB3F3F600F94AEE /* Build configuration list for PBXNativeTarget "RxGesture_iOS_DemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C94D1DC1CB3F3F600F94AEE /* Debug */,
+				9C94D1DD1CB3F3F600F94AEE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
