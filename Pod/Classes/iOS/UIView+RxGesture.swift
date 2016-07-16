@@ -83,6 +83,55 @@ extension UIView {
                 )
             }
             
+            // target taps
+            if type.contains(.TargetTap(.Anywhere)) {
+                let tap = UITapGestureRecognizer()
+                control.addGestureRecognizer(tap)
+                
+                let targetTapEvent = tap.rx_event.shareReplay(1).map {[weak self] recognizer -> RxGestureTypeOption in
+                    let recognizer = recognizer as! UITapGestureRecognizer
+                    
+                    //current values
+                    let newConfig = TapConfig(
+                        location: recognizer.locationInView(self?.superview),
+                        recognizer: recognizer)
+                    return RxGestureTypeOption.TargetTap(newConfig)
+                }
+                
+                gestures.append(
+                    (tap, targetTapEvent.bindNext(observer.onNext))
+                )
+            }
+            
+            // target long press
+            if type.contains(.LongPress) {
+
+                //create or find existing recognizer
+                var press: UILongPressGestureRecognizer
+                
+                if let existingPress = self?.gestureRecognizers?.filter({ $0 is UILongPressGestureRecognizer }).first as? UILongPressGestureRecognizer {
+                    press = existingPress
+                } else {
+                    press = UILongPressGestureRecognizer()
+                    control.addGestureRecognizer(press)
+                }
+
+                
+                let targetPressEvent = press.rx_event.shareReplay(1).map {[weak self] recognizer -> RxGestureTypeOption in
+                    let recognizer = recognizer as! UILongPressGestureRecognizer
+                    
+                    //current values
+                    let newConfig = TapConfig(
+                        location: recognizer.locationInView(self?.superview),
+                        recognizer: recognizer)
+                    return RxGestureTypeOption.TargetTap(newConfig)
+                }
+                
+                gestures.append(
+                    (press, targetPressEvent.bindNext(observer.onNext))
+                )
+            }
+            
             //panning
             if type.contains(.Pan(.Any)) {
                 
