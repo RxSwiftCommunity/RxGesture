@@ -189,6 +189,8 @@
 		6A0028F41D3A66070062328C /* TapConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0028F11D3A65960062328C /* TapConfig.swift */; };
 		6A2E2C219DFF6D32C16239EE310606E8 /* RefCountDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236983DA69E6A12F58775605239117DE /* RefCountDisposable.swift */; };
 		6AAF23825904D6DFC9229E6C7BD8CA4C /* SynchronizedUnsubscribeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E09F8FD785663489A532E8A69164E9C /* SynchronizedUnsubscribeType.swift */; };
+		6ABFAB771D3BA99D00CEBF96 /* LongPressConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFAB761D3BA99D00CEBF96 /* LongPressConfig.swift */; };
+		6ABFAB781D3BA99D00CEBF96 /* LongPressConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABFAB761D3BA99D00CEBF96 /* LongPressConfig.swift */; };
 		6ACDA50CF7E4AA489A05B943886D1329 /* InfiniteSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C544817D76E71D828DB3AE0EE5DFA3 /* InfiniteSequence.swift */; };
 		6B702CBA3187CA6D991CBE76351837FD /* Observable+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8806CC77B1040592A24B4F57B756C9AA /* Observable+Time.swift */; };
 		6B81B26818BFF79D9DE0909B20812BE6 /* Pods-RxGesture_iOS_Demo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FBC2B3604E156C2B39FB243BDBF5FBDC /* Pods-RxGesture_iOS_Demo-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -653,6 +655,7 @@
 		680753ED29B2B36844E7BF1D3EC725DE /* VirtualTimeConverterType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VirtualTimeConverterType.swift; path = RxSwift/Schedulers/VirtualTimeConverterType.swift; sourceTree = "<group>"; };
 		6A0028F11D3A65960062328C /* TapConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapConfig.swift; sourceTree = "<group>"; };
 		6A7E2B288AEF9F04DA4D3DAF5B40E7F1 /* Repeat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Repeat.swift; path = RxSwift/Observables/Implementations/Repeat.swift; sourceTree = "<group>"; };
+		6ABFAB761D3BA99D00CEBF96 /* LongPressConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LongPressConfig.swift; sourceTree = "<group>"; };
 		6B52DF800B19E074DBC494C3F9A24063 /* BinaryDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDisposable.swift; path = RxSwift/Disposables/BinaryDisposable.swift; sourceTree = "<group>"; };
 		6CD4E7DF61DAAA84A22AB05AD877367C /* UITextView+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UITextView+Rx.swift"; path = "RxCocoa/iOS/UITextView+Rx.swift"; sourceTree = "<group>"; };
 		6E0C7DD780E181D0F5EB28D77EDB199C /* SerialDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SerialDisposable.swift; path = RxSwift/Disposables/SerialDisposable.swift; sourceTree = "<group>"; };
@@ -1277,6 +1280,7 @@
 			children = (
 				383E8395E05602750FB92C87A2FDEB92 /* PanConfig.swift */,
 				6A0028F11D3A65960062328C /* TapConfig.swift */,
+				6ABFAB761D3BA99D00CEBF96 /* LongPressConfig.swift */,
 				B938000B6A988DBB740EE2ED9F411571 /* RotateConfig.swift */,
 				B9D561015C9DD423C4695CE8F7CAE062 /* RxGesture.swift */,
 				8FC936CA127BE8A8C9DE8621E29025C9 /* iOS */,
@@ -1686,6 +1690,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0F6D25550D0AB1122728E0E202E9B2F /* NSGestureRecognizer+Rx.swift in Sources */,
+				6ABFAB781D3BA99D00CEBF96 /* LongPressConfig.swift in Sources */,
 				A8D37F4EA054BE484E3BB6DC1A471493 /* NSView+RxGesture.swift in Sources */,
 				DCA27732462FA9070AE710D9A361ADA0 /* PanConfig.swift in Sources */,
 				0CE1F2ABB8602030A1F03084D04D59C5 /* Pods-RxGesture_OSX_Demo-RxGesture-dummy.m in Sources */,
@@ -1801,6 +1806,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A01F5D8032F07A5A0D80DCEA17D7282 /* PanConfig.swift in Sources */,
+				6ABFAB771D3BA99D00CEBF96 /* LongPressConfig.swift in Sources */,
 				6A0028F31D3A66050062328C /* TapConfig.swift in Sources */,
 				14E592CECFBE338044522B24E1481FE6 /* Pods-RxGesture_iOS_Demo-RxGesture-dummy.m in Sources */,
 				7783C8B43B0F83A3E122DF1748EC8CAB /* RotateConfig.swift in Sources */,

@@ -32,7 +32,7 @@ extension UIView {
     /// - returns: `ControlEvent<RxGestureTypeOption>` that emits any type one of the desired gestures is performed on the view
     /// - seealso: `RxCocoa` adds `rx_tap` to `NSButton/UIButton` and is sufficient if you only need to subscribe
     ///   on taps on buttons. `RxGesture` on the other hand enables `userInteractionEnabled` and handles gestures on any view
-
+    
     public func rx_gesture(type: RxGestureTypeOption...) -> ControlEvent<RxGestureTypeOption> {
         let source: Observable<RxGestureTypeOption> = Observable.create { [weak self] observer in
             MainScheduler.ensureExecutingOnScheduler()
@@ -89,8 +89,6 @@ extension UIView {
                 control.addGestureRecognizer(tap)
                 
                 let targetTapEvent = tap.rx_event.shareReplay(1).map {[weak self] recognizer -> RxGestureTypeOption in
-                    let recognizer = recognizer as! UITapGestureRecognizer
-                    
                     //current values
                     let newConfig = TapConfig(
                         location: recognizer.locationInView(self?.superview),
@@ -104,8 +102,8 @@ extension UIView {
             }
             
             // target long press
-            if type.contains(.LongPress) {
-
+            if type.contains(.TargetLongPress(.Any)) {
+                
                 //create or find existing recognizer
                 var press: UILongPressGestureRecognizer
                 
@@ -115,22 +113,48 @@ extension UIView {
                     press = UILongPressGestureRecognizer()
                     control.addGestureRecognizer(press)
                 }
-
                 
-                let targetPressEvent = press.rx_event.shareReplay(1).map {[weak self] recognizer -> RxGestureTypeOption in
-                    let recognizer = recognizer as! UILongPressGestureRecognizer
+                //observable
+                let longPressEvent = press.rx_event.shareReplay(1)
+                
+                //panning
+                for longPressGesture in type where longPressGesture == .TargetLongPress(.Any) {
                     
-                    //current values
-                    let newConfig = TapConfig(
-                        location: recognizer.locationInView(self?.superview),
-                        recognizer: recognizer)
-                    return RxGestureTypeOption.TargetTap(newConfig)
+                    switch longPressGesture {
+                    case (.TargetLongPress(let config)):
+                        //observe panning
+                        let longPressObservable = longPressEvent.filter {recognizer -> Bool in
+                            if config.type == .Began && recognizer.state != .Began {return false}
+                            if config.type == .Changed && recognizer.state != .Changed {return false}
+                            if config.type == .Ended && recognizer.state != .Ended {return false}
+                            return true
+                            }
+                            .map {[weak self] recognizer -> RxGestureTypeOption in
+                                //current values
+                                let newConfig = LongPressConfig(location: recognizer.locationInView(self?.superview), type: config.type, recognizer: recognizer)
+                                return RxGestureTypeOption.TargetLongPress(newConfig)
+                        }
+                        
+                        guard config.location != .zero else {
+                            gestures.append((press, longPressObservable.bindNext(observer.onNext)))
+                            break
+                        }
+                        
+                        gestures.append(
+                            (press, longPressObservable.filter { gesture in
+                                switch gesture {
+                                case (.TargetLongPress(let values)):
+                                    return (values.location.x >= config.location.x || values.location.y >= config.location.y)
+                                default: return false
+                                }
+                                }
+                                .bindNext(observer.onNext))
+                        )
+                    default: break
+                    }
                 }
-                
-                gestures.append(
-                    (press, targetPressEvent.bindNext(observer.onNext))
-                )
             }
+            
             
             //panning
             if type.contains(.Pan(.Any)) {
@@ -159,17 +183,17 @@ extension UIView {
                             if config.type == .Changed && recognizer.state != .Changed {return false}
                             if config.type == .Ended && recognizer.state != .Ended {return false}
                             return true
-                        }
-                        .map {[weak self] recognizer -> RxGestureTypeOption in
-                            let recognizer = recognizer as! UIPanGestureRecognizer
-                            
-                            //current values
-                            let newConfig = PanConfig(
-                                translation: recognizer.translationInView(self?.superview),
-                                velocity: recognizer.translationInView(self?.superview),
-                                type: config.type,
-                                recognizer: recognizer)
-                            return RxGestureTypeOption.Pan(newConfig)
+                            }
+                            .map {[weak self] recognizer -> RxGestureTypeOption in
+                                let recognizer = recognizer as! UIPanGestureRecognizer
+                                
+                                //current values
+                                let newConfig = PanConfig(
+                                    translation: recognizer.translationInView(self?.superview),
+                                    velocity: recognizer.translationInView(self?.superview),
+                                    type: config.type,
+                                    recognizer: recognizer)
+                                return RxGestureTypeOption.Pan(newConfig)
                         }
                         
                         guard config.translation != .zero && config.velocity != .zero else {
@@ -185,13 +209,12 @@ extension UIView {
                                         && (values.translation.x >= config.translation.x || values.translation.y >= config.translation.y)
                                 default: return false
                                 }
-                            }
-                            .bindNext(observer.onNext))
+                                }
+                                .bindNext(observer.onNext))
                         )
                     default: break
                     }
                 }
-                
             }
             
             //rotating
@@ -242,8 +265,8 @@ extension UIView {
                                     return values.rotation > config.rotation
                                 default: return false
                                 }
-                            }
-                            .bindNext(observer.onNext))
+                                }
+                                .bindNext(observer.onNext))
                         )
                     default: break
                     }
@@ -260,7 +283,7 @@ extension UIView {
                     gesture.dispose()
                 }
             }
-        }.takeUntil(rx_deallocated)
+            }.takeUntil(rx_deallocated)
         
         return ControlEvent(events: source)
     }
