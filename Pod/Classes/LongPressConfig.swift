@@ -26,7 +26,11 @@ public struct LongPressConfig {
         case Began, Changed, Ended, Any
     }
     
+    #if os(iOS)
     public let location: CGPoint
+    #elseif os(OSX)
+    public let location: NSPoint
+    #endif
     
     public let type: Type
     public var recognizer: AnyObject?
