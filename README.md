@@ -37,6 +37,8 @@ On __iOS__ RXGesture supports:
  - .Tap
  - .SwipeLeft, SwipeRight, SwipeUp, SwipeDown
  - .LongPress
+ - .TargetTap(.Anywhere)
+ - .TargetLongPress(.Began), .TargetLongPress(.Changed), .TargetLongPress(.Ended), .TargetLongPress(.Any)
  - .Pan(.Began), .Pan(.Changed), .Pan(.Ended), .Pan(.Any)
  - .Rotate(.Began), .Rotate(.Changed), .Rotate(.Ended), .Rotate(.Any)
 
