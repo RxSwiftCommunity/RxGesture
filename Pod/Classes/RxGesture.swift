@@ -28,8 +28,8 @@ public enum RxGestureTypeOption: Equatable {
     case Tap
     case SwipeLeft, SwipeRight, SwipeUp, SwipeDown
     case LongPress
-    case TargetTap(TapConfig)
-    case TargetLongPress(LongPressConfig)
+    case LocatedTap(TapConfig)
+    case LocatedLongPress(LongPressConfig)
     
     //: Shared gestures
     case Pan(PanConfig)
@@ -41,7 +41,7 @@ public enum RxGestureTypeOption: Equatable {
     public static func all() -> [RxGestureTypeOption] {
         return [
             .Tap, .SwipeLeft, .SwipeRight, .SwipeUp, .SwipeDown, .LongPress,
-            .TargetTap(.Anywhere), TargetLongPress(.Any), .Pan(.Any), Rotate(.Any),
+            .LocatedTap(.Anywhere), .LocatedLongPress(.Any), .Pan(.Any), Rotate(.Any),
             .Click, .RightClick
         ]
     }
@@ -56,8 +56,8 @@ public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
     case (.SwipeUp, .SwipeUp): fallthrough
     case (.SwipeDown, .SwipeDown): fallthrough
     case (.LongPress, .LongPress): fallthrough
-    case (.TargetTap, .TargetTap): fallthrough
-    case (.TargetLongPress, .TargetLongPress): fallthrough
+    case (.LocatedTap, .LocatedTap): fallthrough
+    case (.LocatedLongPress, .LocatedLongPress): fallthrough
     case (.Pan, .Pan): fallthrough
     case (.Rotate, .Rotate): fallthrough
     case (.Click, .Click): fallthrough

@@ -37,8 +37,8 @@ On __iOS__ RXGesture supports:
  - .Tap
  - .SwipeLeft, SwipeRight, SwipeUp, SwipeDown
  - .LongPress
- - .TargetTap(.Anywhere)
- - .TargetLongPress(.Began), .TargetLongPress(.Changed), .TargetLongPress(.Ended), .TargetLongPress(.Any)
+ - .LocatedTap(.Anywhere)
+ - .LocatedLongPress(.Began), .LocatedLongPress(.Changed), .LocatedLongPress(.Ended), .LocatedLongPress(.Any)
  - .Pan(.Began), .Pan(.Changed), .Pan(.Ended), .Pan(.Any)
  - .Rotate(.Began), .Rotate(.Changed), .Rotate(.Ended), .Rotate(.Any)
 
@@ -57,9 +57,28 @@ myView.rx_gesture(.Tap, .Click).subscribeNext {...}
 
 to observe for the concrete gesture on each platform.
 
-## Continuous gestures
+## Continuous & detailed gestures
 
 Some recognizers fire a single event per gesture and don't provide any values. For example `.Tap` just lets you know a view has been tapped - that's all.
+
+On the other hand, `.LocatedTap` reveals where exactly the tap was. Consider the following example:
+
+```swift
+squareView.rx_gesture(.LocatedTap(.Anywhere))
+    .subscribeNext { gesture in
+        switch gesture {
+        case .TargetTap(let data):
+            print(data.location) // prints location of the tap in squareView
+            break
+        default: 
+            break
+        }
+    }
+    .addDisposableTo(bag)
+```
+
+There, if `squareView` is 100x100, and `data.location` is around `(0;0)`, then the tap was approximately in the top-left corner. Respectively, `(100;100)` point is located in the bottom-right corner of the `squareView`.
+Same applies to the `.LocatedLongPress`, but there is a possibility to know where the user starts to hold the finger (`.LocatedLongPress(.Began)`), how he moves it (`.LocatedLongPress(.Changed)`), and where he ends the gesture (`.LocatedLongPress(.Ended)`). 
 
 Other recognizers provide details about the gesture (that also might be ongoing). For example the pan gesture will continuously provide you with the offset from the initial point where the gesture started:
 

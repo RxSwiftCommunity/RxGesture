@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import CoreGraphics
 
 public struct PanConfig {
     public enum Type {

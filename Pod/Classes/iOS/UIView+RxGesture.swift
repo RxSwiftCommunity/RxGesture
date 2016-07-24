@@ -84,7 +84,7 @@ extension UIView {
             }
             
             // target taps
-            if type.contains(.TargetTap(.Anywhere)) {
+            if type.contains(.LocatedTap(.Anywhere)) {
                 let tap = UITapGestureRecognizer()
                 control.addGestureRecognizer(tap)
                 
@@ -93,7 +93,7 @@ extension UIView {
                     let newConfig = TapConfig(
                         location: recognizer.locationInView(self?.superview),
                         recognizer: recognizer)
-                    return RxGestureTypeOption.TargetTap(newConfig)
+                    return RxGestureTypeOption.LocatedTap(newConfig)
                 }
                 
                 gestures.append(
@@ -102,7 +102,7 @@ extension UIView {
             }
             
             // target long press
-            if type.contains(.TargetLongPress(.Any)) {
+            if type.contains(.LocatedLongPress(.Any)) {
                 
                 //create or find existing recognizer
                 var press: UILongPressGestureRecognizer
@@ -118,12 +118,12 @@ extension UIView {
                 let longPressEvent = press.rx_event.shareReplay(1)
                 
                 //panning
-                for longPressGesture in type where longPressGesture == .TargetLongPress(.Any) {
+                for longPressGesture in type where longPressGesture == .LocatedLongPress(.Any) {
                     
                     switch longPressGesture {
-                    case (.TargetLongPress(let config)):
-                        //observe panning
-                        let longPressObservable = longPressEvent.filter {recognizer -> Bool in
+                    case (.LocatedLongPress(let config)):
+                        //observe long pressing
+                        let longPressObservable = longPressEvent.filter { recognizer -> Bool in
                             if config.type == .Began && recognizer.state != .Began {return false}
                             if config.type == .Changed && recognizer.state != .Changed {return false}
                             if config.type == .Ended && recognizer.state != .Ended {return false}
@@ -132,7 +132,7 @@ extension UIView {
                             .map {[weak self] recognizer -> RxGestureTypeOption in
                                 //current values
                                 let newConfig = LongPressConfig(location: recognizer.locationInView(self?.superview), type: config.type, recognizer: recognizer)
-                                return RxGestureTypeOption.TargetLongPress(newConfig)
+                                return RxGestureTypeOption.LocatedLongPress(newConfig)
                         }
                         
                         guard config.location != .zero else {
@@ -141,14 +141,7 @@ extension UIView {
                         }
                         
                         gestures.append(
-                            (press, longPressObservable.filter { gesture in
-                                switch gesture {
-                                case (.TargetLongPress(let values)):
-                                    return (values.location.x >= config.location.x || values.location.y >= config.location.y)
-                                default: return false
-                                }
-                                }
-                                .bindNext(observer.onNext))
+                            (press, longPressObservable.bindNext(observer.onNext))
                         )
                     default: break
                     }
