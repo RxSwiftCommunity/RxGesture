@@ -21,35 +21,20 @@
 import Foundation
 import CoreGraphics
 
-public struct PanConfig {
+public struct TapConfig {
     public enum Type {
-        case Began, Changed, Ended, Any
+        case Anywhere
     }
     
     #if os(iOS)
-    public let translation: CGPoint
-    public let velocity: CGPoint
+    public let location: CGPoint
     #elseif os(OSX)
-    public let translation: NSPoint
-    public let velocity: NSPoint
+    public let location: NSPoint
     #endif
     
-    public let type: Type
     public var recognizer: AnyObject?
     
-    public static let Began: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, type: .Began, recognizer: nil)
-    }()
-
-    public static let Changed: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, type: .Changed, recognizer: nil)
-    }()
-
-    public static let Ended: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, type: .Ended, recognizer: nil)
-    }()
-    
-    public static let Any: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, type: .Any, recognizer: nil)
+    public static let Anywhere: TapConfig = {
+        return TapConfig(location: .zero, recognizer: nil)
     }()
 }

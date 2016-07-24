@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import CoreGraphics
 
 public struct RotateConfig {
     public enum Type {

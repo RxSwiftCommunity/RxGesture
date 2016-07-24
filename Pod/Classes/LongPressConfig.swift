@@ -21,35 +21,34 @@
 import Foundation
 import CoreGraphics
 
-public struct PanConfig {
+public struct LongPressConfig {
     public enum Type {
         case Began, Changed, Ended, Any
     }
     
     #if os(iOS)
-    public let translation: CGPoint
-    public let velocity: CGPoint
+    public let location: CGPoint
     #elseif os(OSX)
-    public let translation: NSPoint
-    public let velocity: NSPoint
+    public let location: NSPoint
     #endif
     
     public let type: Type
     public var recognizer: AnyObject?
     
-    public static let Began: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, type: .Began, recognizer: nil)
-    }()
-
-    public static let Changed: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, type: .Changed, recognizer: nil)
-    }()
-
-    public static let Ended: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, type: .Ended, recognizer: nil)
+    public static let Began: LongPressConfig = {
+        return LongPressConfig(location: .zero, type: .Began, recognizer: nil)
     }()
     
-    public static let Any: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, type: .Any, recognizer: nil)
+    public static let Changed: LongPressConfig = {
+        return LongPressConfig(location: .zero, type: .Changed, recognizer: nil)
     }()
+    
+    public static let Ended: LongPressConfig = {
+        return LongPressConfig(location: .zero, type: .Ended, recognizer: nil)
+    }()
+    
+    public static let Any: LongPressConfig = {
+        return LongPressConfig(location: .zero, type: .Any, recognizer: nil)
+    }()
+
 }
