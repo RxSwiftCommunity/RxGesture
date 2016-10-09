@@ -38,12 +38,6 @@ extension Reactive where Base: UIView {
             MainScheduler.ensureExecutingOnScheduler()
 
             let control = self.base
-
-            if control == nil {
-                observer.on(.completed)
-                return NopDisposable.instance
-            }
-
             control.isUserInteractionEnabled = true
             
             var gestures = [(UIGestureRecognizer?, Disposable)]()
@@ -114,8 +108,6 @@ extension Reactive where Base: UIView {
                             return true
                         }
                         .map {recognizer -> RxGestureTypeOption in
-                            let recognizer = recognizer as! UIPanGestureRecognizer
-                            
                             //current values
                             let newConfig = PanConfig(
                                 translation: recognizer.translation(in: control.superview),
@@ -176,8 +168,6 @@ extension Reactive where Base: UIView {
                             return true
                             }
                             .map { recognizer -> RxGestureTypeOption in
-                                let recognizer = recognizer as! UIRotationGestureRecognizer
-                                
                                 //current values
                                 let newConfig = RotateConfig(rotation: recognizer.rotation, state: config.state, recognizer: recognizer)
                                 return RxGestureTypeOption.rotate(newConfig)

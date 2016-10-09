@@ -38,11 +38,6 @@ extension Reactive where Base: NSView {
             MainScheduler.ensureExecutingOnScheduler()
 
             let control = self.base
-            if control == nil {
-                observer.on(.completed)
-                return NopDisposable.instance
-            }
-            
             var gestures = [Disposable]()
             
             //clicks

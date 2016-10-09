@@ -53,7 +53,7 @@ extension Reactive where Base: NSGestureRecognizer {
 
             if control == nil {
                 observer.on(.completed)
-                return NopDisposable.instance
+                return Disposables.create()
             }
 
             control.isEnabled = true
@@ -65,7 +65,7 @@ extension Reactive where Base: NSGestureRecognizer {
             
             control.target = gestureTarget
             control.action = #selector(GestureTarget.controlEvent)
-            
+
             return AnonymousDisposable {
                 if let view = control.view {
                     view.removeGestureRecognizer(control)
