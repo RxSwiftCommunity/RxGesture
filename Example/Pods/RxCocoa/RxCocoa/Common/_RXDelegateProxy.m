@@ -10,7 +10,9 @@
 #import "_RX.h"
 #import "_RXObjCRuntime.h"
 
-@interface _RXDelegateProxy ()
+@interface _RXDelegateProxy () {
+    id __weak __forwardToDelegate;
+}
 
 @property (nonatomic, strong) id strongForwardDelegate;
 
@@ -58,7 +60,7 @@ static NSMutableDictionary *forwardableSelectorsPerClass = nil;
 #define CLASS_HIERARCHY_MAX_DEPTH 100
 
         NSInteger  classHierarchyDepth = 0;
-        Class      targetClass         = self;
+        Class      targetClass         = NULL;
 
         for (classHierarchyDepth = 0, targetClass = self;
              classHierarchyDepth < CLASS_HIERARCHY_MAX_DEPTH && targetClass != nil;
@@ -86,11 +88,11 @@ static NSMutableDictionary *forwardableSelectorsPerClass = nil;
     }
 }
 
--(void)interceptedSelector:(SEL)selector withArguments:(NSArray *)arguments {
-    
+-(id)_forwardToDelegate {
+    return __forwardToDelegate;
 }
 
--(void)_setForwardToDelegate:(id)forwardToDelegate retainDelegate:(BOOL)retainDelegate {
+-(void)_setForwardToDelegate:(id __nullable)forwardToDelegate retainDelegate:(BOOL)retainDelegate {
     __forwardToDelegate = forwardToDelegate;
     if (retainDelegate) {
         self.strongForwardDelegate = forwardToDelegate;
@@ -119,14 +121,30 @@ static NSMutableDictionary *forwardableSelectorsPerClass = nil;
 }
 
 -(void)forwardInvocation:(NSInvocation *)anInvocation {
-    if (RX_is_method_signature_void(anInvocation.methodSignature)) {
-        NSArray *arguments = RX_extract_arguments(anInvocation);
-        [self interceptedSelector:anInvocation.selector withArguments:arguments];
+    BOOL isVoid = RX_is_method_signature_void(anInvocation.methodSignature);
+    NSArray *arguments = nil;
+    if (isVoid) {
+        arguments = RX_extract_arguments(anInvocation);
+        [self _sentMessage:anInvocation.selector withArguments:arguments];
     }
     
     if (self._forwardToDelegate && [self._forwardToDelegate respondsToSelector:anInvocation.selector]) {
         [anInvocation invokeWithTarget:self._forwardToDelegate];
     }
+
+    if (isVoid) {
+        [self _methodInvoked:anInvocation.selector withArguments:arguments];
+    }
+}
+
+// abstract method
+-(void)_sentMessage:(SEL)selector withArguments:(NSArray *)arguments {
+
+}
+
+// abstract method
+-(void)_methodInvoked:(SEL)selector withArguments:(NSArray *)arguments {
+
 }
 
 -(void)dealloc {

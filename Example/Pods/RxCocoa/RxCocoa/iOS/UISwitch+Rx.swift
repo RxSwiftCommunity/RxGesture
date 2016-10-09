@@ -14,18 +14,22 @@ import RxSwift
 #endif
 
 
-extension UISwitch {
+extension Reactive where Base: UISwitch {
     
     /**
     Reactive wrapper for `on` property.
+    
+    **⚠️Unlike other controls, Apple is reusing instances of UISwitch or a there is a leak,
+     so underlying observable sequence won't complete when nothing holds a strong reference
+     to UISwitch.⚠️**
     */
-    public var rx_value: ControlProperty<Bool> {
-        return UIControl.rx_value(
-            self,
+    public var value: ControlProperty<Bool> {
+        return UIControl.rx.value(
+            self.base,
             getter: { uiSwitch in
-                uiSwitch.on
+                uiSwitch.isOn
             }, setter: { uiSwitch, value in
-                uiSwitch.on = value
+                uiSwitch.isOn = value
             }
         )
     }

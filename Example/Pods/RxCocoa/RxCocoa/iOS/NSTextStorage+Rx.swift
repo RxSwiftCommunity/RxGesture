@@ -14,23 +14,23 @@ import Foundation
 #endif
     import UIKit
 
-extension NSTextStorage {
+extension Reactive where Base: NSTextStorage {
 
     /**
      Reactive wrapper for `delegate`.
 
      For more information take a look at `DelegateProxyType` protocol documentation.
      */
-    public var rx_delegate:DelegateProxy {
-        return proxyForObject(RxTextStorageDelegateProxy.self, self)
+    public var delegate:DelegateProxy {
+        return RxTextStorageDelegateProxy.proxyForObject(base)
     }
 
     /**
      Reactive wrapper for `delegate` message.
      */
-    public var rx_didProcessEditingRangeChangeInLength: Observable<(editedMask:NSTextStorageEditActions, editedRange:NSRange, delta:Int)> {
-        return rx_delegate
-            .observe(#selector(NSTextStorageDelegate.textStorage(_:didProcessEditing:range:changeInLength:)))
+    public var didProcessEditingRangeChangeInLength: Observable<(editedMask:NSTextStorageEditActions, editedRange:NSRange, delta:Int)> {
+        return delegate
+            .methodInvoked(#selector(NSTextStorageDelegate.textStorage(_:didProcessEditing:range:changeInLength:)))
             .map { a in
                 let editedMask = NSTextStorageEditActions(rawValue: try castOrThrow(UInt.self, a[1]) )
                 let editedRange = try castOrThrow(NSValue.self, a[2]).rangeValue

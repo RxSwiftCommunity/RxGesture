@@ -1,6 +1,0 @@
-framework module RxCocoa {
-  umbrella header "Pods-RxGesture_iOS_Demo-RxCocoa-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -23,7 +23,7 @@ import RxCocoa
 
 private class GestureTarget {
     
-    private var retainedSelf: GestureTarget?
+    fileprivate var retainedSelf: GestureTarget?
     
     init() {
         retainedSelf = self
@@ -40,40 +40,39 @@ private class GestureTarget {
     var handler: (()->Void)?
 }
 
-//
-// TODO: Make a PR to RxCocoa to add rx_event to NSGestureRecognizer and remove this file from this repo
-//
-extension NSGestureRecognizer {
+extension Reactive where Base: NSGestureRecognizer {
     
     /**
      Reactive wrapper for gesture recognizer events.
      */
-    public var rx_event: ControlEvent<NSGestureRecognizer> {
-        let source: Observable<NSGestureRecognizer> = Observable.create { [weak self] observer in
+    public var event: ControlEvent<NSGestureRecognizer> {
+        let source: Observable<NSGestureRecognizer> = Observable.create {observer in
             MainScheduler.ensureExecutingOnScheduler()
-            
-            guard let control = self else {
-                observer.on(.Completed)
+
+            let control = self.base
+
+            if control == nil {
+                observer.on(.completed)
                 return NopDisposable.instance
             }
-            
-            control.enabled = true
+
+            control.isEnabled = true
             
             let gestureTarget = GestureTarget()
             gestureTarget.handler = {
-                observer.on(.Next(control))
+                observer.on(.next(control))
             }
             
-            self?.target = gestureTarget
-            self?.action = #selector(GestureTarget.controlEvent)
+            control.target = gestureTarget
+            control.action = #selector(GestureTarget.controlEvent)
             
             return AnonymousDisposable {
-                if let recognizer = self, let view = recognizer.view {
-                    view.removeGestureRecognizer(recognizer)
+                if let view = control.view {
+                    view.removeGestureRecognizer(control)
                 }
                 gestureTarget.dispose()
             }
-        }.takeUntil(rx_deallocated)
+        }.takeUntil(self.deallocated)
         
         return ControlEvent(events: source)
     }

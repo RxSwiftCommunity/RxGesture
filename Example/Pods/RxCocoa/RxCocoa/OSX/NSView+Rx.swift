@@ -12,21 +12,21 @@ import Cocoa
 import RxSwift
 #endif
 
-extension NSView {
+extension Reactive where Base: NSView {
     /**
      Bindable sink for `hidden` property.
      */
-    public var rx_hidden: AnyObserver<Bool> {
-        return UIBindingObserver(UIElement: self) { view, value in
-            view.hidden = value
+    public var hidden: AnyObserver<Bool> {
+        return UIBindingObserver(UIElement: self.base) { view, value in
+            view.isHidden = value
         }.asObserver()
     }
 
     /**
      Bindable sink for `alphaValue` property.
      */
-    public var rx_alpha: AnyObserver<CGFloat> {
-        return UIBindingObserver(UIElement: self) { view, value in
+    public var alpha: AnyObserver<CGFloat> {
+        return UIBindingObserver(UIElement: self.base) { view, value in
             view.alphaValue = value
         }.asObserver()
     }

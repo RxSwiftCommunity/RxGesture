@@ -16,9 +16,9 @@ Observer that enforces interface binding rules:
  * can't bind errors (in debug builds binding of errors causes `fatalError` in release builds errors are being logged)
  * ensures binding is performed on main thread
  
-`InterfaceBindingObserver` doesn't retain target interface and in case owned interface element is released, element isn't bound.
+`UIBindingObserver` doesn't retain target interface and in case owned interface element is released, element isn't bound.
 */
-public class UIBindingObserver<UIElementType, Value where UIElementType: AnyObject> : ObserverType {
+public class UIBindingObserver<UIElementType, Value> : ObserverType where UIElementType: AnyObject {
     public typealias E = Value
 
     weak var UIElement: UIElementType?
@@ -28,7 +28,7 @@ public class UIBindingObserver<UIElementType, Value where UIElementType: AnyObje
     /**
      Initializes `ViewBindingObserver` using
     */
-    public init(UIElement: UIElementType, binding: (UIElementType, Value) -> Void) {
+    public init(UIElement: UIElementType, binding: @escaping (UIElementType, Value) -> Void) {
         self.UIElement = UIElement
         self.binding = binding
     }
@@ -36,18 +36,17 @@ public class UIBindingObserver<UIElementType, Value where UIElementType: AnyObje
     /**
      Binds next element to owner view as described in `binding`.
     */
-    public func on(event: Event<Value>) {
-        MainScheduler.ensureExecutingOnScheduler()
+    public func on(_ event: Event<Value>) {
+        MainScheduler.ensureExecutingOnScheduler(errorMessage: "Element can be bound to user interface only on MainThread.")
 
         switch event {
-        case .Next(let element):
+        case .next(let element):
             if let view = self.UIElement {
                 binding(view, element)
             }
-        case .Error(let error):
+        case .error(let error):
             bindingErrorToInterface(error)
-            break
-        case .Completed:
+        case .completed:
             break
         }
     }

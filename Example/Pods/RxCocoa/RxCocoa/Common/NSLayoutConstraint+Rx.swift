@@ -19,12 +19,12 @@ import RxSwift
 #endif
 
 #if os(iOS) || os(OSX) || os(tvOS)
-extension NSLayoutConstraint {
+extension Reactive where Base: NSLayoutConstraint {
     /**
      Bindable sink for `constant` property.
      */
-    public var rx_constant: AnyObserver<CGFloat> {
-        return UIBindingObserver(UIElement: self) { constraint, constant in
+    public var constant: AnyObserver<CGFloat> {
+        return UIBindingObserver(UIElement: self.base) { constraint, constant in
             constraint.constant = constant
         }.asObserver()
     }
@@ -33,9 +33,9 @@ extension NSLayoutConstraint {
      Bindable sink for `active` property.
      */
     @available(iOS 8, OSX 10.10, *)
-    public var rx_active: AnyObserver<Bool> {
-        return UIBindingObserver(UIElement: self) { constraint, value in
-            constraint.active = value
+    public var active: AnyObserver<Bool> {
+        return UIBindingObserver(UIElement: self.base) { constraint, value in
+            constraint.isActive = value
         }.asObserver()
     }
 }

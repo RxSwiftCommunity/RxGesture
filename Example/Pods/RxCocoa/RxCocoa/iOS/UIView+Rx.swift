@@ -14,21 +14,21 @@ import UIKit
 import RxSwift
 #endif
 
-extension UIView {
+extension Reactive where Base: UIView {
     /**
      Bindable sink for `hidden` property.
      */
-    public var rx_hidden: AnyObserver<Bool> {
-        return UIBindingObserver(UIElement: self) { view, hidden in
-            view.hidden = hidden
+    public var hidden: AnyObserver<Bool> {
+        return UIBindingObserver(UIElement: self.base) { view, hidden in
+            view.isHidden = hidden
         }.asObserver()
     }
 
     /**
      Bindable sink for `alpha` property.
      */
-    public var rx_alpha: AnyObserver<CGFloat> {
-        return UIBindingObserver(UIElement: self) { view, alpha in
+    public var alpha: AnyObserver<CGFloat> {
+        return UIBindingObserver(UIElement: self.base) { view, alpha in
             view.alpha = alpha
         }.asObserver()
     }

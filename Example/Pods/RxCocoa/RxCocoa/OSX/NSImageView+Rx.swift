@@ -12,13 +12,13 @@ import RxSwift
 #endif
 import Cocoa
 
-extension NSImageView {
+extension Reactive where Base: NSImageView {
    
     /**
     Bindable sink for `image` property.
     */
-    public var rx_image: AnyObserver<NSImage?> {
-        return self.rx_imageAnimated(nil)
+    public var image: AnyObserver<NSImage?> {
+        return image(transitionType: nil)
     }
     
     /**
@@ -26,15 +26,16 @@ extension NSImageView {
     
     - parameter transitionType: Optional transition type while setting the image (kCATransitionFade, kCATransitionMoveIn, ...)
     */
-    public func rx_imageAnimated(transitionType: String?) -> AnyObserver<NSImage?> {
-        return UIBindingObserver(UIElement: self) { control, value in
+    @available(*, deprecated, renamed: "image(transitionType:)")
+    public func imageAnimated(_ transitionType: String?) -> AnyObserver<NSImage?> {
+        return UIBindingObserver(UIElement: self.base) { control, value in
             if let transitionType = transitionType {
                 if value != nil {
                     let transition = CATransition()
                     transition.duration = 0.25
                     transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                     transition.type = transitionType
-                    control.layer?.addAnimation(transition, forKey: kCATransition)
+                    control.layer?.add(transition, forKey: kCATransition)
                 }
             }
             else {
@@ -43,5 +44,27 @@ extension NSImageView {
             control.image = value
         }.asObserver()
     }
-    
+
+    /**
+     Bindable sink for `image` property.
+
+     - parameter transitionType: Optional transition type while setting the image (kCATransitionFade, kCATransitionMoveIn, ...)
+     */
+    public func image(transitionType: String? = nil) -> AnyObserver<NSImage?> {
+        return UIBindingObserver(UIElement: self.base) { control, value in
+            if let transitionType = transitionType {
+                if value != nil {
+                    let transition = CATransition()
+                    transition.duration = 0.25
+                    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                    transition.type = transitionType
+                    control.layer?.add(transition, forKey: kCATransition)
+                }
+            }
+            else {
+                control.layer?.removeAllAnimations()
+            }
+            control.image = value
+        }.asObserver()
+    }
 }

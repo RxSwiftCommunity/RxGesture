@@ -1,11 +1,12 @@
 PODS:
-  - RxCocoa (2.3.1):
-    - RxSwift (~> 2.3.1)
-  - RxGesture (0.1.6):
-    - RxCocoa (~> 2.3.1)
-  - RxSwift (2.3.1)
+  - RxCocoa (3.0.0-beta.2):
+    - RxSwift (~> 3.0.0-beta.2)
+  - RxGesture (0.1.7):
+    - RxCocoa (~> 3.0.0-beta.2)
+  - RxSwift (3.0.0-beta.2)
 
 DEPENDENCIES:
+  - RxCocoa (~> 3.0.0-beta.2)
   - RxGesture (from `../`)
 
 EXTERNAL SOURCES:
@@ -13,8 +14,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  RxCocoa: a2baaf3462b989559a51dce59d78fbebb8fe0afa
-  RxGesture: da19da595b5fcfb27488c878475e77cf085e35aa
-  RxSwift: 829b2843e9eddc77a02cb3f5117f0d55f8f646f1
+  RxCocoa: 1dd105d8a4e18034ccd7bd6d136445363ce67c8e
+  RxGesture: c40092c04063946fb1406e60eed1f4dc97fff81c
+  RxSwift: 0ea939d7d97cb70657190ffde8dc2a9b455778fc
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: b8376c88c3d76216ddba2a5339e19dede14dd2a0
+
+COCOAPODS: 1.1.0.rc.2

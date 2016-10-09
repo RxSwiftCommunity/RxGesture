@@ -31,7 +31,7 @@ public struct AnyObserver<Element> : ObserverType {
     
     - parameter eventHandler: Event handler that observes sequences events.
     */
-    public init(eventHandler: EventHandler) {
+    public init(eventHandler: @escaping EventHandler) {
         self.observer = eventHandler
     }
     
@@ -40,7 +40,7 @@ public struct AnyObserver<Element> : ObserverType {
     
     - parameter observer: Observer that receives sequence events.
     */
-    public init<O : ObserverType where O.E == Element>(_ observer: O) {
+    public init<O : ObserverType>(_ observer: O) where O.E == Element {
         self.observer = observer.on
     }
     
@@ -49,7 +49,7 @@ public struct AnyObserver<Element> : ObserverType {
     
     - parameter event: Event instance.
     */
-    public func on(event: Event<Element>) {
+    public func on(_ event: Event<Element>) {
         return self.observer(event)
     }
 

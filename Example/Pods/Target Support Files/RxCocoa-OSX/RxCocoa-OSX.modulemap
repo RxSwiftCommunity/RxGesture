@@ -1,0 +1,6 @@
+framework module RxCocoa {
+  umbrella header "RxCocoa-OSX-umbrella.h"
+
+  export *
+  module * { export * }
+}

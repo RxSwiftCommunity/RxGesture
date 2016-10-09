@@ -25,21 +25,21 @@ import RxCocoa
 public enum RxGestureTypeOption: Equatable {
     
     //: iOS gestures
-    case Tap
-    case SwipeLeft, SwipeRight, SwipeUp, SwipeDown
-    case LongPress
+    case tap
+    case swipeLeft, swipeRight, swipeUp, swipeDown
+    case longPress
     
     //: Shared gestures
-    case Pan(PanConfig)
-    case Rotate(RotateConfig)
+    case pan(PanConfig)
+    case rotate(RotateConfig)
     
     //: OSX gestures
-    case Click, RightClick
+    case click, rightClick
     
     public static func all() -> [RxGestureTypeOption] {
         return [
-            .Tap, .SwipeLeft, .SwipeRight, .SwipeUp, .SwipeDown, .LongPress, .Pan(.Any), Rotate(.Any),
-            .Click, .RightClick
+            .tap, .swipeLeft, .swipeRight, .swipeUp, .swipeDown, .longPress, .pan(.any), rotate(.any),
+            .click, .rightClick
         ]
     }
 }
@@ -47,19 +47,13 @@ public enum RxGestureTypeOption: Equatable {
 public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
     switch (lhs, rhs) {
 
-    case (.Tap, .Tap): fallthrough
-    case (.SwipeLeft, .SwipeLeft): fallthrough
-    case (.SwipeRight, .SwipeRight): fallthrough
-    case (.SwipeUp, .SwipeUp): fallthrough
-    case (.SwipeDown, .SwipeDown): fallthrough
-    case (.LongPress, .LongPress): fallthrough
-    case (.Pan, .Pan): fallthrough
-    case (.Rotate, .Rotate): fallthrough
-    case (.Click, .Click): fallthrough
-    case (.RightClick, .RightClick):
-        
-    return true
-        
-    default: return false
+        case (.tap, .tap), (.swipeLeft, .swipeLeft), (.swipeRight, .swipeRight),
+             (.swipeUp, .swipeUp), (.swipeDown, .swipeDown), (.longPress, .longPress),
+             (.pan, .pan), (.rotate, .rotate), (.click, .click),
+             (.rightClick, .rightClick):
+            
+            return true
+            
+        default: return false
     }
 }

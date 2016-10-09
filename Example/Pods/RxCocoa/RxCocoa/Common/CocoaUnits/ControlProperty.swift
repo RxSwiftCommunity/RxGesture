@@ -59,7 +59,7 @@ public struct ControlProperty<PropertyType> : ControlPropertyType {
      - returns: Control property created with a observable sequence of values and an observer that enables binding values
      to property.
     */
-    public init<V: ObservableType, S: ObserverType where E == V.E, E == S.E>(values: V, valueSink: S) {
+    public init<V: ObservableType, S: ObserverType>(values: V, valueSink: S) where E == V.E, E == S.E {
         _values = values.subscribeOn(ConcurrentMainScheduler.instance)
         _valueSink = valueSink.asObserver()
     }
@@ -70,14 +70,14 @@ public struct ControlProperty<PropertyType> : ControlPropertyType {
     - parameter observer: Observer to subscribe to property values.
     - returns: Disposable object that can be used to unsubscribe the observer from receiving control property values.
     */
-    public func subscribe<O : ObserverType where O.E == E>(observer: O) -> Disposable {
+    public func subscribe<O : ObserverType>(_ observer: O) -> Disposable where O.E == E {
         return _values.subscribe(observer)
     }
 
     /**
     - returns: `Observable` interface.
     */
-    @warn_unused_result(message="http://git.io/rxs.uo")
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
     public func asObservable() -> Observable<E> {
         return _values
     }
@@ -85,7 +85,7 @@ public struct ControlProperty<PropertyType> : ControlPropertyType {
     /**
     - returns: `ControlProperty` interface.
     */
-    @warn_unused_result(message="http://git.io/rxs.uo")
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
     public func asControlProperty() -> ControlProperty<E> {
         return self
     }
@@ -97,13 +97,13 @@ public struct ControlProperty<PropertyType> : ControlPropertyType {
     - In case error is received, DEBUG buids raise fatal error, RELEASE builds log event to standard output.
     - In case sequence completes, nothing happens.
     */
-    public func on(event: Event<E>) {
+    public func on(_ event: Event<E>) {
         switch event {
-        case .Error(let error):
+        case .error(let error):
             bindingErrorToInterface(error)
-        case .Next:
+        case .next:
             _valueSink.on(event)
-        case .Completed:
+        case .completed:
             _valueSink.on(event)
         }
     }

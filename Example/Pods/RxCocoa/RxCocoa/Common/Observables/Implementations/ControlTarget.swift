@@ -36,7 +36,7 @@ class ControlTarget: RxTarget {
 #endif
     var callback: Callback?
     #if os(iOS) || os(tvOS)
-    init(control: Control, controlEvents: UIControlEvents, callback: Callback) {
+    init(control: Control, controlEvents: UIControlEvents, callback: @escaping Callback) {
         MainScheduler.ensureExecutingOnScheduler()
 
         self.control = control
@@ -45,15 +45,15 @@ class ControlTarget: RxTarget {
 
         super.init()
 
-        control.addTarget(self, action: selector, forControlEvents: controlEvents)
+        control.addTarget(self, action: selector, for: controlEvents)
 
-        let method = self.methodForSelector(selector)
+        let method = self.method(for: selector)
         if method == nil {
             rxFatalError("Can't find method")
         }
     }
 #elseif os(OSX)
-    init(control: Control, callback: Callback) {
+    init(control: Control, callback: @escaping Callback) {
         MainScheduler.ensureExecutingOnScheduler()
 
         self.control = control
@@ -64,15 +64,15 @@ class ControlTarget: RxTarget {
         control.target = self
         control.action = selector
 
-        let method = self.methodForSelector(selector)
+        let method = self.method(for: selector)
         if method == nil {
             rxFatalError("Can't find method")
         }
     }
 #endif
 
-    func eventHandler(sender: Control!) {
-        if let callback = self.callback, control = self.control {
+    func eventHandler(_ sender: Control!) {
+        if let callback = self.callback, let control = self.control {
             callback(control)
         }
     }
@@ -80,7 +80,7 @@ class ControlTarget: RxTarget {
     override func dispose() {
         super.dispose()
 #if os(iOS) || os(tvOS)
-        self.control?.removeTarget(self, action: self.selector, forControlEvents: self.controlEvents)
+        self.control?.removeTarget(self, action: self.selector, for: self.controlEvents)
 #elseif os(OSX)
         self.control?.target = nil
         self.control?.action = nil
