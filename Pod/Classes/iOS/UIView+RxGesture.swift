@@ -111,7 +111,7 @@ extension Reactive where Base: UIView {
                             //current values
                             let newConfig = PanConfig(
                                 translation: recognizer.translation(in: control.superview),
-                                velocity: recognizer.translation(in: control.superview),
+                                velocity: recognizer.velocity(in: control.superview),
                                 state: config.state,
                                 recognizer: recognizer)
                             return RxGestureTypeOption.pan(newConfig)
