@@ -18,43 +18,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import RxSwift
-import RxCocoa
+import Foundation
 
-/// An enumeration to provide a list of valid gestures
-public enum RxGestureTypeOption: Equatable {
-    
-    //: iOS gestures
-    case tap
-    case swipeLeft, swipeRight, swipeUp, swipeDown
-    case longPress
-    case pinch(PinchConfig)
-    
-    //: Shared gestures
-    case pan(PanConfig)
-    case rotate(RotateConfig)
-    
-    //: OSX gestures
-    case click, rightClick
-    
-    public static func all() -> [RxGestureTypeOption] {
-        return [
-            .tap, .swipeLeft, .swipeRight, .swipeUp, .swipeDown, .longPress, .pinch(.any), .pan(.any), rotate(.any),
-            .click, .rightClick
-        ]
+public struct PinchConfig {
+    public enum State {
+        case began, changed, ended, any
     }
-}
-
-public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
-    switch (lhs, rhs) {
-
-        case (.tap, .tap), (.swipeLeft, .swipeLeft), (.swipeRight, .swipeRight),
-             (.swipeUp, .swipeUp), (.swipeDown, .swipeDown), (.longPress, .longPress),
-             (.pinch, .pinch), (.pan, .pan), (.rotate, .rotate), (.click, .click),
-             (.rightClick, .rightClick):
-            
-            return true
-            
-        default: return false
-    }
+    
+    public let velocity: CGFloat
+    public let scale: CGFloat
+    
+    public let state: State
+    public var recognizer: AnyObject?
+    
+    public static let began: PinchConfig = {
+        return PinchConfig(velocity: 0.0, scale: 0.0, state: .began, recognizer: nil)
+    }()
+    
+    public static let changed: PinchConfig = {
+        return PinchConfig(velocity: 0.0, scale: 0.0, state: .changed, recognizer: nil)
+    }()
+    
+    public static let ended: PinchConfig = {
+        return PinchConfig(velocity: 0.0, scale: 0.0, state: .ended, recognizer: nil)
+    }()
+    
+    public static let any: PinchConfig = {
+        return PinchConfig(velocity: 0.0, scale: 0.0, state: .any, recognizer: nil)
+    }()
 }
