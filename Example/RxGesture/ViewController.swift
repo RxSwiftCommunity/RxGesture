@@ -16,6 +16,7 @@ let infoList = [
     "Swipe the square down",
     "Swipe horizontally (e.g. left or right)",
     "Do a long press",
+    "Pinch the square",
     "Drag the square to a different location",
     "Rotate the square",
     "Do either a tap, long press, or swipe in any direction"
@@ -26,6 +27,7 @@ let codeList = [
     "myView.rx.gesture(.swipeDown).subscribeNext {...}",
     "myView.rx.gesture(.swipeLeft, .swipeRight).subscribeNext {",
     "myView.rx.gesture(.longPress).subscribeNext {...}",
+    "myView.rx.gesture(.pinch(.changed), .pinch(.ended)]).subscribeNext {...}",
     "myView.rx.gesture(.pan(.changed), .pan(.ended)]).subscribeNext {...}",
     "myView.rx.gesture(.rotate(.changed), .rotate(.ended)]).subscribeNext {...}",
     "myView.rx.gesture().subscribeNext {...}"
@@ -46,7 +48,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         nextStep😁.scan(0, accumulator: {acc, _ in
-            return acc < 6 ? acc + 1 : 0
+            return acc < 7 ? acc + 1 : 0
         })
         .startWith(0)
         .subscribe(onNext: step)
@@ -97,8 +99,32 @@ class ViewController: UIViewController {
                     this.nextStep😁.onNext()
                 })
             }).addDisposableTo(stepBag)
+            
+        case 4: //pinching
+            myView.rx.gesture(.pinch(.changed)).subscribe(onNext: {[weak self] gesture in
+                guard let this = self else {return}
+                switch gesture {
+                case .pinch(let data):
+                    this.myViewText.text = String(format: "scale: %.2f", data.scale)
+                    this.myView.transform = CGAffineTransform(scaleX: data.scale, y: data.scale)
+                default: break
+                }
+                }).addDisposableTo(stepBag)
+            
+            myView.rx.gesture(.pinch(.ended)).subscribe(onNext: {[weak self] gesture in
+                guard let this = self else {return}
+                switch gesture {
+                case .pinch(_):
+                    UIView.animate(withDuration: 0.5, animations: {
+                        this.myViewText.text = nil
+                        this.myView.transform = CGAffineTransform.identity
+                        this.nextStep😁.onNext()
+                    })
+                default: break
+                }
+                }).addDisposableTo(stepBag)
 
-        case 4: //panning
+        case 5: //panning
             myView.rx.gesture(.pan(.changed)).subscribe(onNext: {[weak self] gesture in
                 guard let this = self else {return}
                 switch gesture {
@@ -122,7 +148,7 @@ class ViewController: UIViewController {
                 }
             }).addDisposableTo(stepBag)
             
-        case 5: //rotating
+        case 6: //rotating
             myView.rx.gesture(.rotate(.changed)).subscribe(onNext: {[weak self] gesture in
                 guard let this = self else {return}
                 switch gesture {
@@ -146,7 +172,7 @@ class ViewController: UIViewController {
                 }
             }).addDisposableTo(stepBag)
             
-        case 6: //any gesture
+        case 7: //any gesture
             myView.rx.gesture().subscribe(onNext: {[weak self] _ in
                 guard let this = self else {return}
                 UIView.animate(withDuration: 0.5, animations: {

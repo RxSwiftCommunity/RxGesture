@@ -79,6 +79,65 @@ extension Reactive where Base: UIView {
                 )
             }
             
+            //pinch
+            if type.contains(.pinch(.any)) {
+                
+                //create or find existing recognizer
+                var recognizer: UIPinchGestureRecognizer
+                
+                if let existingPinch = control.gestureRecognizers?.filter({ $0 is UIPinchGestureRecognizer }).first as? UIPinchGestureRecognizer {
+                    recognizer = existingPinch
+                } else {
+                    recognizer = UIPinchGestureRecognizer()
+                    control.addGestureRecognizer(recognizer)
+                }
+                
+                //observable
+                let pinchEvent = recognizer.rx.event.shareReplay(1)
+                
+                //pinching
+                for pinchGesture in type where pinchGesture == .pinch(.any) {
+                    
+                    switch pinchGesture {
+                    case (.pinch(let config)):
+                        //observe pinching
+                        let pinchObservable = pinchEvent.filter {recognizer -> Bool in
+                            if config.state == .began && recognizer.state != .began {return false}
+                            if config.state == .changed && recognizer.state != .changed {return false}
+                            if config.state == .ended && recognizer.state != .ended {return false}
+                            return true
+                            }
+                            .map {recognizer -> RxGestureTypeOption in
+                                //current values
+                                let newConfig = PinchConfig(
+                                    velocity: recognizer.velocity,
+                                    scale: recognizer.scale,
+                                    state: config.state,
+                                    recognizer: recognizer)
+                                return RxGestureTypeOption.pinch(newConfig)
+                        }
+                        
+                        guard config.velocity != 0.0 && config.scale != 0.0 else {
+                            gestures.append((recognizer, pinchObservable.bindNext(observer.onNext)))
+                            break
+                        }
+                        
+                        gestures.append(
+                            (recognizer, pinchObservable.filter { gesture in
+                                switch gesture {
+                                case (.pinch(let values)):
+                                    return values.velocity >= config.velocity && values.scale >= config.scale
+                                default: return false
+                                }
+                                }
+                                .bindNext(observer.onNext))
+                        )
+                    default: break
+                    }
+                }
+                
+            }
+            
             //panning
             if type.contains(.pan(.any)) {
                 

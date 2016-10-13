@@ -93,6 +93,7 @@
 		318CE2D9A8D0CB8D0285ADD887586839 /* Debunce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D65F4A513075A27E38814EFE30967DC /* Debunce.swift */; };
 		319450A13AFD8A59ECE0677E9B43AF91 /* Driver+Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3033F01A2195932EE081B16D8EE291AE /* Driver+Subscription.swift */; };
 		31F59C8A5E023C0BF91880E2596F34A3 /* AddRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267D6C655EA7C0428DB29E3EF2D7DC7B /* AddRef.swift */; };
+		3212BE551DAEBD7800DB0F2D /* PinchConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3212BE541DAEBD7800DB0F2D /* PinchConfig.swift */; };
 		333CC3A876D454F675719F944DF1734E /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43E0031A73400BDF7F576848AF116B3 /* Range.swift */; };
 		33A7150102912654E20F4F63B31E0407 /* UIView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663C418CD5387ADBAF310754CFA9E8CE /* UIView+Rx.swift */; };
 		3491E38B84377A32BC3A85B0DAF7665E /* ElementAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CA9A7982B35741D40C67A580E4B7A7 /* ElementAt.swift */; };
@@ -622,6 +623,7 @@
 		2F12CA77D6F2C4B36E0E751A89004250 /* RxCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3033F01A2195932EE081B16D8EE291AE /* Driver+Subscription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Driver+Subscription.swift"; path = "RxCocoa/Common/CocoaUnits/Driver/Driver+Subscription.swift"; sourceTree = "<group>"; };
 		30B6F79C8B10D5C7D231B04A3336AE9B /* Observable+Binding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Observable+Binding.swift"; path = "RxSwift/Observables/Observable+Binding.swift"; sourceTree = "<group>"; };
+		3212BE541DAEBD7800DB0F2D /* PinchConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinchConfig.swift; sourceTree = "<group>"; };
 		3310EDCA47D69098738104FB3BEC88F9 /* ShareReplay1WhileConnected.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShareReplay1WhileConnected.swift; path = RxSwift/Observables/Implementations/ShareReplay1WhileConnected.swift; sourceTree = "<group>"; };
 		3321F4651EED140F6BC8A8E1CA5E002A /* UIDatePicker+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIDatePicker+Rx.swift"; path = "RxCocoa/iOS/UIDatePicker+Rx.swift"; sourceTree = "<group>"; };
 		3324C295EF9AC22034EF8ABB3E1143AB /* RxCocoa-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "RxCocoa-iOS.modulemap"; path = "../RxCocoa-iOS/RxCocoa-iOS.modulemap"; sourceTree = "<group>"; };
@@ -1412,6 +1414,7 @@
 		FCB2D68D72FB3999CB32458CDF08C8DA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3212BE541DAEBD7800DB0F2D /* PinchConfig.swift */,
 				1357C4FFE8AEAF01AC8BF4E4257EBBB3 /* PanConfig.swift */,
 				42128CFE52C9649EA3E465D917000E6B /* RotateConfig.swift */,
 				F12D36A1018B7B583A8902E614432BE8 /* RxGesture.swift */,
@@ -1689,6 +1692,7 @@
 			files = (
 				8D4DA23F90EA6D0122ADF932FBED33A8 /* PanConfig.swift in Sources */,
 				F210D7258FCD882225FF5ED3A73D9B00 /* RotateConfig.swift in Sources */,
+				3212BE551DAEBD7800DB0F2D /* PinchConfig.swift in Sources */,
 				F4212A21962B3D0FEE580D48AEC53039 /* RxGesture-iOS-dummy.m in Sources */,
 				F71C9CFE6B41E66EFCF97C3E6310C804 /* RxGesture.swift in Sources */,
 				4F23D844DDC299FEB1DCD591A1D1FDA2 /* UIView+RxGesture.swift in Sources */,
