@@ -53,7 +53,18 @@ extension Reactive where Base: UIView {
                         .bindNext(observer.onNext))
                 )
             }
-            
+			
+			//number of taps
+			for case let .tapNumberOfTimes(numberOfTaps) in type {
+				let tap = UITapGestureRecognizer()
+				tap.numberOfTapsRequired = numberOfTaps
+				control.addGestureRecognizer(tap)
+				gestures.append(
+					(tap, tap.rx.event.map {_ in RxGestureTypeOption.tap}
+						.bindNext(observer.onNext))
+				)
+			}
+			
             //swipes
             for direction in Array<RxGestureTypeOption>([.swipeLeft, .swipeRight, .swipeUp, .swipeDown]) {
                 if type.contains(direction) {
@@ -195,7 +206,7 @@ extension Reactive where Base: UIView {
             }
             
             //dispose gestures
-            return AnonymousDisposable {
+            return Disposables.create {
                 for (recognizer, gesture) in gestures {
                     if let recognizer = recognizer {
                         control.removeGestureRecognizer(recognizer)

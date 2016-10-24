@@ -1,13 +1,12 @@
 //
 //  SingleAssignmentDisposable.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Krunoslav Zaher on 2/15/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
 import Foundation
-import Darwin.C.stdatomic
 
 /**
 Represents a disposable resource which only allows a single assignment of its underlying disposable resource.
@@ -15,6 +14,10 @@ Represents a disposable resource which only allows a single assignment of its un
 If an underlying disposable resource has already been set, future attempts to set the underlying disposable resource will throw an exception.
 */
 public class SingleAssignmentDisposable : DisposeBase, Disposable, Cancelable {
+#if os(Linux)
+    fileprivate let _lock = SpinLock()
+#endif
+
     fileprivate enum DisposeState: UInt32 {
         case disposed = 1
         case disposableSet = 2
@@ -30,29 +33,31 @@ public class SingleAssignmentDisposable : DisposeBase, Disposable, Cancelable {
     private var _state: UInt32 = 0
     private var _disposable = nil as Disposable?
 
-    /**
-    - returns: A value that indicates whether the object is disposed.
-    */
+    /// - returns: A value that indicates whether the object is disposed.
     public var isDisposed: Bool {
         return (_state & DisposeState.disposed.rawValue) != 0
     }
 
-    /**
-    Initializes a new instance of the `SingleAssignmentDisposable`.
-    */
+    /// Initializes a new instance of the `SingleAssignmentDisposable`.
     public override init() {
         super.init()
     }
 
-    /**
-    Gets or sets the underlying disposable. After disposal, the result of getting this property is undefined.
-    
-    **Throws exception if the `SingleAssignmentDisposable` has already been assigned to.**
-    */
+    /// Gets or sets the underlying disposable. After disposal, the result of getting this property is undefined.
+    ///
+    /// **Throws exception if the `SingleAssignmentDisposable` has already been assigned to.**
     public func setDisposable(_ disposable: Disposable) {
         _disposable = disposable
 
+        #if os(Linux)
+        _lock.lock()
+        let previousState = Int32(_state)
+        _state = _state | DisposeState.disposableSet.rawValue
+        // We know about `defer { _lock.unlock() }`, but this resolves Swift compiler bug. Using `defer` here causes anomaly.
+        _lock.unlock()
+        #else
         let previousState = OSAtomicOr32OrigBarrier(DisposeState.disposableSet.rawValue, &_state)
+        #endif
         
         if (previousState & DisposeStateInt32.disposableSet.rawValue) != 0 {
             rxFatalError("oldState.disposable != nil")
@@ -64,11 +69,17 @@ public class SingleAssignmentDisposable : DisposeBase, Disposable, Cancelable {
         }
     }
 
-    /**
-    Disposes the underlying disposable.
-    */
+    /// Disposes the underlying disposable.
     public func dispose() {
+        #if os(Linux)
+        _lock.lock()
+        let previousState = Int32(_state)
+        _state = _state | DisposeState.disposed.rawValue
+        // We know about `defer { _lock.unlock() }`, but this resolves Swift compiler bug. Using `defer` here causes anomaly.
+        _lock.unlock()
+        #else
         let previousState = OSAtomicOr32OrigBarrier(DisposeState.disposed.rawValue, &_state)
+        #endif
 
         if (previousState & DisposeStateInt32.disposed.rawValue) != 0 {
             return

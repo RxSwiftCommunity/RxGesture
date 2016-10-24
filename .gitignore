@@ -62,3 +62,5 @@ Carthage/Build
 fastlane/report.xml
 fastlane/screenshots
 Example/Pods
+
+.DS_Store

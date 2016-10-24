@@ -26,6 +26,7 @@ public enum RxGestureTypeOption: Equatable {
     
     //: iOS gestures
     case tap
+	case tapNumberOfTimes(Int)
     case swipeLeft, swipeRight, swipeUp, swipeDown
     case longPress
     
@@ -47,7 +48,7 @@ public enum RxGestureTypeOption: Equatable {
 public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
     switch (lhs, rhs) {
 
-        case (.tap, .tap), (.swipeLeft, .swipeLeft), (.swipeRight, .swipeRight),
+        case (.tap, .tap), (.tapNumberOfTimes,.tapNumberOfTimes), (.swipeLeft, .swipeLeft), (.swipeRight, .swipeRight),
              (.swipeUp, .swipeUp), (.swipeDown, .swipeDown), (.longPress, .longPress),
              (.pan, .pan), (.rotate, .rotate), (.click, .click),
              (.rightClick, .rightClick):

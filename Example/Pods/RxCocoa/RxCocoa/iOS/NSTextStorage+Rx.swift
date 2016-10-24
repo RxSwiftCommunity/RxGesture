@@ -1,6 +1,6 @@
 //
 //  NSTextStorage+Rx.swift
-//  Rx
+//  RxCocoa
 //
 //  Created by Segii Shulga on 12/30/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -16,18 +16,14 @@ import Foundation
 
 extension Reactive where Base: NSTextStorage {
 
-    /**
-     Reactive wrapper for `delegate`.
-
-     For more information take a look at `DelegateProxyType` protocol documentation.
-     */
+    /// Reactive wrapper for `delegate`.
+    ///
+    /// For more information take a look at `DelegateProxyType` protocol documentation.
     public var delegate:DelegateProxy {
         return RxTextStorageDelegateProxy.proxyForObject(base)
     }
 
-    /**
-     Reactive wrapper for `delegate` message.
-     */
+    /// Reactive wrapper for `delegate` message.
     public var didProcessEditingRangeChangeInLength: Observable<(editedMask:NSTextStorageEditActions, editedRange:NSRange, delta:Int)> {
         return delegate
             .methodInvoked(#selector(NSTextStorageDelegate.textStorage(_:didProcessEditing:range:changeInLength:)))
