@@ -80,7 +80,7 @@ class ViewController: UIViewController {
 					this.myView.backgroundColor = UIColor.blue
 					this.nextStep😁.onNext()
 				})
-				}).addDisposableTo(stepBag)
+			}).addDisposableTo(stepBag)
 			
         case 2: //swipe down
             myView.rx.gesture(.swipeDown).subscribe(onNext: {[weak self] _ in

@@ -50,6 +50,7 @@ myView.rx.gesture(.tap, .swipeUp, .swipeDown).subscribe(onNext: {_ in
 On __iOS__ RXGesture supports:
 
  - .tap
+ - .tapNumberOfTimes(Int)
  - .swipeLeft, .swipeRight, .swipeUp, .swipeDown
  - .longPress
  - .pan(.began), .pan(.changed), .pan(.ended), .pan(.any)
