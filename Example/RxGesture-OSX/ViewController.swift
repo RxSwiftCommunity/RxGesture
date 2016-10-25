@@ -16,6 +16,7 @@ class MacViewController: NSViewController {
 
     let infoList = [
         "Click the square",
+        "Double click the square",
         "Right click the square",
         "Click any button (left or right)",
         "Drag the square around",
@@ -24,6 +25,7 @@ class MacViewController: NSViewController {
     
     let codeList = [
         "myView.rx.gesture(.click).subscribeNext {...}",
+        "myView.rx.gesture(.clickNumberOfTimes(2)).subscribeNext {...}",
         "myView.rx.gesture(.rightClick).subscribeNext {...}",
         "myView.rx.gesture(RxGestureTypeOptions.all()).subscribeNext {...}",
         "myView.rx.gesture(.pan(.Changed), .pan(.Ended)).subscribeNext {...}",
@@ -70,18 +72,33 @@ class MacViewController: NSViewController {
             myView.rx.gesture(.click).subscribe(onNext: {[weak self] _ in
                 guard let `self` = self else {return}
                 
-                self.myView.layer!.backgroundColor = NSColor.blue.cgColor
+                self.myView.layer!.backgroundColor = NSColor.green.cgColor
                 
                 let anim = CABasicAnimation(keyPath: "backgroundColor")
                 anim.fromValue = NSColor.red.cgColor
-                anim.toValue = NSColor.blue.cgColor
+                anim.toValue = NSColor.green.cgColor
                 self.myView.layer!.add(anim, forKey: nil)
 
                 self.nextStep😁.onNext()
             })
             .addDisposableTo(stepBag)
-            
-        case 1: //right click recognizer
+
+        case 1: //double click recognizer
+            myView.rx.gesture(.clickNumberOfTimes(2)).subscribe(onNext: {[weak self] _ in
+                guard let `self` = self else {return}
+
+                self.myView.layer!.backgroundColor = NSColor.blue.cgColor
+
+                let anim = CABasicAnimation(keyPath: "backgroundColor")
+                anim.fromValue = NSColor.green.cgColor
+                anim.toValue = NSColor.blue.cgColor
+                self.myView.layer!.add(anim, forKey: nil)
+
+                self.nextStep😁.onNext()
+                })
+                .addDisposableTo(stepBag)
+
+        case 2: //right click recognizer
             myView.rx.gesture(.rightClick).subscribe(onNext: {[weak self] _ in
                 guard let `self` = self else {return}
                 
@@ -97,7 +114,7 @@ class MacViewController: NSViewController {
             })
             .addDisposableTo(stepBag)
             
-        case 2: //any button
+        case 3: //any button
             myView.rx.gesture(.click, .rightClick).subscribe(onNext: {[weak self] _ in
                 guard let `self` = self else {return}
                 
@@ -113,7 +130,7 @@ class MacViewController: NSViewController {
                 self.nextStep😁.onNext()
             }).addDisposableTo(stepBag)
             
-        case 3: //pan
+        case 4: //pan
             
             //
             // NB!: In this version of `RxGesture` under OSX you need to observe for .Changed and .Ended
@@ -151,7 +168,7 @@ class MacViewController: NSViewController {
             })
             .addDisposableTo(stepBag)
             
-        case 4: //rotate or click
+        case 5: //rotate or click
             
             myView.rx.gesture(.rotate(.changed), .rotate(.ended), .click).subscribe(onNext: {[weak self] gesture in
                 guard let `self` = self else {return}

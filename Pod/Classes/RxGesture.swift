@@ -36,11 +36,12 @@ public enum RxGestureTypeOption: Equatable {
     
     //: OSX gestures
     case click, rightClick
-    
+    case clickNumberOfTimes(Int)
+
     public static func all() -> [RxGestureTypeOption] {
         return [
-            .tap, .swipeLeft, .swipeRight, .swipeUp, .swipeDown, .longPress, .pan(.any), rotate(.any),
-            .click, .rightClick
+            .tap, .tapNumberOfTimes(0), .swipeLeft, .swipeRight, .swipeUp, .swipeDown, .longPress, .pan(.any), rotate(.any),
+            .click, .rightClick, .clickNumberOfTimes(0)
         ]
     }
 }
@@ -51,7 +52,7 @@ public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
         case (.tap, .tap), (.tapNumberOfTimes,.tapNumberOfTimes), (.swipeLeft, .swipeLeft), (.swipeRight, .swipeRight),
              (.swipeUp, .swipeUp), (.swipeDown, .swipeDown), (.longPress, .longPress),
              (.pan, .pan), (.rotate, .rotate), (.click, .click),
-             (.rightClick, .rightClick):
+             (.rightClick, .rightClick), (.clickNumberOfTimes, .clickNumberOfTimes):
             
             return true
             

@@ -51,6 +51,18 @@ extension Reactive where Base: NSView {
                 )
             }
 
+            //number of clicks
+            for case let .clickNumberOfTimes(numberOfClicks) in type {
+                let click = NSClickGestureRecognizer()
+                click.numberOfClicksRequired = numberOfClicks
+                click.buttonMask = 1 << 0
+                control.addGestureRecognizer(click)
+                gestures.append(
+                    click.rx.event.map {_ in RxGestureTypeOption.click}
+                        .bindNext(observer.onNext)
+                )
+            }
+
             //right clicks
             if type.contains(.rightClick) {
                 let click = NSClickGestureRecognizer()
