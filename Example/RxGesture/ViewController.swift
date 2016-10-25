@@ -13,6 +13,7 @@ import RxGesture
 
 let infoList = [
     "Tap the red square",
+    "Double tap the green square",
     "Swipe the square down",
     "Swipe horizontally (e.g. left or right)",
     "Do a long press",
@@ -23,6 +24,7 @@ let infoList = [
 
 let codeList = [
     "myView.rx.gesture(.tap).subscribeNext {...}",
+    "myView.rx.gesture(.tapNumberOfTimes(2)).subscribeNext {...}",
     "myView.rx.gesture(.swipeDown).subscribeNext {...}",
     "myView.rx.gesture(.swipeLeft, .swipeRight).subscribeNext {",
     "myView.rx.gesture(.longPress).subscribeNext {...}",
@@ -66,12 +68,21 @@ class ViewController: UIViewController {
             myView.rx.gesture(.tap).subscribe(onNext: {[weak self] _ in
                 guard let this = self else {return}
                 UIView.animate(withDuration: 0.5, animations: {
-                    this.myView.backgroundColor = UIColor.blue
+                    this.myView.backgroundColor = UIColor.green
                     this.nextStep😁.onNext()
                 })
             }).addDisposableTo(stepBag)
-            
-        case 1: //swipe down
+			
+		case 1: //tap number of times recognizer
+			myView.rx.gesture(.tapNumberOfTimes(2)).subscribe(onNext: {[weak self] _ in
+				guard let this = self else {return}
+				UIView.animate(withDuration: 0.5, animations: {
+					this.myView.backgroundColor = UIColor.blue
+					this.nextStep😁.onNext()
+				})
+			}).addDisposableTo(stepBag)
+			
+        case 2: //swipe down
             myView.rx.gesture(.swipeDown).subscribe(onNext: {[weak self] _ in
                 guard let this = self else {return}
                 UIView.animate(withDuration: 0.5, animations: {
@@ -80,7 +91,7 @@ class ViewController: UIViewController {
                 })
             }).addDisposableTo(stepBag)
             
-        case 2: //swipe horizontally
+        case 3: //swipe horizontally
             myView.rx.gesture(.swipeLeft, .swipeRight).subscribe(onNext: {[weak self] _ in
                 guard let this = self else {return}
                 UIView.animate(withDuration: 0.5, animations: {
@@ -89,7 +100,7 @@ class ViewController: UIViewController {
                 })
             }).addDisposableTo(stepBag)
 
-        case 3: //long press
+		case 4: //long press
             myView.rx.gesture(.longPress).subscribe(onNext: {[weak self] _ in
                 guard let this = self else {return}
                 UIView.animate(withDuration: 0.5, animations: {
@@ -98,7 +109,7 @@ class ViewController: UIViewController {
                 })
             }).addDisposableTo(stepBag)
 
-        case 4: //panning
+        case 5: //panning
             myView.rx.gesture(.pan(.changed)).subscribe(onNext: {[weak self] gesture in
                 guard let this = self else {return}
                 switch gesture {
@@ -122,7 +133,7 @@ class ViewController: UIViewController {
                 }
             }).addDisposableTo(stepBag)
             
-        case 5: //rotating
+        case 6: //rotating
             myView.rx.gesture(.rotate(.changed)).subscribe(onNext: {[weak self] gesture in
                 guard let this = self else {return}
                 switch gesture {
@@ -146,7 +157,7 @@ class ViewController: UIViewController {
                 }
             }).addDisposableTo(stepBag)
             
-        case 6: //any gesture
+        case 7: //any gesture
             myView.rx.gesture().subscribe(onNext: {[weak self] _ in
                 guard let this = self else {return}
                 UIView.animate(withDuration: 0.5, animations: {

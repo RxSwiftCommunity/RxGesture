@@ -66,7 +66,7 @@ extension Reactive where Base: NSGestureRecognizer {
             control.target = gestureTarget
             control.action = #selector(GestureTarget.controlEvent)
 
-            return AnonymousDisposable {
+            return Disposables.create {
                 if let view = control.view {
                     view.removeGestureRecognizer(control)
                 }

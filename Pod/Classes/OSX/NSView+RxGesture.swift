@@ -183,7 +183,7 @@ extension Reactive where Base: NSView {
             }
             
             //dispose gestures
-            return AnonymousDisposable {
+            return Disposables.create {
                 for gesture in gestures {
                     gesture.dispose()
                 }
