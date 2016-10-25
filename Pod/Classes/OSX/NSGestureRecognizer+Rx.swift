@@ -50,12 +50,6 @@ extension Reactive where Base: NSGestureRecognizer {
             MainScheduler.ensureExecutingOnScheduler()
 
             let control = self.base
-
-            if control == nil {
-                observer.on(.completed)
-                return Disposables.create()
-            }
-
             control.isEnabled = true
             
             let gestureTarget = GestureTarget()
