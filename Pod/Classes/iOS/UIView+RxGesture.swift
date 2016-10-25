@@ -195,7 +195,7 @@ extension Reactive where Base: UIView {
             }
             
             //dispose gestures
-            return AnonymousDisposable {
+            return Disposables.create {
                 for (recognizer, gesture) in gestures {
                     if let recognizer = recognizer {
                         control.removeGestureRecognizer(recognizer)
