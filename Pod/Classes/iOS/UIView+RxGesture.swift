@@ -138,7 +138,7 @@ extension Reactive where Base: UIView {
                                 switch gesture {
                                 case (.pan(let values)):
                                     return (values.translation.x >= config.translation.x || values.translation.y >= config.translation.y)
-                                        && (values.translation.x >= config.translation.x || values.translation.y >= config.translation.y)
+                                        && (values.velocity.x >= config.velocity.x || values.velocity.y >= config.velocity.y)
                                 default: return false
                                 }
                             }
