@@ -12,8 +12,6 @@ To run the example project, clone the repo, in the __Example__ folder open `RxGe
 
 You _might_ need to run `pod install` from the Example directory first.
 
-**NB**: Currently this library uses the latest beta of RxSwift 3.0.0 so it's a pre-release software.
-
 ---
 
 __RxGesture__ allows you to easily turn any view into a tappable or swipeable control like so:
