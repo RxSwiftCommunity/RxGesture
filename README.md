@@ -12,21 +12,6 @@ To run the example project, clone the repo, in the __Example__ folder open `RxGe
 
 You _might_ need to run `pod install` from the Example directory first.
 
-**NB**: Currently this library uses the latest beta of RxSwift 3.0.0 so it's a pre-release software.
-
-**NB**: If you're using the RxGesture CocoaPod in a Swift 3 project add this snippet to the bottom of your project's Podfile. This will update your targets to use swift3:
-
-```
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            config.build_settings['SWIFT_VERSION'] = '3.0'
-            config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '10.10'
-        end
-    end
-end
-```
-
 ---
 
 __RxGesture__ allows you to easily turn any view into a tappable or swipeable control like so:
