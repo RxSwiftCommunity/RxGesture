@@ -19,6 +19,7 @@ let infoList = [
     "Do a long press",
     "Drag the square to a different location",
     "Rotate the square",
+    "Pinch the square",
 ]
 
 let codeList = [
@@ -29,6 +30,7 @@ let codeList = [
     "myView.rx\n\t.longPressGesture()\n\t.filterState(.began)\n\t.subscribeNext {...}",
     "let panGesture = myView.rx\n\t.panGesture()\n\t.shareReplay(1)\n\npanGesture\n\t.filterState(.changed)\n\t.translate()\n\t.subscribeNext {...}\n\npanGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
     "let rotationGesture = myView.rx\n\t.rotationGesture()\n\t.shareReplay(1)\n\nrotationGesture\n\t.filterState(.changed)\n\t.rotation()\n\t.subscribeNext {...}\n\nrotationGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
+    "let pinchGesture = myView.rx\n\t.pinchGesture()\n\t.shareReplay(1)\n\npinchGesture\n\t.filterState(.changed)\n\t.scale()\n\t.subscribeNext {...}\n\npinchGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
 ]
 
 class ViewController: UIViewController {
@@ -168,6 +170,31 @@ class ViewController: UIViewController {
                 .addDisposableTo(stepBag)
 
             rotationGesture
+                .filterState(.ended)
+                .subscribe(onNext: {[weak self] gesture in
+                    guard let this = self else {return}
+                    UIView.animate(withDuration: 0.5, animations: {
+                        this.myViewText.text = nil
+                        this.myView.transform = .identity
+                        this.nextStep😁.onNext()
+                    })
+                })
+                .addDisposableTo(stepBag)
+
+        case 7: //pinching
+            let pinchGesture = myView.rx.pinchGesture().shareReplay(1)
+
+            pinchGesture
+                .filterState(.changed)
+                .scale()
+                .subscribe(onNext: {[weak self] scale, _ in
+                    guard let this = self else {return}
+                    this.myViewText.text = String(format: "scale: %.2f", scale)
+                    this.myView.transform = CGAffineTransform(scaleX: scale, y: scale)
+                })
+                .addDisposableTo(stepBag)
+
+            pinchGesture
                 .filterState(.ended)
                 .subscribe(onNext: {[weak self] gesture in
                     guard let this = self else {return}
