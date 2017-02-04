@@ -28,7 +28,7 @@ public extension Reactive where Base: UIView {
         configuration: ((UIScreenEdgePanGestureRecognizer) -> Void)? = nil
         ) -> ControlEvent<UIScreenEdgePanGestureRecognizer> {
 
-        return recognized(UIScreenEdgePanGestureRecognizer()) { gestureRecognizer in
+        return addGestureRecognizer(UIScreenEdgePanGestureRecognizer()) { gestureRecognizer in
             gestureRecognizer.edges = edges
             configuration?(gestureRecognizer)
         }

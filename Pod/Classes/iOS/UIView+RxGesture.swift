@@ -27,13 +27,13 @@ extension Reactive where Base: UIView {
     /// It automatically attaches the gesture recognizer to the receiver view.
     /// The value the Observable emits is the gesture recognizer itself
     ///
-    /// rx.recognized can't error and is subscribed/observed on main scheduler
-    /// - parameter type: an UIGestureRecognizer subclass you want to observe
+    /// rx.addGestureRecognizer can't error and is subscribed/observed on main scheduler
+    /// - parameter type: an UIGestureRecognizer subclass you want to add and observe
     /// - returns: `ControlEvent<G>` that emits any type one of the desired gestures is performed on the view
     /// - seealso: `RxCocoa` adds `rx.tap` to `NSButton/UIButton` and is sufficient if you only need to subscribe
     ///   on taps on buttons. `RxGesture` on the other hand enables `userInteractionEnabled` and handles gestures on any view
 
-    public func recognized<G: UIGestureRecognizer>(_ gesture: G, configuration: ((G) -> Void)? = nil) -> ControlEvent<G> {
+    public func addGestureRecognizer<G: UIGestureRecognizer>(_ gesture: G, configuration: ((G) -> Void)? = nil) -> ControlEvent<G> {
 
         let control = self.base
         let genericGesture = gesture as UIGestureRecognizer

@@ -29,7 +29,7 @@ public extension Reactive where Base: UIView {
         configuration: ((UISwipeGestureRecognizer) -> Void)? = nil
         ) -> ControlEvent<UISwipeGestureRecognizer> {
 
-        return recognized(UISwipeGestureRecognizer()) { gestureRecognizer in
+        return addGestureRecognizer(UISwipeGestureRecognizer()) { gestureRecognizer in
             gestureRecognizer.direction = direction
             gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
             configuration?(gestureRecognizer)

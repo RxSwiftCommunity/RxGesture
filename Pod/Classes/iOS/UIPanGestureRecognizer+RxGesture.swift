@@ -28,7 +28,7 @@ public extension Reactive where Base: UIView {
         configuration: ((UIPanGestureRecognizer) -> Void)? = nil
         ) -> ControlEvent<UIPanGestureRecognizer> {
 
-        return recognized(UIPanGestureRecognizer()){ gestureRecognizer in
+        return addGestureRecognizer(UIPanGestureRecognizer()){ gestureRecognizer in
             gestureRecognizer.minimumNumberOfTouches = minimumNumberOfTouches
             gestureRecognizer.maximumNumberOfTouches = maximumNumberOfTouches
             configuration?(gestureRecognizer)

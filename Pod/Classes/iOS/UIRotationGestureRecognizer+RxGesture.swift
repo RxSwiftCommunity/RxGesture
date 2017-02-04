@@ -26,7 +26,7 @@ public extension Reactive where Base: UIView {
     public func rotationGesture(
         configuration: ((UIRotationGestureRecognizer) -> Void)? = nil
         ) -> ControlEvent<UIRotationGestureRecognizer> {
-        return recognized(UIRotationGestureRecognizer(), configuration: configuration)
+        return addGestureRecognizer(UIRotationGestureRecognizer(), configuration: configuration)
     }
 }
 

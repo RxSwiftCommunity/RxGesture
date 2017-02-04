@@ -29,7 +29,7 @@ public extension Reactive where Base: UIView {
         configuration: ((UITapGestureRecognizer) -> Void)? = nil
         ) -> ControlEvent<UITapGestureRecognizer> {
 
-        return recognized(UITapGestureRecognizer()) { gestureRecognizer in
+        return addGestureRecognizer(UITapGestureRecognizer()) { gestureRecognizer in
             gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
             gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
             configuration?(gestureRecognizer)

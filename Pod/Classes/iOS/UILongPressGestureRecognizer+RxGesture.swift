@@ -31,7 +31,7 @@ public extension Reactive where Base: UIView {
         configuration: ((UILongPressGestureRecognizer) -> Void)? = nil
         ) -> ControlEvent<UILongPressGestureRecognizer> {
 
-        return recognized(UILongPressGestureRecognizer()) { gestureRecognizer in
+        return addGestureRecognizer(UILongPressGestureRecognizer()) { gestureRecognizer in
             gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
             gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
             gestureRecognizer.minimumPressDuration = minimumPressDuration

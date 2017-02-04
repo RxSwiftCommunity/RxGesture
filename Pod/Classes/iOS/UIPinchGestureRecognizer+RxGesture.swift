@@ -27,7 +27,7 @@ public extension Reactive where Base: UIView {
         configuration: ((UIPinchGestureRecognizer) -> Void)? = nil
         ) -> ControlEvent<UIPinchGestureRecognizer> {
 
-        return recognized(UIPinchGestureRecognizer(), configuration: configuration)
+        return addGestureRecognizer(UIPinchGestureRecognizer(), configuration: configuration)
     }
 }
 
