@@ -22,13 +22,13 @@ let infoList = [
 ]
 
 let codeList = [
-    "myView.rx\n\t.tapGesture()\n\t.subscribeNext {...}",
-    "myView.rx\n\t.tapGesture(numberOfTapsRequired: 2)\n\t.subscribeNext {...}",
-    "myView.rx\n\t.swipeDownGesture()\n\t.subscribeNext {...}",
-    "myView.rx\n\t.swipeGesture(direction: [.left, .right])\n\t.subscribeNext {",
-    "myView.rx\n\t.longPressGesture()\n\t.subscribeNext {...}",
-    "let panGesture = myView.rx\n\t.panGesture()\n\t.shareReplay(1)\n\npanGesture\n\t.filterState(in: [.changed])\n\t.subscribeNext {...}\n\npanGesture\n\t.filterState(in: [.ended])\n\t.subscribeNext {...}",
-    "let rotationGesture = myView.rx\n\t.rotationGesture()\n\t.shareReplay(1)\n\nrotationGesture\n\t.filterState(in: [.changed])\n\t.subscribeNext {...}\n\nrotationGesture\n\t.filterState(in: [.ended])\n\t.subscribeNext {...}",
+    "myView.rx\n\t.tapGesture()\n\t.filterState(.recognized)\n\t.subscribeNext {...}",
+    "myView.rx\n\t.tapGesture(numberOfTapsRequired: 2)\n\t.filterState(.recognized)\n\t.subscribeNext {...}",
+    "myView.rx\n\t.swipeDownGesture()\n\t.filterState(.recognized)\n\t.subscribeNext {...}",
+    "myView.rx\n\t.swipeGesture(direction: [.left, .right])\n\t.filterState(.recognized)\n\t.subscribeNext {",
+    "myView.rx\n\t.longPressGesture()\n\t.filterState(.began)\n\t.subscribeNext {...}",
+    "let panGesture = myView.rx\n\t.panGesture()\n\t.shareReplay(1)\n\npanGesture\n\t.filterState(.changed)\n\t.translate()\n\t.subscribeNext {...}\n\npanGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
+    "let rotationGesture = myView.rx\n\t.rotationGesture()\n\t.shareReplay(1)\n\nrotationGesture\n\t.filterState(.changed)\n\t.rotation()\n\t.subscribeNext {...}\n\nrotationGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
 ]
 
 class ViewController: UIViewController {
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
 
         nextStep😁
             .scan(0, accumulator: {acc, _ in
-                return acc < 6 ? acc + 1 : 0
+                return acc < infoList.count - 1 ? acc + 1 : 0
             })
             .startWith(0)
             .subscribe(onNext: step)
@@ -65,62 +65,77 @@ class ViewController: UIViewController {
         switch step {
         case 0: //tap recognizer
 
-            myView.rx.tapGesture().subscribe(onNext: {[weak self] _ in
-                guard let this = self else {return}
-                UIView.animate(withDuration: 0.5, animations: {
-                    this.myView.backgroundColor = UIColor.green
-                    this.nextStep😁.onNext()
+            myView.rx
+                .tapGesture()
+                .filterState(.recognized)
+                .subscribe(onNext: {[weak self] _ in
+                    guard let this = self else {return}
+                    UIView.animate(withDuration: 0.5, animations: {
+                        this.myView.backgroundColor = .green
+                        this.nextStep😁.onNext()
+                    })
                 })
-            })
                 .addDisposableTo(stepBag)
 
         case 1: //tap number of times recognizer
-            myView.rx.tapGesture(numberOfTapsRequired: 2).subscribe(onNext: {[weak self] _ in
-                guard let this = self else {return}
-                UIView.animate(withDuration: 0.5, animations: {
-                    this.myView.backgroundColor = UIColor.blue
-                    this.nextStep😁.onNext()
+            myView.rx
+                .tapGesture(numberOfTapsRequired: 2)
+                .filterState(.recognized)
+                .subscribe(onNext: {[weak self] _ in
+                    guard let this = self else {return}
+                    UIView.animate(withDuration: 0.5, animations: {
+                        this.myView.backgroundColor = .blue
+                        this.nextStep😁.onNext()
+                    })
                 })
-            })
                 .addDisposableTo(stepBag)
 
         case 2: //swipe down
-            myView.rx.swipeDownGesture().subscribe(onNext: {[weak self] _ in
-                guard let this = self else {return}
-                UIView.animate(withDuration: 0.5, animations: {
-                    this.myView.transform = CGAffineTransform(scaleX: 1.0, y: 2.0)
-                    this.nextStep😁.onNext()
+            myView.rx
+                .swipeDownGesture()
+                .filterState(.recognized)
+                .subscribe(onNext: {[weak self] _ in
+                    guard let this = self else {return}
+                    UIView.animate(withDuration: 0.5, animations: {
+                        this.myView.transform = CGAffineTransform(scaleX: 1.0, y: 2.0)
+                        this.nextStep😁.onNext()
+                    })
                 })
-            })
                 .addDisposableTo(stepBag)
 
         case 3: //swipe horizontally
-            myView.rx.swipeGesture(direction: [.left, .right]).subscribe(onNext: {[weak self] _ in
-                guard let this = self else {return}
-                UIView.animate(withDuration: 0.5, animations: {
-                    this.myView.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
-                    this.nextStep😁.onNext()
+            myView.rx
+                .swipeGesture(direction: [.left, .right])
+                .filterState(.recognized)
+                .subscribe(onNext: {[weak self] _ in
+                    guard let this = self else {return}
+                    UIView.animate(withDuration: 0.5, animations: {
+                        this.myView.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+                        this.nextStep😁.onNext()
+                    })
                 })
-            })
                 .addDisposableTo(stepBag)
 
         case 4: //long press
-            myView.rx.longPressGesture().subscribe(onNext: {[weak self] _ in
-                guard let this = self else {return}
-                UIView.animate(withDuration: 0.5, animations: {
-                    this.myView.transform = CGAffineTransform.identity
-                    this.nextStep😁.onNext()
+            myView.rx
+                .longPressGesture()
+                .filterState(.began)
+                .subscribe(onNext: {[weak self] _ in
+                    guard let this = self else {return}
+                    UIView.animate(withDuration: 0.5, animations: {
+                        this.myView.transform = .identity
+                        this.nextStep😁.onNext()
+                    })
                 })
-            })
                 .addDisposableTo(stepBag)
 
         case 5: //panning
             let panGesture = myView.rx.panGesture().shareReplay(1)
 
             panGesture
-                .filterState(in: [.changed])
+                .filterState(.changed)
                 .translation()
-                .subscribe(onNext: {[weak self] translation in
+                .subscribe(onNext: {[weak self] translation, _ in
                     guard let this = self else {return}
                     this.myViewText.text = "(\(translation.x), \(translation.y))"
                     this.myView.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
@@ -128,12 +143,12 @@ class ViewController: UIViewController {
                 .addDisposableTo(stepBag)
 
             panGesture
-                .filterState(in: [.ended])
+                .filterState(.ended)
                 .subscribe(onNext: {[weak self] gesture in
                     guard let this = self else {return}
                     UIView.animate(withDuration: 0.5, animations: {
                         this.myViewText.text = nil
-                        this.myView.transform = CGAffineTransform.identity
+                        this.myView.transform = .identity
                         this.nextStep😁.onNext()
                     })
                 })
@@ -143,9 +158,9 @@ class ViewController: UIViewController {
             let rotationGesture = myView.rx.rotationGesture().shareReplay(1)
 
             rotationGesture
-                .filterState(in: [.changed])
-                .rotation
-                .subscribe(onNext: {[weak self] rotation in
+                .filterState(.changed)
+                .rotation()
+                .subscribe(onNext: {[weak self] rotation, _ in
                     guard let this = self else {return}
                     this.myViewText.text = String(format: "angle: %.2f", rotation)
                     this.myView.transform = CGAffineTransform(rotationAngle: rotation)
@@ -153,12 +168,12 @@ class ViewController: UIViewController {
                 .addDisposableTo(stepBag)
 
             rotationGesture
-                .filterState(in: [.ended])
+                .filterState(.ended)
                 .subscribe(onNext: {[weak self] gesture in
                     guard let this = self else {return}
                     UIView.animate(withDuration: 0.5, animations: {
                         this.myViewText.text = nil
-                        this.myView.transform = CGAffineTransform.identity
+                        this.myView.transform = .identity
                         this.nextStep😁.onNext()
                     })
                 })

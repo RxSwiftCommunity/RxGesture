@@ -18,7 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 import RxSwift
 import RxCocoa
 
@@ -38,23 +37,12 @@ public extension Reactive where Base: UIView {
 }
 
 public extension ObservableType where E: UIPanGestureRecognizer {
-    public func translation(inView view: UIView? = nil) -> Observable<CGPoint> {
+    public func translation(inView view: UIView? = nil) -> Observable<(translation: CGPoint, velocity: CGPoint)> {
         return self.map { gesture in
-            return gesture.translation(in: view ?? gesture.view?.superview)
-        }
-    }
-
-    public func velocity(inView view: UIView? = nil) -> Observable<CGPoint> {
-        return self.map { gesture in
-            return gesture.velocity(in: view ?? gesture.view?.superview)
-        }
-    }
-
-    public func translationAndVelocity(inView view: UIView? = nil) -> Observable<(translation: CGPoint, velocity: CGPoint)> {
-        return self.map { gesture in
+            let view = view ?? gesture.view?.superview
             return (
-                gesture.translation(in: view ?? gesture.view?.superview),
-                gesture.velocity(in: view ?? gesture.view?.superview)
+                gesture.translation(in: view),
+                gesture.velocity(in: view)
             )
         }
     }

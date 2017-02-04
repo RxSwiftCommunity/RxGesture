@@ -34,19 +34,23 @@ extension Reactive where Base: UIView {
     ///   on taps on buttons. `RxGesture` on the other hand enables `userInteractionEnabled` and handles gestures on any view
 
     public func recognized<G: UIGestureRecognizer>(_ gesture: G, configuration: ((G) -> Void)? = nil) -> ControlEvent<G> {
+
+        let control = self.base
+        let genericGesture = gesture as UIGestureRecognizer
+
+        control.isUserInteractionEnabled = true
+        gesture.delegate = PermissiveGestureRecognizerDelegate.shared
         configuration?(gesture)
+
         let source: Observable<G> = Observable
             .create { observer in
                 MainScheduler.ensureExecutingOnScheduler()
-
-                let control = self.base
-
-                let genericGesture = gesture as UIGestureRecognizer
 
                 control.addGestureRecognizer(gesture)
 
                 let disposable = genericGesture.rx.event
                     .map { gesture -> G in gesture as! G }
+                    .startWith(gesture)
                     .bindNext(observer.onNext)
 
                 return Disposables.create {

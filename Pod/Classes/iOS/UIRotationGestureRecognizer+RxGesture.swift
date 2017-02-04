@@ -18,7 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 import RxSwift
 import RxCocoa
 
@@ -32,15 +31,9 @@ public extension Reactive where Base: UIView {
 }
 
 public extension ObservableType where E: UIRotationGestureRecognizer {
-    public var rotation: Observable<CGFloat> {
+    public func rotation() -> Observable<(rotation: CGFloat, velocity: CGFloat)> {
         return self.map { gesture in
-            return gesture.rotation
-        }
-    }
-
-    public var velocity: Observable<CGFloat> {
-        return self.map { gesture in
-            return gesture.velocity
+            return (gesture.rotation, gesture.velocity)
         }
     }
 }

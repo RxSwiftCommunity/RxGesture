@@ -21,20 +21,12 @@
 import RxSwift
 import RxCocoa
 
-public extension ObservableType where E: UIGestureRecognizer {
-    public func filterState(_ state: UIGestureRecognizerState) -> Observable<E> {
-        return filterState(in: [state])
+final class PermissiveGestureRecognizerDelegate: NSObject, UIGestureRecognizerDelegate {
+
+    static let shared = PermissiveGestureRecognizerDelegate()
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 
-    public func filterState(in states: [UIGestureRecognizerState]) -> Observable<E> {
-        return self.filter { gesture in
-            return states.contains(gesture.state)
-        }
-    }
-
-    public func location(inView view: UIView? = nil) -> Observable<CGPoint> {
-        return self.map { gesture in
-            return gesture.location(in: view ?? gesture.view?.superview)
-        }
-    }
 }

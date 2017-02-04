@@ -277,6 +277,7 @@
 		87BD93141E456A3300F01485 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BD93131E456A3300F01485 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift */; };
 		87BD93161E456BE200F01485 /* UIGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BD93151E456BE200F01485 /* UIGestureRecognizer+RxGesture.swift */; };
 		87D82AA42F95F0F6140FF49CFB948ECB /* InvocableScheduledItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF8D7ACFF73EACF8B0DE68A5666638E /* InvocableScheduledItem.swift */; };
+		87DE5FA91E467ECF002D73D8 /* PermissiveGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FA81E467ECF002D73D8 /* PermissiveGestureRecognizerDelegate.swift */; };
 		88773574DEF1098BF28770D42FE664E9 /* RxTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20DD31A76735F2AF3B6C4DEF0FCF1F5 /* RxTarget.swift */; };
 		887E99A910BED7544C0E3AD0F9D12283 /* SynchronizedUnsubscribeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1781BC9260FABCE3F52BCA8BB8B124A /* SynchronizedUnsubscribeType.swift */; };
 		88964EF3EF71872D120F14BB30CB5FFD /* CombineLatest+arity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF952714421B4A6C6542E4CCD5DBD0F0 /* CombineLatest+arity.swift */; };
@@ -767,6 +768,7 @@
 		87BD93131E456A3300F01485 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreenEdgePanGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		87BD93151E456BE200F01485 /* UIGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		87D0B03A4F086C597913876158CD0BEF /* ScheduledDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScheduledDisposable.swift; path = RxSwift/Disposables/ScheduledDisposable.swift; sourceTree = "<group>"; };
+		87DE5FA81E467ECF002D73D8 /* PermissiveGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissiveGestureRecognizerDelegate.swift; sourceTree = "<group>"; };
 		8822B80A6A868B58E68512A9C1288FC8 /* Pods-RxGesture_OSX_Demo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RxGesture_OSX_Demo-dummy.m"; sourceTree = "<group>"; };
 		89313C30E1C3D4E67400A22F60297401 /* Repeat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Repeat.swift; path = RxSwift/Observables/Implementations/Repeat.swift; sourceTree = "<group>"; };
 		89826CE0EC27D3086FB8F755A8730376 /* Just.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Just.swift; path = RxSwift/Observables/Implementations/Just.swift; sourceTree = "<group>"; };
@@ -1432,6 +1434,7 @@
 			isa = PBXGroup;
 			children = (
 				346A42D148440AC8C28B4FFE785F624B /* UIView+RxGesture.swift */,
+				87DE5FA81E467ECF002D73D8 /* PermissiveGestureRecognizerDelegate.swift */,
 				87BD93151E456BE200F01485 /* UIGestureRecognizer+RxGesture.swift */,
 				87BD93021E455DB300F01485 /* UITapGestureRecognizer+RxGesture.swift */,
 				87BD93041E455DBE00F01485 /* UIPinchGestureRecognizer+RxGesture.swift */,
@@ -1759,6 +1762,7 @@
 				87BD930A1E455EED00F01485 /* UIPanGestureRecognizer+RxGesture.swift in Sources */,
 				87BD93121E456A1700F01485 /* UIRotationGestureRecognizer+RxGesture.swift in Sources */,
 				62C8833D0208165790B580146D754E87 /* RotateConfig.swift in Sources */,
+				87DE5FA91E467ECF002D73D8 /* PermissiveGestureRecognizerDelegate.swift in Sources */,
 				7DD85B1B5D912E7B3AF31BFDF5BD39F2 /* RxGesture-iOS-dummy.m in Sources */,
 				87BD93081E455EED00F01485 /* UITapGestureRecognizer+RxGesture.swift in Sources */,
 				9E056CF00CFAF304B3AF05B632CE48E3 /* RxGesture.swift in Sources */,

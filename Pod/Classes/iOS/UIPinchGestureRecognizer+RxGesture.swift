@@ -18,7 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
 import RxSwift
 import RxCocoa
 
@@ -29,5 +28,13 @@ public extension Reactive where Base: UIView {
         ) -> ControlEvent<UIPinchGestureRecognizer> {
 
         return recognized(UIPinchGestureRecognizer(), configuration: configuration)
+    }
+}
+
+public extension ObservableType where E: UIPinchGestureRecognizer {
+    public func scale() -> Observable<(scale: CGFloat, velocity: CGFloat)> {
+        return self.map { gesture in
+            return (gesture.scale, gesture.velocity)
+        }
     }
 }
