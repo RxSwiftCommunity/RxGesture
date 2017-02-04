@@ -33,7 +33,8 @@ extension Reactive where Base: UIView {
     /// - seealso: `RxCocoa` adds `rx.tap` to `NSButton/UIButton` and is sufficient if you only need to subscribe
     ///   on taps on buttons. `RxGesture` on the other hand enables `userInteractionEnabled` and handles gestures on any view
 
-    public func recognized<G: UIGestureRecognizer>(_ gesture: G) -> ControlEvent<G> {
+    public func recognized<G: UIGestureRecognizer>(_ gesture: G, configuration: ((G) -> Void)? = nil) -> ControlEvent<G> {
+        configuration?(gesture)
         let source: Observable<G> = Observable
             .create { observer in
                 MainScheduler.ensureExecutingOnScheduler()

@@ -23,9 +23,15 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: UIView {
-    public func screenEdgePanGesture(edges: UIRectEdge) -> ControlEvent<UIScreenEdgePanGestureRecognizer> {
-        let gestureRecognizer = UIScreenEdgePanGestureRecognizer()
-        gestureRecognizer.edges = edges
-        return recognized(gestureRecognizer)
+
+    public func screenEdgePanGesture(
+        edges: UIRectEdge,
+        configuration: ((UIScreenEdgePanGestureRecognizer) -> Void)? = nil
+        ) -> ControlEvent<UIScreenEdgePanGestureRecognizer> {
+
+        return recognized(UIScreenEdgePanGestureRecognizer()) { gestureRecognizer in
+            gestureRecognizer.edges = edges
+            configuration?(gestureRecognizer)
+        }
     }
 }

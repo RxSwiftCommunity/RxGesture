@@ -23,10 +23,17 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: UIView {
-    public func tapGesture(numberOfTouchesRequired: Int = 1, numberOfTapsRequired: Int = 1) -> ControlEvent<UITapGestureRecognizer> {
-        let gestureRecognizer = UITapGestureRecognizer()
-        gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
-        gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
-        return recognized(gestureRecognizer)
+
+    public func tapGesture(
+        numberOfTouchesRequired: Int = 1,
+        numberOfTapsRequired: Int = 1,
+        configuration: ((UITapGestureRecognizer) -> Void)? = nil
+        ) -> ControlEvent<UITapGestureRecognizer> {
+
+        return recognized(UITapGestureRecognizer()) { gestureRecognizer in
+            gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
+            gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
+            configuration?(gestureRecognizer)
+        }
     }
 }

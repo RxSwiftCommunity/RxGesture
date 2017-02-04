@@ -23,11 +23,17 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: UIView {
-    public func panGesture(minimumNumberOfTouches: Int = 1, maximumNumberOfTouches: Int = Int.max) -> ControlEvent<UIPanGestureRecognizer> {
-        let gestureRecognizer = UIPanGestureRecognizer()
-        gestureRecognizer.minimumNumberOfTouches = minimumNumberOfTouches
-        gestureRecognizer.maximumNumberOfTouches = maximumNumberOfTouches
-        return recognized(gestureRecognizer)
+    public func panGesture(
+        minimumNumberOfTouches: Int = 1,
+        maximumNumberOfTouches: Int = Int.max,
+        configuration: ((UIPanGestureRecognizer) -> Void)? = nil
+        ) -> ControlEvent<UIPanGestureRecognizer> {
+
+        return recognized(UIPanGestureRecognizer()){ gestureRecognizer in
+            gestureRecognizer.minimumNumberOfTouches = minimumNumberOfTouches
+            gestureRecognizer.maximumNumberOfTouches = maximumNumberOfTouches
+            configuration?(gestureRecognizer)
+        }
     }
 }
 

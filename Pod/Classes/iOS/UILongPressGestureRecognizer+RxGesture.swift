@@ -23,12 +23,21 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: UIView {
-    public func longPressGesture(numberOfTapsRequired: Int = 0, numberOfTouchesRequired: Int = 1, minimumPressDuration: CFTimeInterval = 0.5, allowableMovement: CGFloat = 10) -> ControlEvent<UILongPressGestureRecognizer> {
-        let gestureRecognizer = UILongPressGestureRecognizer()
-        gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
-        gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
-        gestureRecognizer.minimumPressDuration = minimumPressDuration
-        gestureRecognizer.allowableMovement = allowableMovement
-        return recognized(gestureRecognizer)
+
+    public func longPressGesture(
+        numberOfTapsRequired: Int = 0,
+        numberOfTouchesRequired: Int = 1,
+        minimumPressDuration: CFTimeInterval = 0.5,
+        allowableMovement: CGFloat = 10,
+        configuration: ((UILongPressGestureRecognizer) -> Void)? = nil
+        ) -> ControlEvent<UILongPressGestureRecognizer> {
+
+        return recognized(UILongPressGestureRecognizer()) { gestureRecognizer in
+            gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
+            gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
+            gestureRecognizer.minimumPressDuration = minimumPressDuration
+            gestureRecognizer.allowableMovement = allowableMovement
+            configuration?(gestureRecognizer)
+        }
     }
 }

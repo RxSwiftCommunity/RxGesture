@@ -23,9 +23,11 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: UIView {
-    public func rotationGesture() -> ControlEvent<UIRotationGestureRecognizer> {
-        let gestureRecognizer = UIRotationGestureRecognizer()
-        return recognized(gestureRecognizer)
+
+    public func rotationGesture(
+        configuration: ((UIRotationGestureRecognizer) -> Void)? = nil
+        ) -> ControlEvent<UIRotationGestureRecognizer> {
+        return recognized(UIRotationGestureRecognizer(), configuration: configuration)
     }
 }
 

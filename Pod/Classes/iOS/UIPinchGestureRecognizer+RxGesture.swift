@@ -23,8 +23,11 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: UIView {
-    public func pinchGesture() -> ControlEvent<UIPinchGestureRecognizer> {
-        let gestureRecognizer = UIPinchGestureRecognizer()
-        return recognized(gestureRecognizer)
+
+    public func pinchGesture(
+        configuration: ((UIPinchGestureRecognizer) -> Void)? = nil
+        ) -> ControlEvent<UIPinchGestureRecognizer> {
+
+        return recognized(UIPinchGestureRecognizer(), configuration: configuration)
     }
 }

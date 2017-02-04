@@ -23,11 +23,18 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: UIView {
-    public func swipeGesture(direction: UISwipeGestureRecognizerDirection, numberOfTouchesRequired: Int = 1) -> ControlEvent<UISwipeGestureRecognizer> {
-        let gestureRecognizer = UISwipeGestureRecognizer()
-        gestureRecognizer.direction = direction
-        gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
-        return recognized(gestureRecognizer)
+
+    public func swipeGesture(
+        direction: UISwipeGestureRecognizerDirection,
+        numberOfTouchesRequired: Int = 1,
+        configuration: ((UISwipeGestureRecognizer) -> Void)? = nil
+        ) -> ControlEvent<UISwipeGestureRecognizer> {
+
+        return recognized(UISwipeGestureRecognizer()) { gestureRecognizer in
+            gestureRecognizer.direction = direction
+            gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
+            configuration?(gestureRecognizer)
+        }
     }
 
     public func swipeDownGesture(numberOfTouchesRequired: Int = 1) -> ControlEvent<UISwipeGestureRecognizer> {
