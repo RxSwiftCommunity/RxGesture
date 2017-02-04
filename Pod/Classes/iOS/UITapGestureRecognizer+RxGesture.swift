@@ -18,36 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+
 import RxSwift
 import RxCocoa
 
-/// An enumeration to provide a list of valid gestures
-public enum RxGestureTypeOption: Equatable {
-
-    //: Shared gestures
-    case pan(PanConfig)
-    case rotate(RotateConfig)
-    
-    //: OSX gestures
-    case click, rightClick
-    case clickNumberOfTimes(Int)
-
-    public static func all() -> [RxGestureTypeOption] {
-        return [
-            .pan(.any), rotate(.any),
-            .click, .rightClick, .clickNumberOfTimes(0)
-        ]
-    }
-}
-
-public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
-    switch (lhs, rhs) {
-
-        case (.pan, .pan), (.rotate, .rotate), (.click, .click),
-             (.rightClick, .rightClick), (.clickNumberOfTimes, .clickNumberOfTimes):
-            
-            return true
-            
-        default: return false
+public extension Reactive where Base: UIView {
+    public func tapGesture(numberOfTouchesRequired: Int = 1, numberOfTapsRequired: Int = 1) -> ControlEvent<UITapGestureRecognizer> {
+        let gestureRecognizer = UITapGestureRecognizer()
+        gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
+        gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
+        return recognized(gestureRecognizer)
     }
 }

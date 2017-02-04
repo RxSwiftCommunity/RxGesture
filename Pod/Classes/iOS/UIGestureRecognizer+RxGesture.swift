@@ -18,36 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+
 import RxSwift
 import RxCocoa
 
-/// An enumeration to provide a list of valid gestures
-public enum RxGestureTypeOption: Equatable {
-
-    //: Shared gestures
-    case pan(PanConfig)
-    case rotate(RotateConfig)
-    
-    //: OSX gestures
-    case click, rightClick
-    case clickNumberOfTimes(Int)
-
-    public static func all() -> [RxGestureTypeOption] {
-        return [
-            .pan(.any), rotate(.any),
-            .click, .rightClick, .clickNumberOfTimes(0)
-        ]
+public extension ObservableType where E: UIGestureRecognizer {
+    public func filterState(in states: [UIGestureRecognizerState]) -> Observable<E> {
+        return self.filter { gesture in
+            return states.contains(gesture.state)
+        }
     }
-}
 
-public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
-    switch (lhs, rhs) {
-
-        case (.pan, .pan), (.rotate, .rotate), (.click, .click),
-             (.rightClick, .rightClick), (.clickNumberOfTimes, .clickNumberOfTimes):
-            
-            return true
-            
-        default: return false
+    public func location(inView view: UIView? = nil) -> Observable<CGPoint> {
+        return self.map { gesture in
+            return gesture.location(in: view ?? gesture.view?.superview)
+        }
     }
 }
