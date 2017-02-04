@@ -15,6 +15,7 @@
 		8755AD6D1E45E88800CA32A2 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755AD651E45E88800CA32A2 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift */; };
 		8755AD6E1E45E88800CA32A2 /* UISwipeGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755AD661E45E88800CA32A2 /* UISwipeGestureRecognizer+RxGesture.swift */; };
 		8755AD6F1E45E88800CA32A2 /* UITapGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8755AD671E45E88800CA32A2 /* UITapGestureRecognizer+RxGesture.swift */; };
+		87DE5FAD1E469129002D73D8 /* TransformGestureRecognizers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FAC1E469129002D73D8 /* TransformGestureRecognizers.swift */; };
 		87DE5FAF1E469139002D73D8 /* PermissiveGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FAE1E469139002D73D8 /* PermissiveGestureRecognizerDelegate.swift */; };
 		F4CC4C221DEBA895009ED835 /* RxGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CC4C201DEBA895009ED835 /* RxGesture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4CC4C341DEBAA40009ED835 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = F4CC4C2B1DEBAA40009ED835 /* .gitkeep */; };
@@ -36,6 +37,7 @@
 		8755AD651E45E88800CA32A2 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreenEdgePanGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		8755AD661E45E88800CA32A2 /* UISwipeGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISwipeGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		8755AD671E45E88800CA32A2 /* UITapGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
+		87DE5FAC1E469129002D73D8 /* TransformGestureRecognizers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformGestureRecognizers.swift; sourceTree = "<group>"; };
 		87DE5FAE1E469139002D73D8 /* PermissiveGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissiveGestureRecognizerDelegate.swift; sourceTree = "<group>"; };
 		F4CC4C1D1DEBA895009ED835 /* RxGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CC4C201DEBA895009ED835 /* RxGesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxGesture.h; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				8755AD651E45E88800CA32A2 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift */,
 				8755AD661E45E88800CA32A2 /* UISwipeGestureRecognizer+RxGesture.swift */,
 				8755AD671E45E88800CA32A2 /* UITapGestureRecognizer+RxGesture.swift */,
+				87DE5FAC1E469129002D73D8 /* TransformGestureRecognizers.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 			files = (
 				8755AD6E1E45E88800CA32A2 /* UISwipeGestureRecognizer+RxGesture.swift in Sources */,
 				F4CC4C3A1DEBAA40009ED835 /* RxGesture.swift in Sources */,
+				87DE5FAD1E469129002D73D8 /* TransformGestureRecognizers.swift in Sources */,
 				F4CC4C351DEBAA40009ED835 /* UIView+RxGesture.swift in Sources */,
 				8755AD6F1E45E88800CA32A2 /* UITapGestureRecognizer+RxGesture.swift in Sources */,
 				87DE5FAF1E469139002D73D8 /* PermissiveGestureRecognizerDelegate.swift in Sources */,

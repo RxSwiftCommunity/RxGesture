@@ -20,6 +20,7 @@ let infoList = [
     "Drag the square to a different location",
     "Rotate the square",
     "Pinch the square",
+    "Transform the square"
 ]
 
 let codeList = [
@@ -31,6 +32,7 @@ let codeList = [
     "let panGesture = myView.rx\n\t.panGesture()\n\t.shareReplay(1)\n\npanGesture\n\t.filterState(.changed)\n\t.translate()\n\t.subscribeNext {...}\n\npanGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
     "let rotationGesture = myView.rx\n\t.rotationGesture()\n\t.shareReplay(1)\n\nrotationGesture\n\t.filterState(.changed)\n\t.rotation()\n\t.subscribeNext {...}\n\nrotationGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
     "let pinchGesture = myView.rx\n\t.pinchGesture()\n\t.shareReplay(1)\n\npinchGesture\n\t.filterState(.changed)\n\t.scale()\n\t.subscribeNext {...}\n\npinchGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
+    "let transformGestures = myView.rx\n\t.transformGestures()\n\t.shareReplay(1)\n\ntransformGestures\n\t.filterState(.changed)\n\t.transform()\n\t.subscribeNext {...}\n\ntransformGestures\n\t.filterState(.ended)\n\t.subscribeNext {...}",
 ]
 
 class ViewController: UIViewController {
@@ -197,6 +199,31 @@ class ViewController: UIViewController {
             pinchGesture
                 .filterState(.ended)
                 .subscribe(onNext: {[weak self] gesture in
+                    guard let this = self else {return}
+                    UIView.animate(withDuration: 0.5, animations: {
+                        this.myViewText.text = nil
+                        this.myView.transform = .identity
+                        this.nextStep😁.onNext()
+                    })
+                })
+                .addDisposableTo(stepBag)
+
+        case 8: //transforming
+
+            let transformGestures = myView.rx.transformGestures().shareReplay(1)
+
+            transformGestures
+                .filterState(.changed)
+                .transform()
+                .subscribe(onNext: {[weak self] transform, _ in
+                    guard let this = self else {return}
+                    this.myView.transform = transform
+                })
+                .addDisposableTo(stepBag)
+
+            transformGestures
+                .filterState(.ended)
+                .subscribe(onNext: {[weak self] _ in
                     guard let this = self else {return}
                     UIView.animate(withDuration: 0.5, animations: {
                         this.myViewText.text = nil
