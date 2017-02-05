@@ -18,31 +18,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import RxSwift
+import RxCocoa
 
-public struct RotateConfig {
-    public enum State {
-        case began, changed, ended, any
+public extension ObservableType where E: NSGestureRecognizer {
+    public func filterState(_ state: NSGestureRecognizerState) -> Observable<E> {
+        return filterState(in: [state])
     }
-    
-    public let rotation: CGFloat
-    
-    public let state: State
-    public var recognizer: AnyObject?
-    
-    public static let began: RotateConfig = {
-        return RotateConfig(rotation: 0, state: .began, recognizer: nil)
-    }()
 
-    public static let changed: RotateConfig = {
-        return RotateConfig(rotation: 0, state: .changed, recognizer: nil)
-    }()
+    public func filterState(in states: [NSGestureRecognizerState]) -> Observable<E> {
+        return self.filter { gesture in
+            return states.contains(gesture.state)
+        }
+    }
 
-    public static let ended: RotateConfig = {
-        return RotateConfig(rotation: 0, state: .ended, recognizer: nil)
-    }()
-    
-    public static let any: RotateConfig = {
-        return RotateConfig(rotation: 0, state: .any, recognizer: nil)
-    }()
+    public func location(inView view: NSView? = nil) -> Observable<NSPoint> {
+        return self.map { gesture in
+            return gesture.location(in: view ?? gesture.view?.superview)
+        }
+    }
 }

@@ -21,33 +21,12 @@
 import RxSwift
 import RxCocoa
 
-/// An enumeration to provide a list of valid gestures
-public enum RxGestureTypeOption: Equatable {
+final class PermissiveGestureRecognizerDelegate: NSObject, NSGestureRecognizerDelegate {
 
-    //: Shared gestures
-    case pan(PanConfig)
-    case rotate(RotateConfig)
-    
-    //: OSX gestures
-    case click, rightClick
-    case clickNumberOfTimes(Int)
+    static let shared = PermissiveGestureRecognizerDelegate()
 
-    public static func all() -> [RxGestureTypeOption] {
-        return [
-            .pan(.any), rotate(.any),
-            .click, .rightClick, .clickNumberOfTimes(0)
-        ]
+    func gestureRecognizer(_ gestureRecognizer: NSGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: NSGestureRecognizer) -> Bool {
+        return true
     }
-}
 
-public func ==(lhs: RxGestureTypeOption, rhs: RxGestureTypeOption) -> Bool {
-    switch (lhs, rhs) {
-
-        case (.pan, .pan), (.rotate, .rotate), (.click, .click),
-             (.rightClick, .rightClick), (.clickNumberOfTimes, .clickNumberOfTimes):
-            
-            return true
-            
-        default: return false
-    }
 }

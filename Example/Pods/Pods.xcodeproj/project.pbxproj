@@ -15,7 +15,6 @@
 		029796B688DE0B6C994EE93BC324B2BB /* CompositeDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFB1BBD6AC3438CB2ABD59BC88CA6DC /* CompositeDisposable.swift */; };
 		03616F93CAAC7551E46C701A7D695B36 /* RxCocoaRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 826ED44554A08DEC4A6E0759EDF347D9 /* RxCocoaRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03A7F2C8F5B0D8C9E23554B545D258F1 /* ShareReplay1WhileConnected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A18D60E1BC08E9C642CD8413E9F8C15 /* ShareReplay1WhileConnected.swift */; };
-		03EBE5E66AFAE13C0A171502EA7E2532 /* PanConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357C4FFE8AEAF01AC8BF4E4257EBBB3 /* PanConfig.swift */; };
 		045B10B9315F778E4810EF279CAF0281 /* NSButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625FFF27CDE7F76F86075EA43A37F801 /* NSButton+Rx.swift */; };
 		05DA6759AA09ACCD97ADF9837CE9179E /* Reactive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE692D2C59EF82D718E8376F63A47DD /* Reactive.swift */; };
 		05E0854071A17529B47260DF08D1E9F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47459C2AC4695E3DFEFC8AB2F672A0C2 /* Foundation.framework */; };
@@ -45,7 +44,6 @@
 		116E0E75692B88A9E388A77FC21E2791 /* Observable+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2716B18CAB1ABCB17DFA5635520CBF7 /* Observable+Creation.swift */; };
 		12010FC54327B23BC24A2CCE3B81698C /* BinaryDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048E019925BF23722A91DF453DCA80AB /* BinaryDisposable.swift */; };
 		1283E5247A8BD75980C10885C91EEF14 /* SharedSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F24AB43D475D70114837A00E95CE02 /* SharedSequence.swift */; };
-		12CBBF7CDD377AAC44E0CA9FD7C4DBAB /* RotateConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42128CFE52C9649EA3E465D917000E6B /* RotateConfig.swift */; };
 		131C123B732689B2949B9CE7ABA1E5C5 /* DistinctUntilChanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BD213FE41336170335862267A66ACB /* DistinctUntilChanged.swift */; };
 		168FAA877C20DC110666DF6DF4E4BF42 /* TakeLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121683441F01338E99A0EED69D993F68 /* TakeLast.swift */; };
 		17075241A973D44F5F709C577623262A /* WithLatestFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D4582D1D44FBCDDF68741F282DB0D7 /* WithLatestFrom.swift */; };
@@ -180,7 +178,6 @@
 		5D1AD050C0A9C7ECF64F4111A56034BD /* Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF74FA61478D78294495E4BD8220CC7 /* Sink.swift */; };
 		5ED8A776018412291C8A48644C0F5998 /* StartWith.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F5A96CBED832841B18784B1025C0A6 /* StartWith.swift */; };
 		61AE8CC88BD022C94EEC975C2F8F6EC1 /* UIImageView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96591D0BF40F2EC85EE75663B3FD143 /* UIImageView+Rx.swift */; };
-		62C8833D0208165790B580146D754E87 /* RotateConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42128CFE52C9649EA3E465D917000E6B /* RotateConfig.swift */; };
 		62FBCE74B24E7E67CE62DCD574D791AA /* ControlTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FD5909C786C071AD3BA47A98A87789 /* ControlTarget.swift */; };
 		62FEE4FEFBE3CC6664D2D308547784F4 /* UIControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF11CAEBB85D44DC8899DC89C812D59F /* UIControl+Rx.swift */; };
 		64109002DC279C92742438D0A514489D /* Reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17432809E8E89CCE4A54B89C4D3FCAA7 /* Reduce.swift */; };
@@ -257,7 +254,6 @@
 		8210413BBE71B5AC8DA317A0493EE604 /* Repeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89313C30E1C3D4E67400A22F60297401 /* Repeat.swift */; };
 		82EACEEFB311FCF5D6A1F21B65FECE3C /* BehaviorSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A53BAE3BF6AA1B1315F07AF6F2CAE /* BehaviorSubject.swift */; };
 		832E7AC408BE832585F319397707B631 /* UIProgressView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815B1EB0310560FA5900D3376B443B8B /* UIProgressView+Rx.swift */; };
-		838D968F0F8A093F86B8B165850775E5 /* RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D36A1018B7B583A8902E614432BE8 /* RxGesture.swift */; };
 		83C20E6657326B8D805A471B4F36D049 /* ImmediateSchedulerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4546D57FD31F2C0DCEBACB4ED6EF5AC /* ImmediateSchedulerType.swift */; };
 		84445B36F8E836DC48FED1FFB4081A3E /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFCB5F633A6189F193AE7C503ADC355 /* Variable.swift */; };
 		845CF0D95B6F65F5C59141BF4EAC2166 /* Concat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B172C4468729F90842A7EFAEBB1621 /* Concat.swift */; };
@@ -279,6 +275,13 @@
 		87D82AA42F95F0F6140FF49CFB948ECB /* InvocableScheduledItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF8D7ACFF73EACF8B0DE68A5666638E /* InvocableScheduledItem.swift */; };
 		87DE5FA91E467ECF002D73D8 /* PermissiveGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FA81E467ECF002D73D8 /* PermissiveGestureRecognizerDelegate.swift */; };
 		87DE5FAB1E46852C002D73D8 /* TransformGestureRecognizers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FAA1E46852C002D73D8 /* TransformGestureRecognizers.swift */; };
+		87DE5FB31E4699CC002D73D8 /* PermissiveGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FB01E4699CC002D73D8 /* PermissiveGestureRecognizerDelegate.swift */; };
+		87DE5FB41E4699CC002D73D8 /* NSGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FB11E4699CC002D73D8 /* NSGestureRecognizer+RxGesture.swift */; };
+		87DE5FB51E4699CC002D73D8 /* NSClickGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FB21E4699CC002D73D8 /* NSClickGestureRecognizer+RxGesture.swift */; };
+		87DE5FBA1E469C3D002D73D8 /* NSPressGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FB61E469C3D002D73D8 /* NSPressGestureRecognizer+RxGesture.swift */; };
+		87DE5FBB1E469C3D002D73D8 /* NSPanGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FB71E469C3D002D73D8 /* NSPanGestureRecognizer+RxGesture.swift */; };
+		87DE5FBC1E469C3D002D73D8 /* NSMagnificationGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FB81E469C3D002D73D8 /* NSMagnificationGestureRecognizer+RxGesture.swift */; };
+		87DE5FBD1E469C3D002D73D8 /* NSRotationGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DE5FB91E469C3D002D73D8 /* NSRotationGestureRecognizer+RxGesture.swift */; };
 		88773574DEF1098BF28770D42FE664E9 /* RxTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20DD31A76735F2AF3B6C4DEF0FCF1F5 /* RxTarget.swift */; };
 		887E99A910BED7544C0E3AD0F9D12283 /* SynchronizedUnsubscribeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1781BC9260FABCE3F52BCA8BB8B124A /* SynchronizedUnsubscribeType.swift */; };
 		88964EF3EF71872D120F14BB30CB5FFD /* CombineLatest+arity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF952714421B4A6C6542E4CCD5DBD0F0 /* CombineLatest+arity.swift */; };
@@ -317,7 +320,6 @@
 		9D50949E049C4B8499A708455FEDC5DF /* _RXDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B411E1465518887F3BDBD91A9E4DD61 /* _RXDelegateProxy.m */; };
 		9D717FB3B856EF881B6FD19630987399 /* ConcurrentMainScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF43656C34DC19DD2E0CBC465A3D431 /* ConcurrentMainScheduler.swift */; };
 		9DDDF126EBDA13B57DC66F7571FA994B /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E20CB69CED7D8009453CDCACFBFA8D1 /* Scan.swift */; };
-		9E056CF00CFAF304B3AF05B632CE48E3 /* RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12D36A1018B7B583A8902E614432BE8 /* RxGesture.swift */; };
 		9E4315B48ECABCCDC45090341C95AED7 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17F8DA4871687B75B3DB1EEFC76792B /* Queue.swift */; };
 		9E6FAA3BD88FEBD5037EA7851116BF2C /* _RX.m in Sources */ = {isa = PBXBuildFile; fileRef = B62B8D5E987F9AD190E097E55BEC6285 /* _RX.m */; };
 		9EBF55272734A30031E4D5770341EEDD /* ConcurrentMainScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF43656C34DC19DD2E0CBC465A3D431 /* ConcurrentMainScheduler.swift */; };
@@ -397,7 +399,6 @@
 		C5E83C89E29CE5BD364B580DE6418181 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E507ED8D8C6ACD5EA72F3C60071991A /* Debug.swift */; };
 		C61AE87F93406B5F9E5945DCE69D591A /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CA5DEE1519F95A168135E8B18D0DBE /* Window.swift */; };
 		C64D1365A253127057BB753B30AD66B1 /* Bag+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86DCCB0492676C4A449E09B96EBAC1B /* Bag+Rx.swift */; };
-		C67C0A80414F5925D2F6B37A45D03606 /* PanConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357C4FFE8AEAF01AC8BF4E4257EBBB3 /* PanConfig.swift */; };
 		C8528DACB771E4B63E02368FE7EBC90F /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFCB5F633A6189F193AE7C503ADC355 /* Variable.swift */; };
 		C8F4C0A92C503D7938CD6919C29DD09A /* ShareReplay1WhileConnected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A18D60E1BC08E9C642CD8413E9F8C15 /* ShareReplay1WhileConnected.swift */; };
 		CA43E498B1E29B7BCD5E55F9A811819A /* TakeUntil.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6F1E0C57ABC3F8A9670C97E641F82C /* TakeUntil.swift */; };
@@ -610,7 +611,6 @@
 		11BCFE023496B63111AE83A66BD71D73 /* Merge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Merge.swift; path = RxSwift/Observables/Implementations/Merge.swift; sourceTree = "<group>"; };
 		121683441F01338E99A0EED69D993F68 /* TakeLast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TakeLast.swift; path = RxSwift/Observables/Implementations/TakeLast.swift; sourceTree = "<group>"; };
 		12EB942844F954B154567B4325D6A2BC /* Observable+Aggregate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Observable+Aggregate.swift"; path = "RxSwift/Observables/Observable+Aggregate.swift"; sourceTree = "<group>"; };
-		1357C4FFE8AEAF01AC8BF4E4257EBBB3 /* PanConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PanConfig.swift; sourceTree = "<group>"; };
 		14BA0D39FF7368798A002C43F06B036C /* Zip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Zip.swift; path = RxSwift/Observables/Implementations/Zip.swift; sourceTree = "<group>"; };
 		1532852760BBBA6EEDFBBA27D5C4C37A /* RefCount.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RefCount.swift; path = RxSwift/Observables/Implementations/RefCount.swift; sourceTree = "<group>"; };
 		167E55731C2CEC7B0DE56269B5D55F97 /* Sequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sequence.swift; path = RxSwift/Observables/Implementations/Sequence.swift; sourceTree = "<group>"; };
@@ -673,7 +673,6 @@
 		3D71391B3F298C0D4CBF6AB67C882FE2 /* Observable+Binding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Observable+Binding.swift"; path = "RxSwift/Observables/Observable+Binding.swift"; sourceTree = "<group>"; };
 		3F260E8DBA8FB0CEFD53C57CE82E1C1D /* RxGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		402CD82BCB011428DFC0C6607295B94B /* RxCocoa-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "RxCocoa-iOS.modulemap"; path = "../RxCocoa-iOS/RxCocoa-iOS.modulemap"; sourceTree = "<group>"; };
-		42128CFE52C9649EA3E465D917000E6B /* RotateConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RotateConfig.swift; sourceTree = "<group>"; };
 		4299B75D28CDB604051ACC76F449D6ED /* UICollectionView+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UICollectionView+Rx.swift"; path = "RxCocoa/iOS/UICollectionView+Rx.swift"; sourceTree = "<group>"; };
 		42CE730C208C521403AAEDB10F429531 /* KVORepresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KVORepresentable.swift; path = RxCocoa/Foundation/KVORepresentable.swift; sourceTree = "<group>"; };
 		4373D932803CE67D2D942685C3CC3C01 /* UILabel+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILabel+Rx.swift"; path = "RxCocoa/iOS/UILabel+Rx.swift"; sourceTree = "<group>"; };
@@ -771,6 +770,13 @@
 		87D0B03A4F086C597913876158CD0BEF /* ScheduledDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScheduledDisposable.swift; path = RxSwift/Disposables/ScheduledDisposable.swift; sourceTree = "<group>"; };
 		87DE5FA81E467ECF002D73D8 /* PermissiveGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissiveGestureRecognizerDelegate.swift; sourceTree = "<group>"; };
 		87DE5FAA1E46852C002D73D8 /* TransformGestureRecognizers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformGestureRecognizers.swift; sourceTree = "<group>"; };
+		87DE5FB01E4699CC002D73D8 /* PermissiveGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissiveGestureRecognizerDelegate.swift; sourceTree = "<group>"; };
+		87DE5FB11E4699CC002D73D8 /* NSGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
+		87DE5FB21E4699CC002D73D8 /* NSClickGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSClickGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
+		87DE5FB61E469C3D002D73D8 /* NSPressGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPressGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
+		87DE5FB71E469C3D002D73D8 /* NSPanGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPanGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
+		87DE5FB81E469C3D002D73D8 /* NSMagnificationGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMagnificationGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
+		87DE5FB91E469C3D002D73D8 /* NSRotationGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRotationGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		8822B80A6A868B58E68512A9C1288FC8 /* Pods-RxGesture_OSX_Demo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RxGesture_OSX_Demo-dummy.m"; sourceTree = "<group>"; };
 		89313C30E1C3D4E67400A22F60297401 /* Repeat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Repeat.swift; path = RxSwift/Observables/Implementations/Repeat.swift; sourceTree = "<group>"; };
 		89826CE0EC27D3086FB8F755A8730376 /* Just.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Just.swift; path = RxSwift/Observables/Implementations/Just.swift; sourceTree = "<group>"; };
@@ -900,7 +906,6 @@
 		EF302B57D32731302079BDFD2434E578 /* RxCocoa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RxCocoa.h; path = RxCocoa/RxCocoa.h; sourceTree = "<group>"; };
 		EF5D3ACCD7F68155FB0B30BD24E05925 /* AnonymousObserver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnonymousObserver.swift; path = RxSwift/Observers/AnonymousObserver.swift; sourceTree = "<group>"; };
 		F0F85B316342FEE2C7A31377C5262FB5 /* Bag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bag.swift; path = Platform/DataStructures/Bag.swift; sourceTree = "<group>"; };
-		F12D36A1018B7B583A8902E614432BE8 /* RxGesture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RxGesture.swift; sourceTree = "<group>"; };
 		F16AC1978201C8269B7FA9A7206D0335 /* NSControl+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSControl+Rx.swift"; path = "RxCocoa/macOS/NSControl+Rx.swift"; sourceTree = "<group>"; };
 		F17258B89AD514ECDD6D1A7FF00B00C2 /* Zip+arity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Zip+arity.swift"; path = "RxSwift/Observables/Implementations/Zip+arity.swift"; sourceTree = "<group>"; };
 		F44E3C503D061C0FA3DCA7578790273A /* Generate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Generate.swift; path = RxSwift/Observables/Implementations/Generate.swift; sourceTree = "<group>"; };
@@ -1025,6 +1030,13 @@
 			children = (
 				FAF37059389FD05B47E13E4E70202EE4 /* NSGestureRecognizer+Rx.swift */,
 				7EF8A102241B67AC9FC02713C7B7E02B /* NSView+RxGesture.swift */,
+				87DE5FB01E4699CC002D73D8 /* PermissiveGestureRecognizerDelegate.swift */,
+				87DE5FB11E4699CC002D73D8 /* NSGestureRecognizer+RxGesture.swift */,
+				87DE5FB21E4699CC002D73D8 /* NSClickGestureRecognizer+RxGesture.swift */,
+				87DE5FB61E469C3D002D73D8 /* NSPressGestureRecognizer+RxGesture.swift */,
+				87DE5FB71E469C3D002D73D8 /* NSPanGestureRecognizer+RxGesture.swift */,
+				87DE5FB81E469C3D002D73D8 /* NSMagnificationGestureRecognizer+RxGesture.swift */,
+				87DE5FB91E469C3D002D73D8 /* NSRotationGestureRecognizer+RxGesture.swift */,
 			);
 			path = OSX;
 			sourceTree = "<group>";
@@ -1478,9 +1490,6 @@
 		FCB2D68D72FB3999CB32458CDF08C8DA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1357C4FFE8AEAF01AC8BF4E4257EBBB3 /* PanConfig.swift */,
-				42128CFE52C9649EA3E465D917000E6B /* RotateConfig.swift */,
-				F12D36A1018B7B583A8902E614432BE8 /* RxGesture.swift */,
 				DA7CEB7170233806C0624B40F54202BD /* iOS */,
 				149F94D2758222F321E5D77CDAE33667 /* OSX */,
 			);
@@ -1760,16 +1769,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C67C0A80414F5925D2F6B37A45D03606 /* PanConfig.swift in Sources */,
 				87BD93161E456BE200F01485 /* UIGestureRecognizer+RxGesture.swift in Sources */,
 				87BD930A1E455EED00F01485 /* UIPanGestureRecognizer+RxGesture.swift in Sources */,
 				87BD93121E456A1700F01485 /* UIRotationGestureRecognizer+RxGesture.swift in Sources */,
-				62C8833D0208165790B580146D754E87 /* RotateConfig.swift in Sources */,
 				87DE5FA91E467ECF002D73D8 /* PermissiveGestureRecognizerDelegate.swift in Sources */,
 				87DE5FAB1E46852C002D73D8 /* TransformGestureRecognizers.swift in Sources */,
 				7DD85B1B5D912E7B3AF31BFDF5BD39F2 /* RxGesture-iOS-dummy.m in Sources */,
 				87BD93081E455EED00F01485 /* UITapGestureRecognizer+RxGesture.swift in Sources */,
-				9E056CF00CFAF304B3AF05B632CE48E3 /* RxGesture.swift in Sources */,
 				1C9CB94B2907E904ACA546D413C6C502 /* UIView+RxGesture.swift in Sources */,
 				87BD93141E456A3300F01485 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift in Sources */,
 				87BD93101E4569D300F01485 /* UILongPressGestureRecognizer+RxGesture.swift in Sources */,
@@ -2084,12 +2090,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87DE5FBD1E469C3D002D73D8 /* NSRotationGestureRecognizer+RxGesture.swift in Sources */,
+				87DE5FB51E4699CC002D73D8 /* NSClickGestureRecognizer+RxGesture.swift in Sources */,
 				20662ED698735C52DBE251D5822C9183 /* NSGestureRecognizer+Rx.swift in Sources */,
 				5D020783762B62C6714AF2DD547EED12 /* NSView+RxGesture.swift in Sources */,
-				03EBE5E66AFAE13C0A171502EA7E2532 /* PanConfig.swift in Sources */,
-				12CBBF7CDD377AAC44E0CA9FD7C4DBAB /* RotateConfig.swift in Sources */,
+				87DE5FBB1E469C3D002D73D8 /* NSPanGestureRecognizer+RxGesture.swift in Sources */,
+				87DE5FBC1E469C3D002D73D8 /* NSMagnificationGestureRecognizer+RxGesture.swift in Sources */,
 				E37CB9C3BE3C3E9B5DF138E6DFE32D69 /* RxGesture-OSX-dummy.m in Sources */,
-				838D968F0F8A093F86B8B165850775E5 /* RxGesture.swift in Sources */,
+				87DE5FB31E4699CC002D73D8 /* PermissiveGestureRecognizerDelegate.swift in Sources */,
+				87DE5FBA1E469C3D002D73D8 /* NSPressGestureRecognizer+RxGesture.swift in Sources */,
+				87DE5FB41E4699CC002D73D8 /* NSGestureRecognizer+RxGesture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

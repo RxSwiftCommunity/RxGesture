@@ -18,37 +18,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import RxSwift
+import RxCocoa
 
-public struct PanConfig {
-    public enum State {
-        case began, changed, ended, any
+public extension Reactive where Base: NSView {
+    public func panGesture(
+        buttonMask: Int = 0x1,
+        configuration: ((NSPanGestureRecognizer) -> Void)? = nil
+        ) -> ControlEvent<NSPanGestureRecognizer> {
+
+        return addGestureRecognizer(NSPanGestureRecognizer()){ gestureRecognizer in
+            gestureRecognizer.buttonMask = buttonMask
+            configuration?(gestureRecognizer)
+        }
     }
-    
-    #if os(iOS)
-    public let translation: CGPoint
-    public let velocity: CGPoint
-    #elseif os(OSX)
-    public let translation: NSPoint
-    public let velocity: NSPoint
-    #endif
-    
-    public let state: State
-    public var recognizer: AnyObject?
-    
-    public static let began: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, state: .began, recognizer: nil)
-    }()
+}
 
-    public static let changed: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, state: .changed, recognizer: nil)
-    }()
-
-    public static let ended: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, state: .ended, recognizer: nil)
-    }()
-    
-    public static let any: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, state: .any, recognizer: nil)
-    }()
+public extension ObservableType where E: NSPanGestureRecognizer {
+    public func translation(inView view: NSView? = nil) -> Observable<(translation: NSPoint, velocity: NSPoint)> {
+        return self.map { gesture in
+            let view = view ?? gesture.view?.superview
+            return (
+                gesture.translation(in: view),
+                gesture.velocity(in: view)
+            )
+        }
+    }
 }
