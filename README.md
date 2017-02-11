@@ -16,21 +16,21 @@ You _might_ need to run `pod install` from the Example directory first.
 
 __RxGesture__ allows you to easily turn any view into a tappable or swipeable control like so:
 
-```ruby
-myView.rx.gesture(.tap).subscribe(onNext: {_ in
+```swift
+view.rx.gesture(.tap).subscribe(onNext: {_ in
    //react to taps
 }).addDisposableTo(stepBag)
 ```
 
 You can also react to more than one type of gesture. For example to dismiss a photo preview you might want to do that when the user taps it, or swipes up or down:
 
-```ruby
-myView.rx.gesture(.tap, .swipeUp, .swipeDown).subscribe(onNext: {_ in
+```swift
+view.rx.gesture(.tap, .swipeUp, .swipeDown).subscribe(onNext: {_ in
    //dismiss presented photo
 }).addDisposableTo(stepBag)
 ```
 
-`rx_gesture` is defined as `Observable<RxGestureTypeOption>` so what it emits is the concrete type of the gesture that was triggered (handy if you are observing more than one type)
+`rx.gesture` is defined as `Observable<RxGestureTypeOption>` so what it emits is the concrete type of the gesture that was triggered (handy if you are observing more than one type)
 
 On __iOS__ RXGesture supports:
 
@@ -46,12 +46,12 @@ On __OSX__ RXGesture supports:
  - .Click
  - .RightClick
  - .pan(.began), .pan(.changed), .pan(.ended), .pan(.any) (if used in one call to `rx.gesture` until `NSGestureRecognizer` implements `rx.event`)
- - .rotate(.began), .rotate(.changed), .rotate(.ended), .rotate(.any) (if used in one call to `rx.gesture` until `NSGestureRecognizer` implements `rx_event`)
+ - .rotate(.began), .rotate(.changed), .rotate(.ended), .rotate(.any) (if used in one call to `rx.gesture` until `NSGestureRecognizer` implements `rx.event`)
 
 If you are writing multi-platform code you can eventually write:
 
 ```swift
-myView.rx.gesture(.tap, .click).subscribe(...)
+view.rx.gesture(.tap, .click).subscribe(...)
 ```
 
 to observe for the concrete gesture on each platform.
@@ -63,7 +63,7 @@ Some recognizers fire a single event per gesture and don't provide any values. F
 Other recognizers provide details about the gesture (that also might be ongoing). For example the pan gesture will continuously provide you with the offset from the initial point where the gesture started:
 
 ```swift
-myView.rx.gesture(.pan(.changed)).subscribe(onNext: {[weak self] gesture in
+view.rx.gesture(.pan(.changed)).subscribe(onNext: {[weak self] gesture in
     switch gesture {
     case .pan(let data):
 	    print("offset: \(data.translation)")
@@ -85,7 +85,7 @@ This library depends on both __RxSwift__ and __RxCocoa__.
 RxGesture is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
-```ruby
+```swift
 pod "RxGesture"
 ```
 

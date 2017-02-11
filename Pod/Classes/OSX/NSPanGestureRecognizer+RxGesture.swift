@@ -21,16 +21,50 @@
 import RxSwift
 import RxCocoa
 
-public extension Reactive where Base: NSView {
-    public func panGesture(
-        buttonMask: Int = 0x1,
-        configuration: ((NSPanGestureRecognizer) -> Void)? = nil
-        ) -> ControlEvent<NSPanGestureRecognizer> {
+private enum Defaults {
+    static var buttonMask: Int = 0x1
+    static var configuration: ((NSPanGestureRecognizer) -> Void)? = nil
+}
 
-        return addGestureRecognizer(NSPanGestureRecognizer()){ gestureRecognizer in
+public struct PanGestureFactory: ConfigurableGestureFactory {
+    public typealias Gesture = NSPanGestureRecognizer
+    public let configuration: (NSPanGestureRecognizer) -> Void
+
+    public init(
+        buttonMask: Int = Defaults.buttonMask,
+        configuration: ((NSPanGestureRecognizer) -> Void)? = Defaults.configuration
+        ){
+        self.configuration = { gestureRecognizer in
             gestureRecognizer.buttonMask = buttonMask
             configuration?(gestureRecognizer)
         }
+    }
+}
+
+extension AnyGesture {
+
+    public static func pan(
+        buttonMask: Int = Defaults.buttonMask,
+        configuration: ((NSPanGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> AnyGesture {
+        let gesture = PanGestureFactory(
+            buttonMask: buttonMask,
+            configuration: configuration
+        )
+        return AnyGesture(gesture)
+    }
+}
+
+public extension Reactive where Base: NSView {
+    public func panGesture(
+        buttonMask: Int = Defaults.buttonMask,
+        configuration: ((NSPanGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> ControlEvent<NSPanGestureRecognizer> {
+
+        return gesture(PanGestureFactory(
+            buttonMask: buttonMask,
+            configuration: configuration
+        ))
     }
 }
 

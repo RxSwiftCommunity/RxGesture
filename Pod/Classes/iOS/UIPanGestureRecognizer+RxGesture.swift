@@ -21,18 +21,58 @@
 import RxSwift
 import RxCocoa
 
+
+private enum Defaults {
+    static var minimumNumberOfTouches: Int = 1
+    static var maximumNumberOfTouches: Int = Int.max
+    static var configuration: ((UIPanGestureRecognizer) -> Void)? = nil
+}
+
+public struct PanGestureFactory: ConfigurableGestureFactory {
+    public typealias Gesture = UIPanGestureRecognizer
+    public let configuration: (UIPanGestureRecognizer) -> Void
+
+    public init(
+        minimumNumberOfTouches: Int = Defaults.minimumNumberOfTouches,
+        maximumNumberOfTouches: Int = Defaults.maximumNumberOfTouches,
+        configuration: ((UIPanGestureRecognizer) -> Void)? = Defaults.configuration
+        ){
+        self.configuration = { gesture in
+            gesture.minimumNumberOfTouches = minimumNumberOfTouches
+            gesture.maximumNumberOfTouches = maximumNumberOfTouches
+            configuration?(gesture)
+        }
+    }
+}
+
+extension AnyGesture {
+
+    public static func pan(
+        minimumNumberOfTouches: Int = Defaults.minimumNumberOfTouches,
+        maximumNumberOfTouches: Int = Defaults.maximumNumberOfTouches,
+        configuration: ((UIPanGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> AnyGesture {
+        let gesture = PanGestureFactory(
+            minimumNumberOfTouches: minimumNumberOfTouches,
+            maximumNumberOfTouches: maximumNumberOfTouches,
+            configuration: configuration
+        )
+        return AnyGesture(gesture)
+    }
+}
+
 public extension Reactive where Base: UIView {
     public func panGesture(
-        minimumNumberOfTouches: Int = 1,
-        maximumNumberOfTouches: Int = Int.max,
-        configuration: ((UIPanGestureRecognizer) -> Void)? = nil
+        minimumNumberOfTouches: Int = Defaults.minimumNumberOfTouches,
+        maximumNumberOfTouches: Int = Defaults.maximumNumberOfTouches,
+        configuration: ((UIPanGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UIPanGestureRecognizer> {
 
-        return addGestureRecognizer(UIPanGestureRecognizer()){ gestureRecognizer in
-            gestureRecognizer.minimumNumberOfTouches = minimumNumberOfTouches
-            gestureRecognizer.maximumNumberOfTouches = maximumNumberOfTouches
-            configuration?(gestureRecognizer)
-        }
+        return gesture(PanGestureFactory(
+            minimumNumberOfTouches: minimumNumberOfTouches,
+            maximumNumberOfTouches: maximumNumberOfTouches,
+            configuration: configuration
+        ))
     }
 }
 

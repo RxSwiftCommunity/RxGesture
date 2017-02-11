@@ -21,12 +21,43 @@
 import RxSwift
 import RxCocoa
 
+private enum Defaults {
+    static var configuration: ((NSRotationGestureRecognizer) -> Void)? = nil
+}
+
+public struct RotationGestureFactory: ConfigurableGestureFactory {
+    public typealias Gesture = NSRotationGestureRecognizer
+    public let configuration: (NSRotationGestureRecognizer) -> Void
+
+    public init(
+        configuration: ((NSRotationGestureRecognizer) -> Void)? = Defaults.configuration
+        ){
+        self.configuration = { gesture in
+            configuration?(gesture)
+        }
+    }
+}
+
+extension AnyGesture {
+
+    public static func rotation(
+        configuration: ((NSRotationGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> AnyGesture {
+        let gesture = RotationGestureFactory(
+            configuration: configuration
+        )
+        return AnyGesture(gesture)
+    }
+}
+
 public extension Reactive where Base: NSView {
 
     public func rotationGesture(
-        configuration: ((NSRotationGestureRecognizer) -> Void)? = nil
+        configuration: ((NSRotationGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSRotationGestureRecognizer> {
-        return addGestureRecognizer(NSRotationGestureRecognizer(), configuration: configuration)
+        return gesture(RotationGestureFactory(
+            configuration: configuration
+        ))
     }
 }
 

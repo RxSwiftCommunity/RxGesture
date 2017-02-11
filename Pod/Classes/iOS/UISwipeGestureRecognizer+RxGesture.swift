@@ -21,46 +21,57 @@
 import RxSwift
 import RxCocoa
 
+private enum Defaults {
+    static var numberOfTouchesRequired: Int = 1
+    static var configuration: ((UISwipeGestureRecognizer) -> Void)? = nil
+}
+
+public struct SwipeGestureFactory: ConfigurableGestureFactory {
+    public typealias Gesture = UISwipeGestureRecognizer
+    public let configuration: (UISwipeGestureRecognizer) -> Void
+
+    public init(
+        _ direction: UISwipeGestureRecognizerDirection,
+        numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
+        configuration: ((UISwipeGestureRecognizer) -> Void)? = Defaults.configuration
+        ){
+        self.configuration = { gesture in
+            gesture.direction = direction
+            gesture.numberOfTouchesRequired = numberOfTouchesRequired
+            configuration?(gesture)
+        }
+    }
+}
+
+extension AnyGesture {
+
+    public static func swipe(
+        _ direction: UISwipeGestureRecognizerDirection,
+        numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
+        configuration: ((UISwipeGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> AnyGesture {
+        let gesture = SwipeGestureFactory(
+            direction,
+            numberOfTouchesRequired: numberOfTouchesRequired,
+            configuration: configuration
+        )
+        return AnyGesture(gesture)
+    }
+}
+
+
 public extension Reactive where Base: UIView {
 
     public func swipeGesture(
-        direction: UISwipeGestureRecognizerDirection,
-        numberOfTouchesRequired: Int = 1,
-        configuration: ((UISwipeGestureRecognizer) -> Void)? = nil
+        _ direction: UISwipeGestureRecognizerDirection,
+        numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
+        configuration: ((UISwipeGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UISwipeGestureRecognizer> {
 
-        return addGestureRecognizer(UISwipeGestureRecognizer()) { gestureRecognizer in
-            gestureRecognizer.direction = direction
-            gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
-            configuration?(gestureRecognizer)
-        }
-    }
-
-    public func swipeDownGesture(numberOfTouchesRequired: Int = 1) -> ControlEvent<UISwipeGestureRecognizer> {
-        return swipeGesture(
-            direction: .down,
-            numberOfTouchesRequired: numberOfTouchesRequired
-        )
-    }
-
-    public func swipeUpGesture(numberOfTouchesRequired: Int = 1) -> ControlEvent<UISwipeGestureRecognizer> {
-        return swipeGesture(
-            direction: .up,
-            numberOfTouchesRequired: numberOfTouchesRequired
-        )
-    }
-
-    public func swipeLeftGesture(numberOfTouchesRequired: Int = 1) -> ControlEvent<UISwipeGestureRecognizer> {
-        return swipeGesture(
-            direction: .left,
-            numberOfTouchesRequired: numberOfTouchesRequired
-        )
-    }
-
-    public func swipeRightGesture(numberOfTouchesRequired: Int = 1) -> ControlEvent<UISwipeGestureRecognizer> {
-        return swipeGesture(
-            direction: .right,
-            numberOfTouchesRequired: numberOfTouchesRequired
-        )
+        return gesture(SwipeGestureFactory(
+            direction,
+            numberOfTouchesRequired: numberOfTouchesRequired,
+            configuration: configuration
+        ))
     }
 }

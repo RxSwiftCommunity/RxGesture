@@ -21,13 +21,42 @@
 import RxSwift
 import RxCocoa
 
+private enum Defaults {
+    static var configuration: ((NSMagnificationGestureRecognizer) -> Void)? = nil
+}
+
+public struct MagnificationGestureFactory: ConfigurableGestureFactory {
+    public typealias Gesture = NSMagnificationGestureRecognizer
+    public let configuration: (NSMagnificationGestureRecognizer) -> Void
+
+    public init(
+        configuration: ((NSMagnificationGestureRecognizer) -> Void)? = Defaults.configuration
+        ){
+        self.configuration = configuration ?? { _ in }
+    }
+}
+
+extension AnyGesture {
+
+    public static func magnification(
+        configuration: ((NSMagnificationGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> AnyGesture {
+        let gesture = MagnificationGestureFactory(
+            configuration: configuration
+        )
+        return AnyGesture(gesture)
+    }
+}
+
 public extension Reactive where Base: NSView {
 
     public func magnificationGesture(
-        configuration: ((NSMagnificationGestureRecognizer) -> Void)? = nil
+        configuration: ((NSMagnificationGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSMagnificationGestureRecognizer> {
 
-        return addGestureRecognizer(NSMagnificationGestureRecognizer(), configuration: configuration)
+        return gesture(MagnificationGestureFactory(
+            configuration: configuration
+        ))
     }
 }
 

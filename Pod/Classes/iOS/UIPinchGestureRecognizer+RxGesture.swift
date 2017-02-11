@@ -21,13 +21,42 @@
 import RxSwift
 import RxCocoa
 
+private enum Defaults {
+    static var configuration: ((UIPinchGestureRecognizer) -> Void)? = nil
+}
+
+public struct PinchGestureFactory: ConfigurableGestureFactory {
+    public typealias Gesture = UIPinchGestureRecognizer
+    public let configuration: (UIPinchGestureRecognizer) -> Void
+
+    public init(
+        configuration: ((UIPinchGestureRecognizer) -> Void)? = Defaults.configuration
+        ){
+        self.configuration = configuration ?? { _ in }
+    }
+}
+
+extension AnyGesture {
+
+    public static func pinch(
+        configuration: ((UIPinchGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> AnyGesture {
+        let gesture = PinchGestureFactory(
+            configuration: configuration
+        )
+        return AnyGesture(gesture)
+    }
+}
+
 public extension Reactive where Base: UIView {
 
     public func pinchGesture(
-        configuration: ((UIPinchGestureRecognizer) -> Void)? = nil
+        configuration: ((UIPinchGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UIPinchGestureRecognizer> {
 
-        return addGestureRecognizer(UIPinchGestureRecognizer(), configuration: configuration)
+        return gesture(PinchGestureFactory(
+            configuration: configuration
+        ))
     }
 }
 

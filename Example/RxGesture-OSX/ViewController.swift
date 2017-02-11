@@ -12,36 +12,29 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
+
+class Step {
+    enum Action { case previous, next }
+
+    let title: String
+    let code: String
+    let install: (NSView, NSTextField, AnyObserver<Action>, DisposeBag) -> Void
+
+    init(title: String, code: String, install: @escaping (NSView, NSTextField, AnyObserver<Action>, DisposeBag) -> Void) {
+        self.title = title
+        self.code = code
+        self.install = install
+    }
+}
+
 class MacViewController: NSViewController {
-
-    let infoList = [
-        "Click the square",
-        "Double click the square",
-        "Right click the square",
-        "Click any button (left or right)",
-        "Long press the square",
-        "Drag the square around",
-        "Rotate the square with your trackpad, or click if you do not have a trackpad",
-        "Pinch the square with your trackpad, or click if you do not have a trackpad",
-    ]
-
-    let codeList = [
-        "myView.rx\n\t.clickGesture()\n\t.filterState(.recognized)\n\t.subscribeNext {...}",
-        "myView.rx\n\t.clickGesture(numberOfClicksRequired: 2)\n\t.filterState(.recognized)\n\t.subscribeNext {...}",
-        "myView.rx\n\t.rightClickGesture()\n\t.filterState(.recognized)\n\t.subscribeNext {...}",
-        "Observable\n\t.of(\n\t\tmyView.rx.clickGesture().filterState(.recognized),\n\t\tmyView.rx.rightClickGesture().filterState(.recognized)\n\t)\n\t.merge()\n\t.take(1)\n\t.subscribeNext {...}",
-        "myView.rx\n\t.pressGesture()\n\t.filterState(.began)\n\t.subscribeNext {...}",
-        "let panGesture = myView.rx\n\t.panGesture()\n\t.shareReplay(1)\n\npanGesture\n\t.filterState(.changed)\n\t.translate()\n\t.subscribeNext {...}\n\npanGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
-        "let rotationGesture = myView.rx\n\t.rotationGesture()\n\t.shareReplay(1)\n\nrotationGesture\n\t.filterState(.changed)\n\t.rotation()\n\t.subscribeNext {...}\n\nrotationGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
-        "let magnificationGesture = myView.rx\n\t.magnificationGesture()\n\t.shareReplay(1)\n\nmagnificationGesture\n\t.filterState(.changed)\n\t.scale()\n\t.subscribeNext {...}\n\nmagnificationGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
-        ]
 
     @IBOutlet weak var myView: NSView!
     @IBOutlet weak var myViewText: NSTextField!
     @IBOutlet weak var info: NSTextField!
     @IBOutlet weak var code: NSTextView!
 
-    fileprivate let nextStep😁 = PublishSubject<Void>()
+    fileprivate let nextStepObserver = PublishSubject<Step.Action>()
     fileprivate let bag = DisposeBag()
     fileprivate var stepBag = DisposeBag()
 
@@ -55,227 +48,241 @@ class MacViewController: NSViewController {
         myView.layer?.backgroundColor = NSColor.red.cgColor
         myView.layer?.cornerRadius = 5
 
-        nextStep😁
-            .scan(0, accumulator: { [unowned self] acc, _ in
-                return acc < self.codeList.count - 1 ? acc + 1 : 0
-            })
+        let steps: [Step] = [
+            clickStep,
+            doubleClickStep,
+            rightClickStep,
+            anyClickStep,
+            pressStep,
+            panStep,
+            rotateStep,
+            magnificationStep
+        ]
+
+        func newIndex(for index: Int, action: Step.Action) -> Int {
+            switch action {
+            case .previous:
+                return index > 0 ? index - 1 : steps.count - 1
+            case .next:
+                return index < steps.count - 1 ? index + 1 : 0
+            }
+        }
+
+        nextStepObserver
+            .scan(0, accumulator: newIndex)
             .startWith(0)
-            .subscribe(onNext: step)
+            .map { (steps[$0], $0) }
+            .subscribe(onNext: updateStep)
             .addDisposableTo(bag)
     }
 
-    func step(_ step: Int) {
-        //release previous recognizers
+    @IBAction func previousStep(_ sender: Any) {
+        nextStepObserver.onNext(.previous)
+    }
+
+    func updateStep(_ step: Step, at index: Int) {
         stepBag = DisposeBag()
 
-        info.stringValue = "\(step+1). \(infoList[step])"
-        code.string = codeList[step]
+        info.stringValue = "\(index + 1). " + step.title
+        code.string = step.code
 
-        //add current step recognizer
-        switch step {
-        case 0: //left click recognizer
-            myView.rx
+        myViewText.stringValue = ""
+        step.install(myView, myViewText, nextStepObserver.asObserver(), stepBag)
+
+        print("active gestures: \(myView.gestureRecognizers.count)")
+    }
+
+    lazy var clickStep: Step = Step(
+        title: "Click the square",
+        code: "view.rx\n\t.clickGesture()\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        install: { view, _, nextStep, stepBag in
+
+            view.animateTransform(to: CATransform3DIdentity)
+            view.animateBackgroundColor(to: .red)
+
+            view.rx
                 .clickGesture()
                 .filterState(.recognized)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let `self` = self else {return}
-
-                    self.myView.layer!.backgroundColor = NSColor.green.cgColor
-
-                    let anim = CABasicAnimation(keyPath: "backgroundColor")
-                    anim.fromValue = NSColor.red.cgColor
-                    anim.toValue = NSColor.green.cgColor
-                    self.myView.layer!.add(anim, forKey: nil)
-
-                    self.nextStep😁.onNext()
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 1: //double click recognizer
-            myView.rx
+    lazy var doubleClickStep: Step = Step(
+        title: "Double click the square",
+        code: "view.rx\n\t.clickGesture(numberOfClicksRequired: 2)\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        install: { view, _, nextStep, stepBag in
+
+            view.animateTransform(to: CATransform3DIdentity)
+            view.animateBackgroundColor(to: .green)
+
+            view.rx
                 .clickGesture(numberOfClicksRequired: 2)
                 .filterState(.recognized)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let `self` = self else {return}
-
-                    self.myView.layer!.backgroundColor = NSColor.blue.cgColor
-
-                    let anim = CABasicAnimation(keyPath: "backgroundColor")
-                    anim.fromValue = NSColor.green.cgColor
-                    anim.toValue = NSColor.blue.cgColor
-                    self.myView.layer!.add(anim, forKey: nil)
-
-                    self.nextStep😁.onNext()
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 2: //right click recognizer
-            myView.rx
+    lazy var rightClickStep: Step = Step(
+        title: "Right click the square",
+        code: "view.rx\n\t.rightClickGesture()\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        install: { view, _, nextStep, stepBag in
+
+            view.animateTransform(to: CATransform3DIdentity)
+            view.animateBackgroundColor(to: .blue)
+
+            view.rx
                 .rightClickGesture()
                 .filterState(.recognized)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let `self` = self else {return}
-
-                    self.myView.layer!.transform = CATransform3DMakeScale(1.5, 1.5, 1.0)
-
-                    let anim = CABasicAnimation(keyPath: "transform")
-                    anim.duration = 0.5
-                    anim.fromValue = NSValue(caTransform3D: CATransform3DIdentity)
-                    anim.toValue = NSValue(caTransform3D: CATransform3DMakeScale(1.5, 1.5, 1.0))
-                    self.myView.layer!.add(anim, forKey: nil)
-
-                    self.nextStep😁.onNext()
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 3: //any button
-            Observable
-                .of(
-                    myView.rx.clickGesture().filterState(.recognized),
-                    myView.rx.rightClickGesture().filterState(.recognized)
-                )
-                .merge()
-                .take(1)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let `self` = self else {return}
+    lazy var anyClickStep: Step = Step(
+        title: "Click any button (left or right)",
+        code: "view.rx\n\t.anyGesture(.click(), .rightClick())\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        install: { view, _, nextStep, stepBag in
 
-                    self.myView.layer!.transform = CATransform3DMakeScale(2.0, 2.0, 1.0)
-                    self.myView.layer!.backgroundColor = NSColor.red.cgColor
+            view.animateTransform(to: CATransform3DMakeScale(1.5, 1.5, 1.0))
+            view.animateBackgroundColor(to: .red)
 
-                    let anim = CABasicAnimation(keyPath: "transform")
-                    anim.duration = 0.5
-                    anim.fromValue = NSValue(caTransform3D: CATransform3DMakeScale(1.5, 1.5, 1.0))
-                    anim.toValue = NSValue(caTransform3D: CATransform3DMakeScale(2.0, 2.0, 1.0))
-                    self.myView.layer!.add(anim, forKey: nil)
-
-                    self.nextStep😁.onNext()
+            view.rx
+                .anyGesture(.click(), .rightClick())
+                .filterState(.recognized)
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 }).addDisposableTo(stepBag)
+    })
 
-        case 4: //press recognizer
-            myView.rx
+    lazy var pressStep: Step = Step(
+        title: "Long press the square",
+        code: "view.rx\n\t.pressGesture()\n\t.filterState(.began)\n\t.subscribe(onNext: {...})",
+        install: { view, _, nextStep, stepBag in
+
+            view.animateBackgroundColor(to: .red)
+            view.animateTransform(to: CATransform3DMakeScale(2.0, 2.0, 1.0))
+
+            view.rx
                 .pressGesture()
                 .filterState(.began)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let `self` = self else {return}
-
-                    self.myView.layer!.transform = CATransform3DIdentity
-
-                    let anim = CABasicAnimation(keyPath: "transform")
-                    anim.duration = 0.5
-                    anim.fromValue = NSValue(caTransform3D: CATransform3DMakeScale(2.0, 2.0, 1.0))
-                    anim.toValue = NSValue(caTransform3D: CATransform3DIdentity)
-                    self.myView.layer!.add(anim, forKey: nil)
-
-                    self.nextStep😁.onNext()
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 5: //pan
-            let panGesture = myView.rx.panGesture().shareReplay(1)
+    lazy var panStep: Step = Step(
+        title: "Drag the square around",
+        code: "view.rx\n\t.panGesture()\n\t.filterState(.changed)\n\t.translation()\n\t.subscribe(onNext: {...})\n\nview.rx\n\t.anyGesture(\n\t\t(.pan(), state: .ended),\n\t\t(.click(), state: .recognized)\n\t)\n\t.subscribe(onNext: {...})",
+        install: { view, label, nextStep, stepBag in
 
-            panGesture
+            view.animateTransform(to: CATransform3DIdentity)
+
+            view.rx
+                .panGesture()
                 .filterState(.changed)
                 .translation()
                 .subscribe(onNext: {[unowned self] translation, _ in
-                    self.myViewText.stringValue = String(format: "(%.f, %.f)", arguments: [translation.x, translation.y])
-                    self.myView.layer!.transform = CATransform3DMakeTranslation(translation.x, translation.y, 0.0)
+                    label.stringValue = String(format: "(%.f, %.f)", arguments: [translation.x, translation.y])
+                    view.layer!.transform = CATransform3DMakeTranslation(translation.x, translation.y, 0.0)
                 })
                 .addDisposableTo(stepBag)
 
-            Observable
-                .of(
-                    panGesture.filterState(.ended).map { $0 as NSGestureRecognizer },
-                    myView.rx.clickGesture().filterState(.recognized).map { $0 as NSGestureRecognizer }
+            view.rx
+                .anyGesture(
+                    (.pan(), state: .ended),
+                    (.click(), state: .recognized)
                 )
-                .merge()
-                .take(1)
-                .subscribe(onNext: {[unowned self] _ in
-                    self.myViewText.stringValue = ""
-
-                    let anim = CABasicAnimation(keyPath: "transform")
-                    anim.duration = 0.5
-                    anim.fromValue = NSValue(caTransform3D: self.myView.layer!.transform)
-                    anim.toValue = NSValue(caTransform3D: CATransform3DIdentity)
-                    self.myView.layer!.add(anim, forKey: nil)
-                    self.myView.layer!.transform = CATransform3DIdentity
-
-                    self.nextStep😁.onNext()
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 6: //rotate or click
+    lazy var rotateStep: Step = Step(
+        title: "Rotate the square with your trackpad, or click if you do not have a trackpad",
+        code: "view.rx\n\t.rotationGesture()\n\t.filterState(.changed)\n\t.rotation()\n\t.subscribe(onNext: {...})\n\nview.rx\n\t.anyGesture(\n\t\t(.rotation(), state: .ended),\n\t\t(.click(), state: .recognized)\n\t)\n\t.subscribe(onNext: {...})",
+        install: { view, label, nextStep, stepBag in
 
-            let rotationGesture = myView.rx.rotationGesture().shareReplay(1)
+            view.animateTransform(to: CATransform3DIdentity)
 
-            rotationGesture
+            view.rx
+                .rotationGesture()
                 .filterState(.changed)
                 .rotation()
-                .subscribe(onNext: {[unowned self] rotation in
-                    self.myViewText.stringValue = String(format: "angle: %.2f", rotation)
-                    self.myView.layer!.transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
+                .subscribe(onNext: { rotation in
+                    label.stringValue = String(format: "angle: %.2f", rotation)
+                    view.layer!.transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
                 })
                 .addDisposableTo(stepBag)
 
-            Observable
-                .of(
-                    rotationGesture.filterState(.ended).map { $0 as NSGestureRecognizer },
-                    myView.rx.clickGesture().filterState(.recognized).map { $0 as NSGestureRecognizer }
+            view.rx
+                .anyGesture(
+                    (.rotation(), state: .ended),
+                    (.click(), state: .recognized)
                 )
-                .merge()
-                .take(1)
-                .subscribe(onNext: {[unowned self] _ in
-                    self.myViewText.stringValue = ""
-
-                    let anim = CABasicAnimation(keyPath: "transform")
-                    anim.duration = 0.5
-                    anim.fromValue = NSValue(caTransform3D: self.myView.layer!.transform)
-                    anim.toValue = NSValue(caTransform3D: CATransform3DIdentity)
-                    self.myView.layer!.add(anim, forKey: nil)
-                    self.myView.layer!.transform = CATransform3DIdentity
-
-                    self.nextStep😁.onNext()
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 7: //magnification or click
+    lazy var magnificationStep: Step = Step(
+        title: "Pinch the square with your trackpad, or click if you do not have a trackpad",
+        code: "view.rx\n\t.magnificationGesture()\n\t.filterState(.changed)\n\t.scale()\n\t.subscribe(onNext: {...})\n\nview.rx\n\t.anyGesture(\n\t\t(.magnification(), state: .ended),\n\t\t(.click(), state: .recognized)\n\t)\n\t.subscribe(onNext: {...})",
+        install: { view, label, nextStep, stepBag in
 
-            let magnificationGesture = myView.rx.magnificationGesture().shareReplay(1)
+            view.animateTransform(to: CATransform3DIdentity)
 
-            magnificationGesture
+            view.rx
+                .magnificationGesture()
                 .filterState(.changed)
                 .scale()
                 .subscribe(onNext: {[unowned self] scale in
-                    self.myViewText.stringValue = String(format: "scale: %.2f", scale)
-                    self.myView.layer!.transform = CATransform3DMakeScale(scale, scale, 1)
+                    label.stringValue = String(format: "scale: %.2f", scale)
+                    view.layer!.transform = CATransform3DMakeScale(scale, scale, 1)
                 })
                 .addDisposableTo(stepBag)
 
-            Observable
-                .of(
-                    magnificationGesture.filterState(.ended).map { $0 as NSGestureRecognizer },
-                    myView.rx.clickGesture().filterState(.recognized).map { $0 as NSGestureRecognizer }
+            view.rx
+                .anyGesture(
+                    (.magnification(), state: .ended),
+                    (.click(), state: .recognized)
                 )
-                .merge()
-                .take(1)
-                .subscribe(onNext: {[unowned self] _ in
-                    self.myViewText.stringValue = ""
-
-                    let anim = CABasicAnimation(keyPath: "transform")
-                    anim.duration = 0.5
-                    anim.fromValue = NSValue(caTransform3D: self.myView.layer!.transform)
-                    anim.toValue = NSValue(caTransform3D: CATransform3DIdentity)
-                    self.myView.layer!.add(anim, forKey: nil)
-                    self.myView.layer!.transform = CATransform3DIdentity
-                    
-                    self.nextStep😁.onNext()
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
-            
-        default: break
-        }
-        
-        print("active gestures: \(myView.gestureRecognizers.count)")
-    }
-    
+    })
+
 }
 
+private extension NSView {
+
+    func animateTransform(to transform: CATransform3D) {
+        let initialTransform = self.layer!.transform
+
+        let anim = CABasicAnimation(keyPath: "transform")
+        anim.duration = 0.5
+        anim.fromValue = NSValue(caTransform3D: initialTransform)
+        anim.toValue = NSValue(caTransform3D: transform)
+        self.layer!.add(anim, forKey: nil)
+        self.layer!.transform = transform
+    }
+
+    func animateBackgroundColor(to color: NSColor) {
+        let initialColor = self.layer!.backgroundColor!
+
+        let anim = CABasicAnimation(keyPath: "backgroundColor")
+        anim.duration = 0.5
+        anim.fromValue = initialColor
+        anim.toValue = color.cgColor
+        self.layer!.add(anim, forKey: nil)
+        self.layer!.backgroundColor = color.cgColor
+    }
+}

@@ -21,11 +21,14 @@
 import RxSwift
 import RxCocoa
 
-final class PermissiveGestureRecognizerDelegate: NSObject, NSGestureRecognizerDelegate {
+final class PermissiveGestureRecognizerDelegate: NSObject, GestureRecognizerDelegate {
 
     static let shared = PermissiveGestureRecognizerDelegate()
 
-    func gestureRecognizer(_ gestureRecognizer: NSGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: NSGestureRecognizer) -> Bool {
+    func gestureRecognizer(
+        _ gestureRecognizer: GestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: GestureRecognizer
+        ) -> Bool {
         return true
     }
 

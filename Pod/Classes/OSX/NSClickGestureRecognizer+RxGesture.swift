@@ -21,19 +21,71 @@
 import RxSwift
 import RxCocoa
 
-public extension Reactive where Base: NSView {
+private enum Defaults {
+    static var buttonMask: Int = 0x1
+    static var numberOfClicksRequired: Int = 1
+    static var configuration: ((NSClickGestureRecognizer) -> Void)? = nil
+}
 
-    public func clickGesture(
-        buttonMask: Int = 0x1,
-        numberOfClicksRequired: Int = 1,
-        configuration: ((NSClickGestureRecognizer) -> Void)? = nil
-        ) -> ControlEvent<NSClickGestureRecognizer> {
+public struct ClickGestureFactory: ConfigurableGestureFactory {
+    public typealias Gesture = NSClickGestureRecognizer
+    public let configuration: (NSClickGestureRecognizer) -> Void
 
-        return addGestureRecognizer(NSClickGestureRecognizer()) { gestureRecognizer in
+    public init(
+        buttonMask: Int = Defaults.buttonMask,
+        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer) -> Void)? = Defaults.configuration
+        ){
+        self.configuration = { gestureRecognizer in
             gestureRecognizer.buttonMask = buttonMask
             gestureRecognizer.numberOfClicksRequired = numberOfClicksRequired
             configuration?(gestureRecognizer)
         }
+    }
+}
+
+extension AnyGesture {
+
+    public static func click(
+        buttonMask: Int = Defaults.buttonMask,
+        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> AnyGesture {
+        let gesture = ClickGestureFactory(
+            buttonMask: buttonMask,
+            numberOfClicksRequired: numberOfClicksRequired,
+            configuration: configuration
+        )
+        return AnyGesture(gesture)
+    }
+
+    public static func rightClick(
+        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> AnyGesture {
+        let gesture = ClickGestureFactory(
+            buttonMask: 0x2,
+            numberOfClicksRequired: numberOfClicksRequired,
+            configuration: configuration
+        )
+        return AnyGesture(gesture)
+    }
+
+}
+
+public extension Reactive where Base: NSView {
+
+    public func clickGesture(
+        buttonMask: Int = Defaults.buttonMask,
+        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer) -> Void)? = Defaults.configuration
+        ) -> ControlEvent<NSClickGestureRecognizer> {
+
+        return gesture(ClickGestureFactory(
+            buttonMask: buttonMask,
+            numberOfClicksRequired: numberOfClicksRequired,
+            configuration: configuration
+        ))
     }
 
     public func rightClickGesture(
@@ -41,11 +93,11 @@ public extension Reactive where Base: NSView {
         configuration: ((NSClickGestureRecognizer) -> Void)? = nil
         ) -> ControlEvent<NSClickGestureRecognizer> {
 
-        return addGestureRecognizer(NSClickGestureRecognizer()) { gestureRecognizer in
-            gestureRecognizer.buttonMask = 0x2
-            gestureRecognizer.numberOfClicksRequired = numberOfClicksRequired
-            configuration?(gestureRecognizer)
-        }
+        return gesture(ClickGestureFactory(
+            buttonMask: 0x2,
+            numberOfClicksRequired: numberOfClicksRequired,
+            configuration: configuration
+        ))
     }
 
 }

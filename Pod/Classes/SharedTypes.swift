@@ -18,15 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import RxSwift
-import RxCocoa
+import Foundation
 
-final class PermissiveGestureRecognizerDelegate: NSObject, UIGestureRecognizerDelegate {
+#if os(iOS)
+    import UIKit
 
-    static let shared = PermissiveGestureRecognizerDelegate()
+    public typealias GestureRecognizer = UIGestureRecognizer
+    public typealias GestureRecognizerState = UIGestureRecognizerState
+    public typealias GestureRecognizerDelegate = UIGestureRecognizerDelegate
+    public typealias View = UIView
+#elseif os(OSX)
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-
-}
+    import AppKit
+    public typealias GestureRecognizer = NSGestureRecognizer
+    public typealias GestureRecognizerState = NSGestureRecognizerState
+    public typealias GestureRecognizerDelegate = NSGestureRecognizerDelegate
+    public typealias View = NSView
+#endif

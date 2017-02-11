@@ -11,29 +11,19 @@ import UIKit
 import RxSwift
 import RxGesture
 
-let infoList = [
-    "Tap the red square",
-    "Double tap the green square",
-    "Swipe the square down",
-    "Swipe horizontally (e.g. left or right)",
-    "Do a long press",
-    "Drag the square to a different location",
-    "Rotate the square",
-    "Pinch the square",
-    "Transform the square"
-]
+class Step {
+    enum Action { case previous, next }
 
-let codeList = [
-    "myView.rx\n\t.tapGesture()\n\t.filterState(.recognized)\n\t.subscribeNext {...}",
-    "myView.rx\n\t.tapGesture(numberOfTapsRequired: 2)\n\t.filterState(.recognized)\n\t.subscribeNext {...}",
-    "myView.rx\n\t.swipeDownGesture()\n\t.filterState(.recognized)\n\t.subscribeNext {...}",
-    "myView.rx\n\t.swipeGesture(direction: [.left, .right])\n\t.filterState(.recognized)\n\t.subscribeNext {",
-    "myView.rx\n\t.longPressGesture()\n\t.filterState(.began)\n\t.subscribeNext {...}",
-    "let panGesture = myView.rx\n\t.panGesture()\n\t.shareReplay(1)\n\npanGesture\n\t.filterState(.changed)\n\t.translate()\n\t.subscribeNext {...}\n\npanGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
-    "let rotationGesture = myView.rx\n\t.rotationGesture()\n\t.shareReplay(1)\n\nrotationGesture\n\t.filterState(.changed)\n\t.rotation()\n\t.subscribeNext {...}\n\nrotationGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
-    "let pinchGesture = myView.rx\n\t.pinchGesture()\n\t.shareReplay(1)\n\npinchGesture\n\t.filterState(.changed)\n\t.scale()\n\t.subscribeNext {...}\n\npinchGesture\n\t.filterState(.ended)\n\t.subscribeNext {...}",
-    "let transformGestures = myView.rx\n\t.transformGestures()\n\t.shareReplay(1)\n\ntransformGestures\n\t.filterState(.changed)\n\t.transform()\n\t.subscribeNext {...}\n\ntransformGestures\n\t.filterState(.ended)\n\t.subscribeNext {...}",
-]
+    let title: String
+    let code: String
+    let install: (UIView, UILabel, AnyObserver<Action>, DisposeBag) -> Void
+
+    init(title: String, code: String, install: @escaping (UIView, UILabel, AnyObserver<Action>, DisposeBag) -> Void) {
+        self.title = title
+        self.code = code
+        self.install = install
+    }
+}
 
 class ViewController: UIViewController {
 
@@ -42,200 +32,265 @@ class ViewController: UIViewController {
     @IBOutlet var info: UILabel!
     @IBOutlet var code: UITextView!
 
-    private let nextStep😁 = PublishSubject<Void>()
+    private let nextStepObserver = PublishSubject<Step.Action>()
     private let bag = DisposeBag()
     private var stepBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        nextStep😁
-            .scan(0, accumulator: {acc, _ in
-                return acc < infoList.count - 1 ? acc + 1 : 0
-            })
+        let steps: [Step] = [
+            tapStep,
+            doubleTapStep,
+            swipeDownStep,
+            swipeHorizontallyStep,
+            longPressStep,
+            panStep,
+            pinchStep,
+            rotateStep,
+            transformStep
+        ]
+
+        func newIndex(for index: Int, action: Step.Action) -> Int {
+            switch action {
+            case .previous:
+                return index > 0 ? index - 1 : steps.count - 1
+            case .next:
+                return index < steps.count - 1 ? index + 1 : 0
+            }
+        }
+
+        nextStepObserver
+            .scan(0, accumulator: newIndex)
             .startWith(0)
-            .subscribe(onNext: step)
+            .map { (steps[$0], $0) }
+            .subscribe(onNext: updateStep)
             .addDisposableTo(bag)
     }
 
-    func step(step: Int) {
-        //release previous recognizers
+    @IBAction func previousStep(_ sender: Any) {
+        nextStepObserver.onNext(.previous)
+    }
+
+    func updateStep(_ step: Step, at index: Int) {
         stepBag = DisposeBag()
 
-        info.text = "\(step+1). \(infoList[step])"
-        code.text = codeList[step]
+        info.text = "\(index + 1). " + step.title
+        code.text = step.code
 
-        //add current step recognizer
-        switch step {
-        case 0: //tap recognizer
+        myViewText.text = nil
+        step.install(myView, myViewText, nextStepObserver.asObserver(), stepBag)
 
-            myView.rx
+        print("active gestures: \(myView.gestureRecognizers?.count ?? 0)")
+    }
+
+    lazy var tapStep: Step = Step(
+        title: "Tap the red square",
+        code: "view.rx\n\t.tapGesture()\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        install: { view, _, nextStep, stepBag in
+
+            view.animateTransform(to: .identity)
+            view.animateBackgroundColor(to: .red)
+
+            view.rx
                 .tapGesture()
                 .filterState(.recognized)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let this = self else {return}
-                    UIView.animate(withDuration: 0.5, animations: {
-                        this.myView.backgroundColor = .green
-                        this.nextStep😁.onNext()
-                    })
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 1: //tap number of times recognizer
-            myView.rx
+    lazy var doubleTapStep: Step = Step(
+        title: "Double tap the green square",
+        code: "view.rx\n\t.tapGesture(numberOfTapsRequired: 2)\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        install: { view, _, nextStep, stepBag in
+
+            view.animateTransform(to: .identity)
+            view.animateBackgroundColor(to: .green)
+
+            view.rx
                 .tapGesture(numberOfTapsRequired: 2)
                 .filterState(.recognized)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let this = self else {return}
-                    UIView.animate(withDuration: 0.5, animations: {
-                        this.myView.backgroundColor = .blue
-                        this.nextStep😁.onNext()
-                    })
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 2: //swipe down
-            myView.rx
-                .swipeDownGesture()
+    lazy var swipeDownStep: Step = Step(
+        title: "Swipe the blue square down",
+        code: "view.rx\n\t.swipeGesture(.down)\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        install: { view, _, nextStep, stepBag in
+
+            view.animateTransform(to: .identity)
+            view.animateBackgroundColor(to: .blue)
+
+            view.rx
+                .swipeGesture(.down)
                 .filterState(.recognized)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let this = self else {return}
-                    UIView.animate(withDuration: 0.5, animations: {
-                        this.myView.transform = CGAffineTransform(scaleX: 1.0, y: 2.0)
-                        this.nextStep😁.onNext()
-                    })
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 3: //swipe horizontally
-            myView.rx
-                .swipeGesture(direction: [.left, .right])
+    lazy var swipeHorizontallyStep: Step = Step(
+        title: "Swipe horizontally the blue square (e.g. left or right)",
+        code: "view.rx\n\t.swipeGesture([.left, .right])\n\t.filterState(.recognized)\n\t.subscribeNext {",
+        install: { view, _, nextStep, stepBag in
+
+            view.animateTransform(to: CGAffineTransform(scaleX: 1.0, y: 2.0))
+            view.animateBackgroundColor(to: .blue)
+
+            view.rx
+                .swipeGesture([.left, .right])
                 .filterState(.recognized)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let this = self else {return}
-                    UIView.animate(withDuration: 0.5, animations: {
-                        this.myView.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
-                        this.nextStep😁.onNext()
-                    })
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 4: //long press
-            myView.rx
+    lazy var longPressStep: Step = Step(
+        title: "Do a long press",
+        code: "view.rx\n\t.longPressGesture()\n\t.filterState(.began)\n\t.subscribe(onNext: {...})",
+        install: { view, _, nextStep, stepBag in
+
+            view.animateTransform(to: CGAffineTransform(scaleX: 2.0, y: 2.0))
+            view.animateBackgroundColor(to: .blue)
+
+            view.rx
                 .longPressGesture()
                 .filterState(.began)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let this = self else {return}
-                    UIView.animate(withDuration: 0.5, animations: {
-                        this.myView.transform = .identity
-                        this.nextStep😁.onNext()
-                    })
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 5: //panning
-            let panGesture = myView.rx.panGesture().shareReplay(1)
+    lazy var panStep: Step = Step(
+        title: "Drag the square to a different location",
+        code: "let panGesture = view.rx\n\t.panGesture()\n\t.shareReplay(1)\n\npanGesture\n\t.filterState(.changed)\n\t.translation()\n\t.subscribe(onNext: {...})\n\npanGesture\n\t.filterState(.ended)\n\t.subscribe(onNext: {...})",
+        install: { view, label, nextStep, stepBag in
+
+            view.animateTransform(to: .identity)
+            view.animateBackgroundColor(to: .blue)
+
+            let panGesture = view.rx.panGesture().shareReplay(1)
 
             panGesture
                 .filterState(.changed)
                 .translation()
-                .subscribe(onNext: {[weak self] translation, _ in
-                    guard let this = self else {return}
-                    this.myViewText.text = "(\(translation.x), \(translation.y))"
-                    this.myView.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
+                .subscribe(onNext: { [unowned self] translation, _ in
+                    label.text = String(format: "(%.2f, %.2f)",translation.x, translation.y)
+                    view.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
                 })
                 .addDisposableTo(stepBag)
 
             panGesture
                 .filterState(.ended)
-                .subscribe(onNext: {[weak self] gesture in
-                    guard let this = self else {return}
-                    UIView.animate(withDuration: 0.5, animations: {
-                        this.myViewText.text = nil
-                        this.myView.transform = .identity
-                        this.nextStep😁.onNext()
-                    })
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+               .addDisposableTo(stepBag)
+    })
 
-        case 6: //rotating
-            let rotationGesture = myView.rx.rotationGesture().shareReplay(1)
+    lazy var rotateStep: Step = Step(
+        title: "Rotate the square",
+        code: "let rotationGesture = view.rx\n\t.rotationGesture()\n\t.shareReplay(1)\n\nrotationGesture\n\t.filterState(.changed)\n\t.rotation()\n\t.subscribe(onNext: {...})\n\nrotationGesture\n\t.filterState(.ended)\n\t.subscribe(onNext: {...})",
+        install: { view, label, nextStep, stepBag in
+
+            view.animateTransform(to: .identity)
+            view.animateBackgroundColor(to: .blue)
+
+            let rotationGesture = view.rx.rotationGesture().shareReplay(1)
 
             rotationGesture
                 .filterState(.changed)
                 .rotation()
-                .subscribe(onNext: {[weak self] rotation, _ in
-                    guard let this = self else {return}
-                    this.myViewText.text = String(format: "angle: %.2f", rotation)
-                    this.myView.transform = CGAffineTransform(rotationAngle: rotation)
+                .subscribe(onNext: { [unowned self] rotation, _ in
+                    label.text = String(format: "%.2f rad", rotation)
+                    view.transform = CGAffineTransform(rotationAngle: rotation)
                 })
                 .addDisposableTo(stepBag)
 
             rotationGesture
                 .filterState(.ended)
-                .subscribe(onNext: {[weak self] gesture in
-                    guard let this = self else {return}
-                    UIView.animate(withDuration: 0.5, animations: {
-                        this.myViewText.text = nil
-                        this.myView.transform = .identity
-                        this.nextStep😁.onNext()
-                    })
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 7: //pinching
-            let pinchGesture = myView.rx.pinchGesture().shareReplay(1)
+    lazy var pinchStep: Step = Step(
+        title: "Pinch the square",
+        code: "let pinchGesture = view.rx\n\t.pinchGesture()\n\t.shareReplay(1)\n\npinchGesture\n\t.filterState(.changed)\n\t.scale()\n\t.subscribe(onNext: {...})\n\npinchGesture\n\t.filterState(.ended)\n\t.subscribe(onNext: {...})",
+        install: { view, label, nextStep, stepBag in
+
+            view.animateTransform(to: .identity)
+            view.animateBackgroundColor(to: .blue)
+
+            let pinchGesture = view.rx.pinchGesture().shareReplay(1)
 
             pinchGesture
                 .filterState(.changed)
                 .scale()
-                .subscribe(onNext: {[weak self] scale, _ in
-                    guard let this = self else {return}
-                    this.myViewText.text = String(format: "scale: %.2f", scale)
-                    this.myView.transform = CGAffineTransform(scaleX: scale, y: scale)
+                .subscribe(onNext: { scale, _ in
+                    label.text = String(format: "x%.2f", scale)
+                    view.transform = CGAffineTransform(scaleX: scale, y: scale)
                 })
                 .addDisposableTo(stepBag)
 
             pinchGesture
                 .filterState(.ended)
-                .subscribe(onNext: {[weak self] gesture in
-                    guard let this = self else {return}
-                    UIView.animate(withDuration: 0.5, animations: {
-                        this.myViewText.text = nil
-                        this.myView.transform = .identity
-                        this.nextStep😁.onNext()
-                    })
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
 
-        case 8: //transforming
+    lazy var transformStep: Step = Step(
+        title: "Transform the square",
+        code: "let transformGestures = view.rx\n\t.transformGestures()\n\t.shareReplay(1)\n\ntransformGestures\n\t.filterState(.changed)\n\t.transform()\n\t.subscribe(onNext: {...})\n\ntransformGestures\n\t.filterState(.ended)\n\t.subscribe(onNext: {...})",
+        install: { view, label, nextStep, stepBag in
 
-            let transformGestures = myView.rx.transformGestures().shareReplay(1)
+            view.animateTransform(to: .identity)
+            view.animateBackgroundColor(to: .blue)
+
+            let transformGestures = view.rx.transformGestures().shareReplay(1)
 
             transformGestures
                 .filterState(.changed)
                 .transform()
-                .subscribe(onNext: {[weak self] transform, _ in
-                    guard let this = self else {return}
-                    this.myView.transform = transform
+                .subscribe(onNext: { transform, _ in
+                    label.numberOfLines = 3
+                    label.text = String(format: "[%.2f, %.2f,\n%.2f, %.2f,\n%.2f, %.2f]", transform.a, transform.b, transform.c, transform.d, transform.tx, transform.ty)
+                    view.transform = transform
                 })
                 .addDisposableTo(stepBag)
 
             transformGestures
                 .filterState(.ended)
-                .subscribe(onNext: {[weak self] _ in
-                    guard let this = self else {return}
-                    UIView.animate(withDuration: 0.5, animations: {
-                        this.myViewText.text = nil
-                        this.myView.transform = .identity
-                        this.nextStep😁.onNext()
-                    })
+                .subscribe(onNext: { _ in
+                    label.numberOfLines = 1
+                    nextStep.onNext(.next)
                 })
                 .addDisposableTo(stepBag)
+    })
+}
 
-        default: break
+private extension UIView {
+
+    func animateTransform(to transform: CGAffineTransform) {
+        UIView.animate(withDuration: 0.5) {
+            self.transform = transform
         }
-        
-        print("active gestures: \(myView.gestureRecognizers!.count)")
+    }
+
+    func animateBackgroundColor(to color: UIColor) {
+        UIView.animate(withDuration: 0.5) {
+            self.backgroundColor = color
+        }
     }
 }
