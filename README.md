@@ -104,7 +104,7 @@ view.rx
 ```
 
 
-__The demo app includes examples for all recognizers__.
+__The demo app includes examples for all recognizers__ (=> [iOS](Example/RxGesture/ViewController.swift), [macOS](Example/RxGesture-OSX/ViewController.swift)).
 
 ## Requirements
 
