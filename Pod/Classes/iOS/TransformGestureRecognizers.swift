@@ -40,7 +40,6 @@ public struct TransformVelocity {
 }
 
 public extension Reactive where Base: UIView {
-
     public func transformGestures(
         configuration: ((TransformGestureRecognizers) -> Void)? = nil
         ) -> ControlEvent<TransformGestureRecognizers> {
@@ -71,9 +70,9 @@ public extension ObservableType where E: TransformGestureRecognizersType {
         }
     }
 
-    public func transform(in view: UIView? = nil) -> Observable<(transform: CGAffineTransform, velocity: TransformVelocity)> {
+    public func transform(in view: TargetView = .view) -> Observable<(transform: CGAffineTransform, velocity: TransformVelocity)> {
         return self.map { gestures in
-            let translationView = view ?? gestures.panGesture.view?.superview
+            let translationView = view.targetView(for: gestures.panGesture)
             let translation = gestures.panGesture.translation(in: translationView)
 
             let transform = CGAffineTransform

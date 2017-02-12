@@ -22,19 +22,37 @@ import RxSwift
 import RxCocoa
 
 public extension ObservableType where E: UIGestureRecognizer {
+
+    /**
+     Filters the observable `GestureRecognizer` events sequence based on the `GestureRecognizer` state.
+
+     - parameter state: An `UIGestureRecognizerState` that is used to filter the `GestureRecognizer` events sequence.
+     - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match the given `state`.
+     */
     public func filterState(_ state: UIGestureRecognizerState) -> Observable<E> {
         return filterState(in: [state])
     }
 
+    /**
+     Filters the observable `GestureRecognizer` events sequence based on the `GestureRecognizer` state.
+
+     - parameter states: A `UIGestureRecognizerState` collection that is used to filter the `GestureRecognizer` events sequence.
+     - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match any of the given `states`.
+     */
     public func filterState(in states: [UIGestureRecognizerState]) -> Observable<E> {
         return self.filter { gesture in
             return states.contains(gesture.state)
         }
     }
 
-    public func location(inView view: UIView? = nil) -> Observable<CGPoint> {
+    /**
+     Maps the observable `GestureRecognizer` events sequence to an observable sequence of points computed as the location in the given `view` of the gesture.
+
+     - parameter view: A `TargetView` value on which the gesture took place.
+     */
+    public func location(in view: TargetView = .view) -> Observable<CGPoint> {
         return self.map { gesture in
-            return gesture.location(in: view ?? gesture.view?.superview)
+            return gesture.location(in: view.targetView(for: gesture))
         }
     }
 }

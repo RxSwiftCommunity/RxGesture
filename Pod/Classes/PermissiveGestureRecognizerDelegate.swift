@@ -31,5 +31,4 @@ final class PermissiveGestureRecognizerDelegate: NSObject, GestureRecognizerDele
         ) -> Bool {
         return true
     }
-
 }

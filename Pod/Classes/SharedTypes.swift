@@ -22,16 +22,41 @@ import Foundation
 
 #if os(iOS)
     import UIKit
-
     public typealias GestureRecognizer = UIGestureRecognizer
     public typealias GestureRecognizerState = UIGestureRecognizerState
     public typealias GestureRecognizerDelegate = UIGestureRecognizerDelegate
     public typealias View = UIView
 #elseif os(OSX)
-
     import AppKit
     public typealias GestureRecognizer = NSGestureRecognizer
     public typealias GestureRecognizerState = NSGestureRecognizerState
     public typealias GestureRecognizerDelegate = NSGestureRecognizerDelegate
     public typealias View = NSView
 #endif
+
+public enum TargetView {
+    /// The target view will be the gestureRecognizer's view
+    case view
+
+    /// The target view will be the gestureRecognizer's view's superview
+    case superview
+
+    /// The target view will be the gestureRecognizer's view's window
+    case window
+
+    /// The target view will be the given view
+    case this(View)
+
+    public func targetView(for gestureRecognizer: GestureRecognizer) -> View? {
+        switch self {
+        case .view:
+            return gestureRecognizer.view
+        case .superview:
+            return gestureRecognizer.view?.superview
+        case .window:
+            return gestureRecognizer.view?.window
+        case .this(let view):
+            return view
+        }
+    }
+}

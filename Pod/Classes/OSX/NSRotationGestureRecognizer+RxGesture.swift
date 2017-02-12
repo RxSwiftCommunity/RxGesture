@@ -21,11 +21,13 @@
 import RxSwift
 import RxCocoa
 
+/// Default values for `NSRotationGestureRecognizer` configuration
 private enum Defaults {
     static var configuration: ((NSRotationGestureRecognizer) -> Void)? = nil
 }
 
-public struct RotationGestureFactory: ConfigurableGestureFactory {
+/// A `GestureRecognizerFactory` for `NSRotationGestureRecognizer`
+public struct RotationGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
     public typealias Gesture = NSRotationGestureRecognizer
     public let configuration: (NSRotationGestureRecognizer) -> Void
 
@@ -38,30 +40,42 @@ public struct RotationGestureFactory: ConfigurableGestureFactory {
     }
 }
 
-extension AnyGesture {
+extension AnyGestureRecognizerFactory {
 
+    /**
+     Returns an `AnyGestureRecognizerFactory` for `NSRotationGestureRecognizer`
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public static func rotation(
         configuration: ((NSRotationGestureRecognizer) -> Void)? = Defaults.configuration
-        ) -> AnyGesture {
-        let gesture = RotationGestureFactory(
+        ) -> AnyGestureRecognizerFactory {
+        let gesture = RotationGestureRecognizerFactory(
             configuration: configuration
         )
-        return AnyGesture(gesture)
+        return AnyGestureRecognizerFactory(gesture)
     }
 }
 
 public extension Reactive where Base: NSView {
 
+    /**
+     Returns an observable `NSRotationGestureRecognizer` events sequence
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public func rotationGesture(
         configuration: ((NSRotationGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSRotationGestureRecognizer> {
-        return gesture(RotationGestureFactory(
+        return gesture(RotationGestureRecognizerFactory(
             configuration: configuration
         ))
     }
 }
 
 public extension ObservableType where E: NSRotationGestureRecognizer {
+
+    /**
+     Maps the observable `GestureRecognizer` events sequence to an observable sequence of rotation values of the gesture in radians.
+     */
     public func rotation() -> Observable<CGFloat> {
         return self.map { gesture in
             return gesture.rotation

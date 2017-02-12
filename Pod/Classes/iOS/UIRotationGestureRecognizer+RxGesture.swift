@@ -21,14 +21,20 @@
 import RxSwift
 import RxCocoa
 
+/// Default values for `UIRotationGestureRecognizer` configuration
 private enum Defaults {
     static var configuration: ((UIRotationGestureRecognizer) -> Void)? = nil
 }
 
-public struct RotationGestureFactory: ConfigurableGestureFactory {
+/// A `GestureRecognizerFactory` for `UIRotationGestureRecognizer`
+public struct RotationGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
     public typealias Gesture = UIRotationGestureRecognizer
     public let configuration: (UIRotationGestureRecognizer) -> Void
 
+    /**
+     Initialiaze a `GestureRecognizerFactory` for `UIRotationGestureRecognizer`
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public init(
         configuration: ((UIRotationGestureRecognizer) -> Void)? = Defaults.configuration
         ){
@@ -38,30 +44,42 @@ public struct RotationGestureFactory: ConfigurableGestureFactory {
     }
 }
 
-extension AnyGesture {
+extension AnyGestureRecognizerFactory {
 
+    /**
+     Returns an `AnyGestureRecognizerFactory` for `UIRotationGestureRecognizer`
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public static func rotation(
         configuration: ((UIRotationGestureRecognizer) -> Void)? = Defaults.configuration
-        ) -> AnyGesture {
-        let gesture = RotationGestureFactory(
+        ) -> AnyGestureRecognizerFactory {
+        let gesture = RotationGestureRecognizerFactory(
             configuration: configuration
         )
-        return AnyGesture(gesture)
+        return AnyGestureRecognizerFactory(gesture)
     }
 }
 
 public extension Reactive where Base: UIView {
 
+    /**
+     Returns an observable `UIRotationGestureRecognizer` events sequence
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public func rotationGesture(
         configuration: ((UIRotationGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UIRotationGestureRecognizer> {
-        return gesture(RotationGestureFactory(
+        return gesture(RotationGestureRecognizerFactory(
             configuration: configuration
         ))
     }
 }
 
 public extension ObservableType where E: UIRotationGestureRecognizer {
+
+    /**
+     Maps the observable `GestureRecognizer` events sequence to an observable sequence of rotation values of the gesture in radians alongside the gesture velocity.
+     */
     public func rotation() -> Observable<(rotation: CGFloat, velocity: CGFloat)> {
         return self.map { gesture in
             return (gesture.rotation, gesture.velocity)

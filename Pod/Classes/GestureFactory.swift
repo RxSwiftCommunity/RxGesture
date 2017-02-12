@@ -21,17 +21,17 @@
 import RxSwift
 import RxCocoa
 
-public protocol GestureFactory {
+public protocol GestureRecognizerFactory {
     associatedtype Gesture: GestureRecognizer
 
     func make() -> Gesture
 }
 
-public protocol ConfigurableGestureFactory: GestureFactory {
+public protocol ConfigurableGestureRecognizerFactory: GestureRecognizerFactory {
     var configuration: (Gesture) -> Void { get }
 }
 
-public extension ConfigurableGestureFactory {
+public extension ConfigurableGestureRecognizerFactory {
     public func make() -> Gesture {
         let gesture = Gesture()
         configuration(gesture)
@@ -39,17 +39,17 @@ public extension ConfigurableGestureFactory {
     }
 }
 
-public struct AnyGesture: GestureFactory {
+public struct AnyGestureRecognizerFactory: GestureRecognizerFactory {
 
-    private let erasedMake: () -> GestureRecognizer
-    public init<G: GestureFactory>(_ gesture: G) {
-        self.erasedMake = {
-            return gesture.make() as GestureRecognizer
+    private let _make: () -> GestureRecognizer
+    public init<G: GestureRecognizerFactory>(_ factory: G) {
+        _make = {
+            return factory.make() as GestureRecognizer
         }
     }
 
     public typealias Gesture = GestureRecognizer
     public func make() -> GestureRecognizer {
-        return erasedMake()
+        return _make()
     }
 }

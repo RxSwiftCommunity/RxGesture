@@ -21,15 +21,22 @@
 import RxSwift
 import RxCocoa
 
+/// Default values for `UISwipeGestureRecognizer` configuration
 private enum Defaults {
     static var numberOfTouchesRequired: Int = 1
     static var configuration: ((UISwipeGestureRecognizer) -> Void)? = nil
 }
 
-public struct SwipeGestureFactory: ConfigurableGestureFactory {
+/// A `GestureRecognizerFactory` for `UISwipeGestureRecognizer`
+public struct SwipeGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
     public typealias Gesture = UISwipeGestureRecognizer
     public let configuration: (UISwipeGestureRecognizer) -> Void
 
+    /**
+     Initialiaze a `GestureRecognizerFactory` for `UISwipeGestureRecognizer`
+     - parameter numberOfTouchesRequired: The number of fingers required to match
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public init(
         _ direction: UISwipeGestureRecognizerDirection,
         numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
@@ -43,32 +50,42 @@ public struct SwipeGestureFactory: ConfigurableGestureFactory {
     }
 }
 
-extension AnyGesture {
+extension AnyGestureRecognizerFactory {
 
+    /**
+     Returns an `AnyGestureRecognizerFactory` for `UISwipeGestureRecognizer`
+     - parameter numberOfTouchesRequired: The number of fingers required to match
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public static func swipe(
         _ direction: UISwipeGestureRecognizerDirection,
         numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
         configuration: ((UISwipeGestureRecognizer) -> Void)? = Defaults.configuration
-        ) -> AnyGesture {
-        let gesture = SwipeGestureFactory(
+        ) -> AnyGestureRecognizerFactory {
+        let gesture = SwipeGestureRecognizerFactory(
             direction,
             numberOfTouchesRequired: numberOfTouchesRequired,
             configuration: configuration
         )
-        return AnyGesture(gesture)
+        return AnyGestureRecognizerFactory(gesture)
     }
 }
 
 
 public extension Reactive where Base: UIView {
 
+    /**
+     Returns an observable `UISwipeGestureRecognizerDirection` events sequence
+     - parameter numberOfTouchesRequired: The number of fingers required to match
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public func swipeGesture(
         _ direction: UISwipeGestureRecognizerDirection,
         numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
         configuration: ((UISwipeGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UISwipeGestureRecognizer> {
 
-        return gesture(SwipeGestureFactory(
+        return gesture(SwipeGestureRecognizerFactory(
             direction,
             numberOfTouchesRequired: numberOfTouchesRequired,
             configuration: configuration

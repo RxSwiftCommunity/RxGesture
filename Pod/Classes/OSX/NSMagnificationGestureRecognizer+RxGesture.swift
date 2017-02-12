@@ -21,14 +21,20 @@
 import RxSwift
 import RxCocoa
 
+/// Default values for `NSMagnificationGestureRecognizer` configuration
 private enum Defaults {
     static var configuration: ((NSMagnificationGestureRecognizer) -> Void)? = nil
 }
 
-public struct MagnificationGestureFactory: ConfigurableGestureFactory {
+/// A `GestureRecognizerFactory` for `NSMagnificationGestureRecognizer`
+public struct MagnificationGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
     public typealias Gesture = NSMagnificationGestureRecognizer
     public let configuration: (NSMagnificationGestureRecognizer) -> Void
 
+    /**
+     Initialiaze a `GestureRecognizerFactory` for `NSMagnificationGestureRecognizer`
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public init(
         configuration: ((NSMagnificationGestureRecognizer) -> Void)? = Defaults.configuration
         ){
@@ -36,41 +42,55 @@ public struct MagnificationGestureFactory: ConfigurableGestureFactory {
     }
 }
 
-extension AnyGesture {
+extension AnyGestureRecognizerFactory {
 
+    /**
+     Returns an `AnyGestureRecognizerFactory` for `NSMagnificationGestureRecognizer`
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public static func magnification(
         configuration: ((NSMagnificationGestureRecognizer) -> Void)? = Defaults.configuration
-        ) -> AnyGesture {
-        let gesture = MagnificationGestureFactory(
+        ) -> AnyGestureRecognizerFactory {
+        let gesture = MagnificationGestureRecognizerFactory(
             configuration: configuration
         )
-        return AnyGesture(gesture)
+        return AnyGestureRecognizerFactory(gesture)
     }
 }
 
 public extension Reactive where Base: NSView {
 
+    /**
+     Returns an observable `NSMagnificationGestureRecognizer` events sequence
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public func magnificationGesture(
         configuration: ((NSMagnificationGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSMagnificationGestureRecognizer> {
 
-        return gesture(MagnificationGestureFactory(
+        return gesture(MagnificationGestureRecognizerFactory(
             configuration: configuration
         ))
     }
 }
 
 public extension ObservableType where E: NSMagnificationGestureRecognizer {
+
+    /**
+     Maps the observable `GestureRecognizer` events sequence to an observable sequence of magnification amounts alongside the gesture velocity.
+     */
     public func magnification() -> Observable<CGFloat> {
         return self.map { gesture in
             return gesture.magnification
         }
     }
 
+    /**
+     Maps the observable `GestureRecognizer` events sequence to an observable sequence of scale factors relative to the points of the two touches in screen coordinates alongside the gesture velocity.
+     */
     public func scale() -> Observable<CGFloat> {
         return self.map { gesture in
             return 1.0 + gesture.magnification
         }
     }
-
 }

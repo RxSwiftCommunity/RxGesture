@@ -22,16 +22,24 @@ import RxSwift
 import RxCocoa
 
 
+/// Default values for `UIPanGestureRecognizer` configuration
 private enum Defaults {
     static var minimumNumberOfTouches: Int = 1
     static var maximumNumberOfTouches: Int = Int.max
     static var configuration: ((UIPanGestureRecognizer) -> Void)? = nil
 }
 
-public struct PanGestureFactory: ConfigurableGestureFactory {
+/// A `GestureRecognizerFactory` for `UIPanGestureRecognizer`
+public struct PanGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
     public typealias Gesture = UIPanGestureRecognizer
     public let configuration: (UIPanGestureRecognizer) -> Void
 
+    /**
+     Initialiaze a `GestureRecognizerFactory` for `UITapGestureRecognizer`
+     - parameter minimumNumberOfTouches: The minimum number of touches required to match
+     - parameter maximumNumberOfTouches: The maximum number of touches that can be down
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public init(
         minimumNumberOfTouches: Int = Defaults.minimumNumberOfTouches,
         maximumNumberOfTouches: Int = Defaults.maximumNumberOfTouches,
@@ -45,30 +53,43 @@ public struct PanGestureFactory: ConfigurableGestureFactory {
     }
 }
 
-extension AnyGesture {
+extension AnyGestureRecognizerFactory {
 
+    /**
+     Returns an `AnyGestureRecognizerFactory` for `UIPanGestureRecognizer`
+     - parameter minimumNumberOfTouches: The minimum number of touches required to match
+     - parameter maximumNumberOfTouches: The maximum number of touches that can be down
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public static func pan(
         minimumNumberOfTouches: Int = Defaults.minimumNumberOfTouches,
         maximumNumberOfTouches: Int = Defaults.maximumNumberOfTouches,
         configuration: ((UIPanGestureRecognizer) -> Void)? = Defaults.configuration
-        ) -> AnyGesture {
-        let gesture = PanGestureFactory(
+        ) -> AnyGestureRecognizerFactory {
+        let gesture = PanGestureRecognizerFactory(
             minimumNumberOfTouches: minimumNumberOfTouches,
             maximumNumberOfTouches: maximumNumberOfTouches,
             configuration: configuration
         )
-        return AnyGesture(gesture)
+        return AnyGestureRecognizerFactory(gesture)
     }
 }
 
 public extension Reactive where Base: UIView {
+
+    /**
+     Returns an observable `UIPanGestureRecognizer` events sequence
+     - parameter minimumNumberOfTouches: The minimum number of touches required to match
+     - parameter maximumNumberOfTouches: The maximum number of touches that can be down
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public func panGesture(
         minimumNumberOfTouches: Int = Defaults.minimumNumberOfTouches,
         maximumNumberOfTouches: Int = Defaults.maximumNumberOfTouches,
         configuration: ((UIPanGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UIPanGestureRecognizer> {
 
-        return gesture(PanGestureFactory(
+        return gesture(PanGestureRecognizerFactory(
             minimumNumberOfTouches: minimumNumberOfTouches,
             maximumNumberOfTouches: maximumNumberOfTouches,
             configuration: configuration
@@ -77,9 +98,15 @@ public extension Reactive where Base: UIView {
 }
 
 public extension ObservableType where E: UIPanGestureRecognizer {
-    public func translation(inView view: UIView? = nil) -> Observable<(translation: CGPoint, velocity: CGPoint)> {
+
+    /**
+     Maps the observable `GestureRecognizer` events sequence to an observable sequence of translation values of the pan gesture in the coordinate system of the specified `view` alongside the gesture velocity.
+
+     - parameter view: A `TargetView` value on which the gesture took place.
+     */
+    public func translation(in view: TargetView = .view) -> Observable<(translation: CGPoint, velocity: CGPoint)> {
         return self.map { gesture in
-            let view = view ?? gesture.view?.superview
+            let view = view.targetView(for: gesture)
             return (
                 gesture.translation(in: view),
                 gesture.velocity(in: view)

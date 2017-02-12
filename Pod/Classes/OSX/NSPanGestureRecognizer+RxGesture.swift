@@ -21,15 +21,22 @@
 import RxSwift
 import RxCocoa
 
+/// Default values for `NSPanGestureRecognizer` configuration
 private enum Defaults {
     static var buttonMask: Int = 0x1
     static var configuration: ((NSPanGestureRecognizer) -> Void)? = nil
 }
 
-public struct PanGestureFactory: ConfigurableGestureFactory {
+/// A `GestureRecognizerFactory` for `NSPanGestureRecognizer`
+public struct PanGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
     public typealias Gesture = NSPanGestureRecognizer
     public let configuration: (NSPanGestureRecognizer) -> Void
 
+    /**
+     Initialiaze a `GestureRecognizerFactory` for `NSPanGestureRecognizer`
+     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public init(
         buttonMask: Int = Defaults.buttonMask,
         configuration: ((NSPanGestureRecognizer) -> Void)? = Defaults.configuration
@@ -41,27 +48,38 @@ public struct PanGestureFactory: ConfigurableGestureFactory {
     }
 }
 
-extension AnyGesture {
+extension AnyGestureRecognizerFactory {
 
+    /**
+     Returns an `AnyGestureRecognizerFactory` for `NSPanGestureRecognizer`
+     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public static func pan(
         buttonMask: Int = Defaults.buttonMask,
         configuration: ((NSPanGestureRecognizer) -> Void)? = Defaults.configuration
-        ) -> AnyGesture {
-        let gesture = PanGestureFactory(
+        ) -> AnyGestureRecognizerFactory {
+        let gesture = PanGestureRecognizerFactory(
             buttonMask: buttonMask,
             configuration: configuration
         )
-        return AnyGesture(gesture)
+        return AnyGestureRecognizerFactory(gesture)
     }
 }
 
 public extension Reactive where Base: NSView {
+
+    /**
+     Returns an observable `NSPanGestureRecognizer` events sequence
+     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
+     - parameter configuration: A closure that allows to fully configure the gesture recognizer
+     */
     public func panGesture(
         buttonMask: Int = Defaults.buttonMask,
         configuration: ((NSPanGestureRecognizer) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSPanGestureRecognizer> {
 
-        return gesture(PanGestureFactory(
+        return gesture(PanGestureRecognizerFactory(
             buttonMask: buttonMask,
             configuration: configuration
         ))
@@ -69,9 +87,15 @@ public extension Reactive where Base: NSView {
 }
 
 public extension ObservableType where E: NSPanGestureRecognizer {
-    public func translation(inView view: NSView? = nil) -> Observable<(translation: NSPoint, velocity: NSPoint)> {
+
+    /**
+     Maps the observable `GestureRecognizer` events sequence to an observable sequence of translation values of the pan gesture in the coordinate system of the specified `view` alongside the gesture velocity.
+
+     - parameter view: A `TargetView` value on which the gesture took place.
+     */
+    public func translation(in view: TargetView = .view) -> Observable<(translation: NSPoint, velocity: NSPoint)> {
         return self.map { gesture in
-            let view = view ?? gesture.view?.superview
+            let view = view.targetView(for: gesture)
             return (
                 gesture.translation(in: view),
                 gesture.velocity(in: view)

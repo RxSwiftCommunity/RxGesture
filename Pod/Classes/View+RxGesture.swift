@@ -23,40 +23,69 @@ import RxCocoa
 
 extension Reactive where Base: View {
 
-    public func anyGesture(_ gestures: (AnyGesture, state: GestureRecognizerState)...) -> ControlEvent<GestureRecognizer> {
-        let observables = gestures.map { gesture, state in
+    /**
+     Reactive wrapper for multiple view gesture recognizers.
+     It automatically attaches the gesture recognizers to the receiver view.
+     The value the `Observable` emits is the gesture recognizer itself.
+
+     rx.anyGesture can't error and is subscribed/observed on main scheduler.
+     - parameter factories: a `(GestureRecognizerFactory + state)` collection you want to use to create the `GestureRecognizers` to add and observe
+     - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
+     */
+    public func anyGesture(_ factories: (AnyGestureRecognizerFactory, state: GestureRecognizerState)...) -> ControlEvent<GestureRecognizer> {
+        let observables = factories.map { gesture, state in
             self.gesture(gesture).filterState(state).asObservable() as Observable<GestureRecognizer>
         }
         let source = Observable.from(observables).merge()
         return ControlEvent(events: source)
     }
 
-    public func anyGesture(_ gestures: AnyGesture...) -> ControlEvent<GestureRecognizer> {
-        let observables = gestures.map { gesture in
+    /**
+     Reactive wrapper for multiple view gesture recognizers.
+     It automatically attaches the gesture recognizers to the receiver view.
+     The value the `Observable` emits is the gesture recognizer itself.
+
+     rx.anyGesture can't error and is subscribed/observed on main scheduler.
+     - parameter factories: a `GestureRecognizerFactory` collection you want to use to create the `GestureRecognizers` to add and observe
+     - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
+     */
+    public func anyGesture(_ factories: AnyGestureRecognizerFactory...) -> ControlEvent<GestureRecognizer> {
+        let observables = factories.map { gesture in
             self.gesture(gesture).asObservable() as Observable<GestureRecognizer>
         }
         let source = Observable.from(observables).merge()
         return ControlEvent(events: source)
     }
 
-    /// Reactive wrapper for view gestures. You can observe a single gesture recognizer.
-    /// It automatically attaches the gesture recognizer to the receiver view.
-    /// The value the Observable emits is the gesture recognizer itself
-    ///
-    /// rx.addGestureRecognizer can't error and is subscribed/observed on main scheduler
-    /// - parameter type: an GestureRecognizer subclass you want to add and observe
-    /// - returns: `ControlEvent<G>` that emits any type one of the desired gestures is performed on the view
-    /// - seealso: `RxCocoa` adds `rx.tap` to `NSButton/Button` and is sufficient if you only need to subscribe
-    ///   on taps on buttons. `RxGesture` on the other hand enables `userInteractionEnabled` and handles gestures on any view
+    /**
+     Reactive wrapper for a single view gesture recognizer.
+     It automatically attaches the gesture recognizer to the receiver view.
+     The value the `Observable` emits is the gesture recognizer itself.
 
-    public func gesture<GF: GestureFactory, G: GestureRecognizer where GF.Gesture == G>(_ factory: GF) -> ControlEvent<G> {
+     rx.gesture can't error and is subscribed/observed on main scheduler.
+     - parameter factory: a `GestureRecognizerFactory` you want to use to create the `GestureRecognizer` to add and observe
+     - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
+     */
+    public func gesture<GF: GestureRecognizerFactory, G: GestureRecognizer where GF.Gesture == G>(_ factory: GF) -> ControlEvent<G> {
+        return self.gesture(factory.make())
+    }
 
-        let gesture = factory.make()
+    /**
+     Reactive wrapper for a single view gesture recognizer.
+     It automatically attaches the gesture recognizer to the receiver view.
+     The value the `Observable` emits is the gesture recognizer itself.
+
+     rx.gesture can't error and is subscribed/observed on main scheduler.
+     - parameter gesture: a `GestureRecognizer` you want to add and observe
+     - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
+     */
+    public func gesture<G: UIGestureRecognizer>(_ gesture: G) -> ControlEvent<G> {
+
         let control = self.base
         let genericGesture = gesture as GestureRecognizer
 
         #if os(iOS)
-        control.isUserInteractionEnabled = true
+            control.isUserInteractionEnabled = true
         #endif
 
         gesture.delegate = gesture.delegate ?? PermissiveGestureRecognizerDelegate.shared
@@ -68,7 +97,7 @@ extension Reactive where Base: View {
                 control.addGestureRecognizer(gesture)
 
                 let disposable = genericGesture.rx.event
-                    .map { gesture -> G in gesture as! G }
+                    .map { $0 as! G }
                     .startWith(gesture)
                     .bindNext(observer.onNext)
 
