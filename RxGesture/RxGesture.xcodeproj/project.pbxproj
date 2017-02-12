@@ -16,17 +16,24 @@
 		87A517841E4FED3900A65547 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5176F1E4FED3900A65547 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift */; };
 		87A517851E4FED3900A65547 /* UISwipeGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517701E4FED3900A65547 /* UISwipeGestureRecognizer+RxGesture.swift */; };
 		87A517861E4FED3900A65547 /* UITapGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517711E4FED3900A65547 /* UITapGestureRecognizer+RxGesture.swift */; };
-		87A517871E4FED3900A65547 /* NSClickGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517731E4FED3900A65547 /* NSClickGestureRecognizer+RxGesture.swift */; };
-		87A517881E4FED3900A65547 /* NSGestureRecognizer+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517741E4FED3900A65547 /* NSGestureRecognizer+Rx.swift */; };
-		87A517891E4FED3900A65547 /* NSGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517751E4FED3900A65547 /* NSGestureRecognizer+RxGesture.swift */; };
-		87A5178A1E4FED3900A65547 /* NSMagnificationGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517761E4FED3900A65547 /* NSMagnificationGestureRecognizer+RxGesture.swift */; };
-		87A5178B1E4FED3900A65547 /* NSPanGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517771E4FED3900A65547 /* NSPanGestureRecognizer+RxGesture.swift */; };
-		87A5178C1E4FED3900A65547 /* NSPressGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517781E4FED3900A65547 /* NSPressGestureRecognizer+RxGesture.swift */; };
-		87A5178D1E4FED3900A65547 /* NSRotationGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517791E4FED3900A65547 /* NSRotationGestureRecognizer+RxGesture.swift */; };
 		87A5178E1E4FED3900A65547 /* GestureFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177A1E4FED3900A65547 /* GestureFactory.swift */; };
 		87A5178F1E4FED3900A65547 /* PermissiveGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177B1E4FED3900A65547 /* PermissiveGestureRecognizerDelegate.swift */; };
 		87A517901E4FED3900A65547 /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177C1E4FED3900A65547 /* SharedTypes.swift */; };
 		87A517911E4FED3900A65547 /* View+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177D1E4FED3900A65547 /* View+RxGesture.swift */; };
+		87F8F72A1E511E7F00C3B1BE /* NSGestureRecognizer+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517741E4FED3900A65547 /* NSGestureRecognizer+Rx.swift */; };
+		87F8F72B1E511E7F00C3B1BE /* NSGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517751E4FED3900A65547 /* NSGestureRecognizer+RxGesture.swift */; };
+		87F8F72C1E511E7F00C3B1BE /* NSClickGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517731E4FED3900A65547 /* NSClickGestureRecognizer+RxGesture.swift */; };
+		87F8F72D1E511E7F00C3B1BE /* NSMagnificationGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517761E4FED3900A65547 /* NSMagnificationGestureRecognizer+RxGesture.swift */; };
+		87F8F72E1E511E7F00C3B1BE /* NSPanGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517771E4FED3900A65547 /* NSPanGestureRecognizer+RxGesture.swift */; };
+		87F8F72F1E511E7F00C3B1BE /* NSPressGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517781E4FED3900A65547 /* NSPressGestureRecognizer+RxGesture.swift */; };
+		87F8F7301E511E7F00C3B1BE /* NSRotationGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517791E4FED3900A65547 /* NSRotationGestureRecognizer+RxGesture.swift */; };
+		87F8F7311E511E8600C3B1BE /* GestureFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177A1E4FED3900A65547 /* GestureFactory.swift */; };
+		87F8F7321E511E8600C3B1BE /* PermissiveGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177B1E4FED3900A65547 /* PermissiveGestureRecognizerDelegate.swift */; };
+		87F8F7331E511E8600C3B1BE /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177C1E4FED3900A65547 /* SharedTypes.swift */; };
+		87F8F7341E511E8600C3B1BE /* View+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177D1E4FED3900A65547 /* View+RxGesture.swift */; };
+		87F8F7351E511E9D00C3B1BE /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C531DEBAD9E009ED835 /* RxCocoa.framework */; };
+		87F8F7361E511E9D00C3B1BE /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C541DEBAD9E009ED835 /* RxSwift.framework */; };
+		87F8F7371E511E9D00C3B1BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */; };
 		F4CC4C221DEBA895009ED835 /* RxGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CC4C201DEBA895009ED835 /* RxGesture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4CC4C341DEBAA40009ED835 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = F4CC4C2B1DEBAA40009ED835 /* .gitkeep */; };
 		F4CC4C571DEBAF98009ED835 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */; };
@@ -55,6 +62,7 @@
 		87A5177B1E4FED3900A65547 /* PermissiveGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissiveGestureRecognizerDelegate.swift; sourceTree = "<group>"; };
 		87A5177C1E4FED3900A65547 /* SharedTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedTypes.swift; sourceTree = "<group>"; };
 		87A5177D1E4FED3900A65547 /* View+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+RxGesture.swift"; sourceTree = "<group>"; };
+		87F8F7221E511E2E00C3B1BE /* RxGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CC4C1D1DEBA895009ED835 /* RxGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CC4C201DEBA895009ED835 /* RxGesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxGesture.h; sourceTree = "<group>"; };
 		F4CC4C211DEBA895009ED835 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,6 +74,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		87F8F71E1E511E2E00C3B1BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87F8F7351E511E9D00C3B1BE /* RxCocoa.framework in Frameworks */,
+				87F8F7361E511E9D00C3B1BE /* RxSwift.framework in Frameworks */,
+				87F8F7371E511E9D00C3B1BE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4CC4C191DEBA895009ED835 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				F4CC4C1D1DEBA895009ED835 /* RxGesture.framework */,
+				87F8F7221E511E2E00C3B1BE /* RxGesture.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,6 +184,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		87F8F71F1E511E2E00C3B1BE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4CC4C1A1DEBA895009ED835 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -176,6 +202,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		87F8F7211E511E2E00C3B1BE /* RxGesture-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87F8F7291E511E2E00C3B1BE /* Build configuration list for PBXNativeTarget "RxGesture-OSX" */;
+			buildPhases = (
+				87F8F71D1E511E2E00C3B1BE /* Sources */,
+				87F8F71E1E511E2E00C3B1BE /* Frameworks */,
+				87F8F71F1E511E2E00C3B1BE /* Headers */,
+				87F8F7201E511E2E00C3B1BE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxGesture-OSX";
+			productName = RxGesture;
+			productReference = 87F8F7221E511E2E00C3B1BE /* RxGesture.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		F4CC4C1C1DEBA895009ED835 /* RxGesture-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4CC4C251DEBA895009ED835 /* Build configuration list for PBXNativeTarget "RxGesture-iOS" */;
@@ -203,6 +247,10 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = AutoLotto;
 				TargetAttributes = {
+					87F8F7211E511E2E00C3B1BE = {
+						CreatedOnToolsVersion = 8.2;
+						ProvisioningStyle = Automatic;
+					};
 					F4CC4C1C1DEBA895009ED835 = {
 						CreatedOnToolsVersion = 8.1;
 						LastSwiftMigration = 0820;
@@ -223,11 +271,19 @@
 			projectRoot = "";
 			targets = (
 				F4CC4C1C1DEBA895009ED835 /* RxGesture-iOS */,
+				87F8F7211E511E2E00C3B1BE /* RxGesture-OSX */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		87F8F7201E511E2E00C3B1BE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4CC4C1B1DEBA895009ED835 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,29 +295,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		87F8F71D1E511E2E00C3B1BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87F8F7301E511E7F00C3B1BE /* NSRotationGestureRecognizer+RxGesture.swift in Sources */,
+				87F8F7321E511E8600C3B1BE /* PermissiveGestureRecognizerDelegate.swift in Sources */,
+				87F8F72E1E511E7F00C3B1BE /* NSPanGestureRecognizer+RxGesture.swift in Sources */,
+				87F8F72D1E511E7F00C3B1BE /* NSMagnificationGestureRecognizer+RxGesture.swift in Sources */,
+				87F8F7341E511E8600C3B1BE /* View+RxGesture.swift in Sources */,
+				87F8F72F1E511E7F00C3B1BE /* NSPressGestureRecognizer+RxGesture.swift in Sources */,
+				87F8F72B1E511E7F00C3B1BE /* NSGestureRecognizer+RxGesture.swift in Sources */,
+				87F8F72A1E511E7F00C3B1BE /* NSGestureRecognizer+Rx.swift in Sources */,
+				87F8F7311E511E8600C3B1BE /* GestureFactory.swift in Sources */,
+				87F8F7331E511E8600C3B1BE /* SharedTypes.swift in Sources */,
+				87F8F72C1E511E7F00C3B1BE /* NSClickGestureRecognizer+RxGesture.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4CC4C181DEBA895009ED835 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				87A517861E4FED3900A65547 /* UITapGestureRecognizer+RxGesture.swift in Sources */,
 				87A5178F1E4FED3900A65547 /* PermissiveGestureRecognizerDelegate.swift in Sources */,
-				87A517871E4FED3900A65547 /* NSClickGestureRecognizer+RxGesture.swift in Sources */,
-				87A5178D1E4FED3900A65547 /* NSRotationGestureRecognizer+RxGesture.swift in Sources */,
-				87A5178C1E4FED3900A65547 /* NSPressGestureRecognizer+RxGesture.swift in Sources */,
 				87A517801E4FED3900A65547 /* UILongPressGestureRecognizer+RxGesture.swift in Sources */,
 				87A517811E4FED3900A65547 /* UIPanGestureRecognizer+RxGesture.swift in Sources */,
 				87A5178E1E4FED3900A65547 /* GestureFactory.swift in Sources */,
-				87A5178B1E4FED3900A65547 /* NSPanGestureRecognizer+RxGesture.swift in Sources */,
-				87A517881E4FED3900A65547 /* NSGestureRecognizer+Rx.swift in Sources */,
 				87A517911E4FED3900A65547 /* View+RxGesture.swift in Sources */,
 				87A517841E4FED3900A65547 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift in Sources */,
-				87A517891E4FED3900A65547 /* NSGestureRecognizer+RxGesture.swift in Sources */,
 				87A5177E1E4FED3900A65547 /* TransformGestureRecognizers.swift in Sources */,
 				87A517901E4FED3900A65547 /* SharedTypes.swift in Sources */,
 				87A517851E4FED3900A65547 /* UISwipeGestureRecognizer+RxGesture.swift in Sources */,
 				87A5177F1E4FED3900A65547 /* UIGestureRecognizer+RxGesture.swift in Sources */,
 				87A517821E4FED3900A65547 /* UIPinchGestureRecognizer+RxGesture.swift in Sources */,
-				87A5178A1E4FED3900A65547 /* NSMagnificationGestureRecognizer+RxGesture.swift in Sources */,
 				87A517831E4FED3900A65547 /* UIRotationGestureRecognizer+RxGesture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +336,52 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		87F8F7271E511E2E00C3B1BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = RxGesture/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture;
+				PRODUCT_NAME = RxGesture;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		87F8F7281E511E2E00C3B1BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = RxGesture/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture;
+				PRODUCT_NAME = RxGesture;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		F4CC4C231DEBA895009ED835 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -416,6 +529,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		87F8F7291E511E2E00C3B1BE /* Build configuration list for PBXNativeTarget "RxGesture-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87F8F7271E511E2E00C3B1BE /* Debug */,
+				87F8F7281E511E2E00C3B1BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		F4CC4C171DEBA895009ED835 /* Build configuration list for PBXProject "RxGesture" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
