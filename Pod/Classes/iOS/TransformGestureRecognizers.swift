@@ -75,10 +75,10 @@ public extension ObservableType where E: TransformGestureRecognizersType {
             let translationView = view.targetView(for: gestures.panGesture)
             let translation = gestures.panGesture.translation(in: translationView)
 
-            let transform = CGAffineTransform
-                .init(translationX: translation.x, y: translation.y)
-                .scaledBy(x: gestures.pinchGesture.scale, y: gestures.pinchGesture.scale)
+            let transform = CGAffineTransform.identity
                 .rotated(by: gestures.rotationGesture.rotation)
+                .scaledBy(x: gestures.pinchGesture.scale, y: gestures.pinchGesture.scale)
+                .translatedBy(x: translation.x, y: translation.y)
 
             let velocity = TransformVelocity(
                 translation: gestures.panGesture.velocity(in: translationView),
