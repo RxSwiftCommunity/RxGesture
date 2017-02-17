@@ -79,7 +79,7 @@ extension Reactive where Base: View {
      - parameter gesture: a `GestureRecognizer` you want to add and observe
      - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
      */
-    public func gesture<G: UIGestureRecognizer>(_ gesture: G) -> ControlEvent<G> {
+    public func gesture<G: GestureRecognizer>(_ gesture: G) -> ControlEvent<G> {
 
         let control = self.base
         let genericGesture = gesture as GestureRecognizer

@@ -54,7 +54,11 @@ public enum TargetView {
         case .superview:
             return gestureRecognizer.view?.superview
         case .window:
-            return gestureRecognizer.view?.window
+            #if os(iOS)
+                return gestureRecognizer.view?.window
+            #elseif os(OSX)
+                return gestureRecognizer.view?.window?.contentView
+            #endif
         case .this(let view):
             return view
         }

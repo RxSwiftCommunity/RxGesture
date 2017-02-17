@@ -97,7 +97,7 @@ public extension ObservableType where E: NSPanGestureRecognizer {
         return self.map { gesture in
             let view = view.targetView(for: gesture)
             return (
-                gesture.asTranslation(in: view),
+                gesture.translation(in: view),
                 gesture.velocity(in: view)
             )
         }
