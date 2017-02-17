@@ -18,37 +18,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import RxSwift
+import RxCocoa
 
-public struct PanConfig {
-    public enum State {
-        case began, changed, ended, any
+final class PermissiveGestureRecognizerDelegate: NSObject, GestureRecognizerDelegate {
+
+    static let shared = PermissiveGestureRecognizerDelegate()
+
+    func gestureRecognizer(
+        _ gestureRecognizer: GestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: GestureRecognizer
+        ) -> Bool {
+        return true
     }
-    
-    #if os(iOS)
-    public let translation: CGPoint
-    public let velocity: CGPoint
-    #elseif os(OSX)
-    public let translation: NSPoint
-    public let velocity: NSPoint
-    #endif
-    
-    public let state: State
-    public var recognizer: AnyObject?
-    
-    public static let began: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, state: .began, recognizer: nil)
-    }()
-
-    public static let changed: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, state: .changed, recognizer: nil)
-    }()
-
-    public static let ended: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, state: .ended, recognizer: nil)
-    }()
-    
-    public static let any: PanConfig = {
-        return PanConfig(translation: .zero, velocity: .zero, state: .any, recognizer: nil)
-    }()
 }

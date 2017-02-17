@@ -18,31 +18,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import RxSwift
+import RxCocoa
 
-public struct RotateConfig {
-    public enum State {
-        case began, changed, ended, any
+public protocol GestureRecognizerFactory {
+    associatedtype Gesture: GestureRecognizer
+
+    var configuration: (Gesture) -> Void { get }
+    func make() -> Gesture
+}
+
+public extension GestureRecognizerFactory {
+
+    public var configuration: (Gesture) -> Void {
+        return { _ in }
     }
-    
-    public let rotation: CGFloat
-    
-    public let state: State
-    public var recognizer: AnyObject?
-    
-    public static let began: RotateConfig = {
-        return RotateConfig(rotation: 0, state: .began, recognizer: nil)
-    }()
 
-    public static let changed: RotateConfig = {
-        return RotateConfig(rotation: 0, state: .changed, recognizer: nil)
-    }()
+    public func make() -> Gesture {
+        let gesture = Gesture()
+        configuration(gesture)
+        return gesture
+    }
+}
 
-    public static let ended: RotateConfig = {
-        return RotateConfig(rotation: 0, state: .ended, recognizer: nil)
-    }()
-    
-    public static let any: RotateConfig = {
-        return RotateConfig(rotation: 0, state: .any, recognizer: nil)
-    }()
+public struct AnyGestureRecognizerFactory: GestureRecognizerFactory {
+
+    public typealias Gesture = GestureRecognizer
+
+    public init<G: GestureRecognizerFactory>(_ factory: G) {
+        _make = {
+            return factory.make() as GestureRecognizer
+        }
+    }
+
+    private let _make: () -> GestureRecognizer
+    public func make() -> GestureRecognizer {
+        return _make()
+    }
 }
