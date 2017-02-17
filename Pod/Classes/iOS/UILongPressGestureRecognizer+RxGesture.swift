@@ -31,7 +31,7 @@ private enum Defaults {
 }
 
 /// A `GestureRecognizerFactory` for `UITapGestureRecognizer`
-public struct LongPressGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
+public struct LongPressGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = UILongPressGestureRecognizer
     public let configuration: (UILongPressGestureRecognizer) -> Void
 

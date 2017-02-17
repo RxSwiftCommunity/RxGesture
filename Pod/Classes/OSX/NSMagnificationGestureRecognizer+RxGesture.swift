@@ -27,7 +27,7 @@ private enum Defaults {
 }
 
 /// A `GestureRecognizerFactory` for `NSMagnificationGestureRecognizer`
-public struct MagnificationGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
+public struct MagnificationGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSMagnificationGestureRecognizer
     public let configuration: (NSMagnificationGestureRecognizer) -> Void
 
@@ -79,7 +79,7 @@ public extension ObservableType where E: NSMagnificationGestureRecognizer {
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of magnification amounts alongside the gesture velocity.
      */
-    public func magnification() -> Observable<CGFloat> {
+    public func asMagnification() -> Observable<CGFloat> {
         return self.map { gesture in
             return gesture.magnification
         }
@@ -88,7 +88,7 @@ public extension ObservableType where E: NSMagnificationGestureRecognizer {
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of scale factors relative to the points of the two touches in screen coordinates alongside the gesture velocity.
      */
-    public func scale() -> Observable<CGFloat> {
+    public func asScale() -> Observable<CGFloat> {
         return self.map { gesture in
             return 1.0 + gesture.magnification
         }

@@ -30,7 +30,7 @@ private enum Defaults {
 }
 
 /// A `GestureRecognizerFactory` for `UIPanGestureRecognizer`
-public struct PressGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
+public struct PressGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSPressGestureRecognizer
     public let configuration: (NSPressGestureRecognizer) -> Void
 

@@ -30,7 +30,7 @@ private enum Defaults {
 }
 
 /// A `GestureRecognizerFactory` for `UIPanGestureRecognizer`
-public struct PanGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
+public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = UIPanGestureRecognizer
     public let configuration: (UIPanGestureRecognizer) -> Void
 
@@ -104,7 +104,7 @@ public extension ObservableType where E: UIPanGestureRecognizer {
 
      - parameter view: A `TargetView` value on which the gesture took place.
      */
-    public func translation(in view: TargetView = .view) -> Observable<(translation: CGPoint, velocity: CGPoint)> {
+    public func asTranslation(in view: TargetView = .view) -> Observable<(translation: CGPoint, velocity: CGPoint)> {
         return self.map { gesture in
             let view = view.targetView(for: gesture)
             return (

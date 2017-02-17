@@ -23,14 +23,15 @@ import RxCocoa
 
 public extension ObservableType where E: NSGestureRecognizer {
 
+
     /**
      Filters the observable `GestureRecognizer` events sequence based on the `GestureRecognizer` state.
 
-     - parameter state: An `UIGestureRecognizerState` that is used to filter the `GestureRecognizer` events sequence.
-     - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match the given `state`.
+     - parameter states: A `UIGestureRecognizerState` collection that is used to filter the `GestureRecognizer` events sequence.
+     - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match any of the given `states`.
      */
-    public func filterState(_ state: NSGestureRecognizerState) -> Observable<E> {
-        return filterState(in: [state])
+    public func when(_ states: NSGestureRecognizerState...) -> Observable<E> {
+        return when(states)
     }
 
     /**
@@ -39,7 +40,7 @@ public extension ObservableType where E: NSGestureRecognizer {
      - parameter states: A `UIGestureRecognizerState` collection that is used to filter the `GestureRecognizer` events sequence.
      - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match any of the given `states`.
      */
-    public func filterState(in states: [NSGestureRecognizerState]) -> Observable<E> {
+    public func when(_ states: [NSGestureRecognizerState]) -> Observable<E> {
         return self.filter { gesture in
             return states.contains(gesture.state)
         }
@@ -50,7 +51,7 @@ public extension ObservableType where E: NSGestureRecognizer {
 
      - parameter view: A `TargetView` value on which the gesture took place.
      */
-    public func location(in view: TargetView = .view) -> Observable<NSPoint> {
+    public func asLocation(in view: TargetView = .view) -> Observable<NSPoint> {
         return self.map { gesture in
             return gesture.location(in: view.targetView(for: gesture))
         }

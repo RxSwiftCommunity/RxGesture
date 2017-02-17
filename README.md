@@ -17,7 +17,7 @@ You _might_ need to run `pod install` from the Example directory first.
 __RxGesture__ allows you to easily turn any view into a tappable or swipeable control like so:
 
 ```swift
-view.rx.tapGesture().filterState(.recognized).subscribe(onNext: {_ in
+view.rx.tapGesture().when(.recognized).subscribe(onNext: {_ in
    //react to taps
 }).addDisposableTo(stepBag)
 ```
@@ -25,24 +25,24 @@ view.rx.tapGesture().filterState(.recognized).subscribe(onNext: {_ in
 You can also react to more than one  gesture. For example to dismiss a photo preview you might want to do that when the user taps it, or swipes up or down:
 
 ```swift
-view.rx.anyGestures(.tap(), .swipe([.up, .down])).filterState(.recognized).subscribe(onNext: {_ in
+view.rx.anyGesture(.tap(), .swipe([.up, .down])).when(.recognized).subscribe(onNext: {_ in
    //dismiss presented photo
 }).addDisposableTo(stepBag)
 ```
 
-`rx.gesture` is defined as `Observable<G>` where `G` is the actual type of the gesture recognizer so what it emits is the gesture recognizer itself (handy if want to call methods like `location(in view:)` or `translation(in view:)`)
+`rx.gesture` is defined as `Observable<G>` where `G` is the actual type of the gesture recognizer so what it emits is the gesture recognizer itself (handy if want to call methods like `asLocation(in view:)` or `asTranslation(in view:)`)
 
 On __iOS__ RxGesture supports:
 
 Use alone | Use alongside other gestures
 ---------|---------
-`view.rx.tapGesture() -> ControlEvent<UITapGestureRecognizer>` | `view.rx.anyGestures(.tap(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.pinchGesture() -> ControlEvent<UIPinchGestureRecognizer>` | `view.rx.anyGestures(.pinch(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.swipeGesture(.left) -> ControlEvent<UISwipeGestureRecognizer>` | `view.rx.anyGestures(.swipe(.left), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.panGesture() -> ControlEvent<UIPanGestureRecognizer>` | `view.rx.anyGestures(.pan(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.longPressGesture() -> ControlEvent<UILongPressGestureRecognizer>` | `view.rx.anyGestures(.longPress(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.rotationGesture() -> ControlEvent<UIRotationGestureRecognizer>` | `view.rx.anyGestures(.rotation(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.screenEdgePanGesture() -> ControlEvent<UIScreenEdgePanGestureRecognizer>` | `view.rx.anyGestures(.screenEdgePan(), ...) -> ControlEvent<UIGestureRecognizer>`
+`view.rx.tapGesture() -> ControlEvent<UITapGestureRecognizer>` | `view.rx.anyGesture(.tap(), ...) -> ControlEvent<UIGestureRecognizer>`
+`view.rx.pinchGesture() -> ControlEvent<UIPinchGestureRecognizer>` | `view.rx.anyGesture(.pinch(), ...) -> ControlEvent<UIGestureRecognizer>`
+`view.rx.swipeGesture(.left) -> ControlEvent<UISwipeGestureRecognizer>` | `view.rx.anyGesture(.swipe(.left), ...) -> ControlEvent<UIGestureRecognizer>`
+`view.rx.panGesture() -> ControlEvent<UIPanGestureRecognizer>` | `view.rx.anyGesture(.pan(), ...) -> ControlEvent<UIGestureRecognizer>`
+`view.rx.longPressGesture() -> ControlEvent<UILongPressGestureRecognizer>` | `view.rx.anyGesture(.longPress(), ...) -> ControlEvent<UIGestureRecognizer>`
+`view.rx.rotationGesture() -> ControlEvent<UIRotationGestureRecognizer>` | `view.rx.anyGesture(.rotation(), ...) -> ControlEvent<UIGestureRecognizer>`
+`view.rx.screenEdgePanGesture() -> ControlEvent<UIScreenEdgePanGestureRecognizer>` | `view.rx.anyGesture(.screenEdgePan(), ...) -> ControlEvent<UIGestureRecognizer>`
 
 
 
@@ -50,12 +50,12 @@ On __macOS__ RxGesture supports:
 
 Use alone | Use alongside other gestures
 ---------|---------
-`view.rx.clickGesture() -> ControlEvent<NSClickGestureRecognizer>` | `view.rx.anyGestures(.click(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.rightClickGesture() -> ControlEvent<NSClickGestureRecognizer>` | `view.rx.anyGestures(.rightClick(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.panGesture() -> ControlEvent<NSPanGestureRecognizer>` | `view.rx.anyGestures(.pan(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.pressGesture() -> ControlEvent<NSPressGestureRecognizer>` | `view.rx.anyGestures(.press(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.rotationGesture() -> ControlEvent<NSRotationGestureRecognizer>` | `view.rx.anyGestures(.rotation(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.magnificationGesture() -> ControlEvent<NSMagnificationGestureRecognizer>` | `view.rx.anyGestures(.magnification(), ...) -> ControlEvent<NSGestureRecognizer>`
+`view.rx.clickGesture() -> ControlEvent<NSClickGestureRecognizer>` | `view.rx.anyGesture(.click(), ...) -> ControlEvent<NSGestureRecognizer>`
+`view.rx.rightClickGesture() -> ControlEvent<NSClickGestureRecognizer>` | `view.rx.anyGesture(.rightClick(), ...) -> ControlEvent<NSGestureRecognizer>`
+`view.rx.panGesture() -> ControlEvent<NSPanGestureRecognizer>` | `view.rx.anyGesture(.pan(), ...) -> ControlEvent<NSGestureRecognizer>`
+`view.rx.pressGesture() -> ControlEvent<NSPressGestureRecognizer>` | `view.rx.anyGesture(.press(), ...) -> ControlEvent<NSGestureRecognizer>`
+`view.rx.rotationGesture() -> ControlEvent<NSRotationGestureRecognizer>` | `view.rx.anyGesture(.rotation(), ...) -> ControlEvent<NSGestureRecognizer>`
+`view.rx.magnificationGesture() -> ControlEvent<NSMagnificationGestureRecognizer>` | `view.rx.anyGesture(.magnification(), ...) -> ControlEvent<NSGestureRecognizer>`
 
 
 
@@ -73,27 +73,27 @@ Kind | States
 `.longPress()`, `.press()`, | `.began`
 `.pan()`, `.pinch()`, `.rotation()`, `.magnification()`, `.screenEdgePan()` | `.began`, `.changed`, `.ended`
 
-You usually filter the state using the `.filterState()` operator:
+You usually filter the state using the `.when()` operator:
 ```swift
-view.rx.tap().filterState(.recognized)
-view.rx.pan().filterState(in: [.began, .changed, .ended])
+view.rx.tapGesture().when(.recognized)
+view.rx.panGesture().when(.began, .changed, .ended)
 ```
 
-If you are observing multiple gestures at once, you can use the `.filterState()` operator if you want to filter against the same state for __all__ gesture recognizers, or use the tuple syntax for individual filtering:
+If you are observing multiple gestures at once, you can use the `.when()` operator if you want to filter against the same state for __all__ gesture recognizers, or use the tuple syntax for individual filtering:
 
 ```swift
 view.rx
-	.anyGestures(.tap, .swipe([.up, .down]))
-	.filterState(.recognized)
+	.anyGesture(.tap(), .swipe([.up, .down]))
+	.when(.recognized)
 	.subscribe(onNext { gesture in
 		// Called whenever a tap, a swipe-up or a swipe-down is recognized (state == .recognized)
 	})
 	.addDisposableTo(bag)
 	
 view.rx
-	.anyGestures(
-		(.tap, state: .recognized),
-		(.pan, state: .ended)
+	.anyGesture(
+		(.tap(), when: .recognized),
+		(.pan(), when: .ended)
 	)
 	.subscribe(onNext { gesture in
 		// Called whenever:

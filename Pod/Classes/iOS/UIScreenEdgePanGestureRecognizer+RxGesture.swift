@@ -27,7 +27,7 @@ private enum Defaults {
 }
 
 /// A `GestureRecognizerFactory` for `UIScreenEdgePanGestureRecognizer`
-public struct ScreenEdgePanGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
+public struct ScreenEdgePanGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = UIScreenEdgePanGestureRecognizer
     public let configuration: (UIScreenEdgePanGestureRecognizer) -> Void
 

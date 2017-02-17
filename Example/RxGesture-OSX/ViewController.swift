@@ -94,7 +94,7 @@ class MacViewController: NSViewController {
 
     lazy var clickStep: Step = Step(
         title: "Click the square",
-        code: "view.rx\n\t.clickGesture()\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        code: "view.rx\n\t.clickGesture()\n\t.when(.recognized)\n\t.subscribe(onNext: {...})",
         install: { view, _, nextStep, stepBag in
 
             view.animateTransform(to: CATransform3DIdentity)
@@ -102,7 +102,7 @@ class MacViewController: NSViewController {
 
             view.rx
                 .clickGesture()
-                .filterState(.recognized)
+                .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
@@ -111,7 +111,7 @@ class MacViewController: NSViewController {
 
     lazy var doubleClickStep: Step = Step(
         title: "Double click the square",
-        code: "view.rx\n\t.clickGesture(numberOfClicksRequired: 2)\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        code: "view.rx\n\t.clickGesture(numberOfClicksRequired: 2)\n\t.when(.recognized)\n\t.subscribe(onNext: {...})",
         install: { view, _, nextStep, stepBag in
 
             view.animateTransform(to: CATransform3DIdentity)
@@ -119,7 +119,7 @@ class MacViewController: NSViewController {
 
             view.rx
                 .clickGesture(numberOfClicksRequired: 2)
-                .filterState(.recognized)
+                .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
@@ -128,7 +128,7 @@ class MacViewController: NSViewController {
 
     lazy var rightClickStep: Step = Step(
         title: "Right click the square",
-        code: "view.rx\n\t.rightClickGesture()\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        code: "view.rx\n\t.rightClickGesture()\n\t.when(.recognized)\n\t.subscribe(onNext: {...})",
         install: { view, _, nextStep, stepBag in
 
             view.animateTransform(to: CATransform3DIdentity)
@@ -136,7 +136,7 @@ class MacViewController: NSViewController {
 
             view.rx
                 .rightClickGesture()
-                .filterState(.recognized)
+                .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
@@ -145,7 +145,7 @@ class MacViewController: NSViewController {
 
     lazy var anyClickStep: Step = Step(
         title: "Click any button (left or right)",
-        code: "view.rx\n\t.anyGesture(.click(), .rightClick())\n\t.filterState(.recognized)\n\t.subscribe(onNext: {...})",
+        code: "view.rx\n\t.anyGesture(.click(), .rightClick())\n\t.when(.recognized)\n\t.subscribe(onNext: {...})",
         install: { view, _, nextStep, stepBag in
 
             view.animateTransform(to: CATransform3DMakeScale(1.5, 1.5, 1.0))
@@ -153,7 +153,7 @@ class MacViewController: NSViewController {
 
             view.rx
                 .anyGesture(.click(), .rightClick())
-                .filterState(.recognized)
+                .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 }).addDisposableTo(stepBag)
@@ -161,7 +161,7 @@ class MacViewController: NSViewController {
 
     lazy var pressStep: Step = Step(
         title: "Long press the square",
-        code: "view.rx\n\t.pressGesture()\n\t.filterState(.began)\n\t.subscribe(onNext: {...})",
+        code: "view.rx\n\t.pressGesture()\n\t.when(.began)\n\t.subscribe(onNext: {...})",
         install: { view, _, nextStep, stepBag in
 
             view.animateBackgroundColor(to: .red)
@@ -169,7 +169,7 @@ class MacViewController: NSViewController {
 
             view.rx
                 .pressGesture()
-                .filterState(.began)
+                .when(.began)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
@@ -178,15 +178,15 @@ class MacViewController: NSViewController {
 
     lazy var panStep: Step = Step(
         title: "Drag the square around",
-        code: "view.rx\n\t.panGesture()\n\t.filterState(.changed)\n\t.translation()\n\t.subscribe(onNext: {...})\n\nview.rx\n\t.anyGesture(\n\t\t(.pan(), state: .ended),\n\t\t(.click(), state: .recognized)\n\t)\n\t.subscribe(onNext: {...})",
+        code: "view.rx\n\t.panGesture()\n\t.when(.changed)\n\t.asTranslation()\n\t.subscribe(onNext: {...})\n\nview.rx\n\t.anyGesture(\n\t\t(.pan(), state: .ended),\n\t\t(.click(), state: .recognized)\n\t)\n\t.subscribe(onNext: {...})",
         install: { view, label, nextStep, stepBag in
 
             view.animateTransform(to: CATransform3DIdentity)
 
             view.rx
                 .panGesture()
-                .filterState(.changed)
-                .translation()
+                .when(.changed)
+                .asTranslation()
                 .subscribe(onNext: {[unowned self] translation, _ in
                     label.stringValue = String(format: "(%.f, %.f)", arguments: [translation.x, translation.y])
                     view.layer!.transform = CATransform3DMakeTranslation(translation.x, translation.y, 0.0)
@@ -195,8 +195,8 @@ class MacViewController: NSViewController {
 
             view.rx
                 .anyGesture(
-                    (.pan(), state: .ended),
-                    (.click(), state: .recognized)
+                    (.pan(), when: .ended),
+                    (.click(), when: .recognized)
                 )
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
@@ -206,15 +206,15 @@ class MacViewController: NSViewController {
 
     lazy var rotateStep: Step = Step(
         title: "Rotate the square with your trackpad, or click if you do not have a trackpad",
-        code: "view.rx\n\t.rotationGesture()\n\t.filterState(.changed)\n\t.rotation()\n\t.subscribe(onNext: {...})\n\nview.rx\n\t.anyGesture(\n\t\t(.rotation(), state: .ended),\n\t\t(.click(), state: .recognized)\n\t)\n\t.subscribe(onNext: {...})",
+        code: "view.rx\n\t.rotationGesture()\n\t.when(.changed)\n\t.asRotation()\n\t.subscribe(onNext: {...})\n\nview.rx\n\t.anyGesture(\n\t\t(.rotation(), state: .ended),\n\t\t(.click(), state: .recognized)\n\t)\n\t.subscribe(onNext: {...})",
         install: { view, label, nextStep, stepBag in
 
             view.animateTransform(to: CATransform3DIdentity)
 
             view.rx
                 .rotationGesture()
-                .filterState(.changed)
-                .rotation()
+                .when(.changed)
+                .asRotation()
                 .subscribe(onNext: { rotation in
                     label.stringValue = String(format: "angle: %.2f", rotation)
                     view.layer!.transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
@@ -223,8 +223,8 @@ class MacViewController: NSViewController {
 
             view.rx
                 .anyGesture(
-                    (.rotation(), state: .ended),
-                    (.click(), state: .recognized)
+                    (.rotation(), when: .ended),
+                    (.click(), when: .recognized)
                 )
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
@@ -234,15 +234,15 @@ class MacViewController: NSViewController {
 
     lazy var magnificationStep: Step = Step(
         title: "Pinch the square with your trackpad, or click if you do not have a trackpad",
-        code: "view.rx\n\t.magnificationGesture()\n\t.filterState(.changed)\n\t.scale()\n\t.subscribe(onNext: {...})\n\nview.rx\n\t.anyGesture(\n\t\t(.magnification(), state: .ended),\n\t\t(.click(), state: .recognized)\n\t)\n\t.subscribe(onNext: {...})",
+        code: "view.rx\n\t.magnificationGesture()\n\t.when(.changed)\n\t.asScale()\n\t.subscribe(onNext: {...})\n\nview.rx\n\t.anyGesture(\n\t\t(.magnification(), state: .ended),\n\t\t(.click(), state: .recognized)\n\t)\n\t.subscribe(onNext: {...})",
         install: { view, label, nextStep, stepBag in
 
             view.animateTransform(to: CATransform3DIdentity)
 
             view.rx
                 .magnificationGesture()
-                .filterState(.changed)
-                .scale()
+                .when(.changed)
+                .asScale()
                 .subscribe(onNext: {[unowned self] scale in
                     label.stringValue = String(format: "scale: %.2f", scale)
                     view.layer!.transform = CATransform3DMakeScale(scale, scale, 1)
@@ -251,8 +251,8 @@ class MacViewController: NSViewController {
 
             view.rx
                 .anyGesture(
-                    (.magnification(), state: .ended),
-                    (.click(), state: .recognized)
+                    (.magnification(), when: .ended),
+                    (.click(), when: .recognized)
                 )
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)

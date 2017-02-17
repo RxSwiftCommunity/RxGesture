@@ -28,7 +28,7 @@ private enum Defaults {
 }
 
 /// A `GestureRecognizerFactory` for `UISwipeGestureRecognizer`
-public struct SwipeGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
+public struct SwipeGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = UISwipeGestureRecognizer
     public let configuration: (UISwipeGestureRecognizer) -> Void
 

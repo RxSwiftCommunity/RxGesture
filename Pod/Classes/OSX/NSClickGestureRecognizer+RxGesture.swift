@@ -29,7 +29,7 @@ private enum Defaults {
 }
 
 /// A `GestureRecognizerFactory` for `NSClickGestureRecognizer`
-public struct ClickGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
+public struct ClickGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSClickGestureRecognizer
     public let configuration: (NSClickGestureRecognizer) -> Void
 

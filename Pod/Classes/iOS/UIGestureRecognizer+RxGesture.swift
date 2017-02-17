@@ -29,20 +29,21 @@ public extension ObservableType where E: UIGestureRecognizer {
      - parameter state: An `UIGestureRecognizerState` that is used to filter the `GestureRecognizer` events sequence.
      - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match the given `state`.
      */
-    public func filterState(_ state: UIGestureRecognizerState) -> Observable<E> {
-        return filterState(in: [state])
+    public func when(_ states: UIGestureRecognizerState...) -> Observable<E> {
+        return when(states)
     }
 
     /**
      Filters the observable `GestureRecognizer` events sequence based on the `GestureRecognizer` state.
 
-     - parameter states: A `UIGestureRecognizerState` collection that is used to filter the `GestureRecognizer` events sequence.
-     - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match any of the given `states`.
+     - parameter state: An `UIGestureRecognizerState` that is used to filter the `GestureRecognizer` events sequence.
+     - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match the given `state`.
      */
-    public func filterState(in states: [UIGestureRecognizerState]) -> Observable<E> {
-        return self.filter { gesture in
+    public func when(_ states: [UIGestureRecognizerState]) -> Observable<E> {
+        return filter { gesture in
             return states.contains(gesture.state)
         }
+
     }
 
     /**
@@ -50,7 +51,7 @@ public extension ObservableType where E: UIGestureRecognizer {
 
      - parameter view: A `TargetView` value on which the gesture took place.
      */
-    public func location(in view: TargetView = .view) -> Observable<CGPoint> {
+    public func asLocation(in view: TargetView = .view) -> Observable<CGPoint> {
         return self.map { gesture in
             return gesture.location(in: view.targetView(for: gesture))
         }

@@ -58,11 +58,7 @@ public extension Reactive where Base: UIView {
 
 public extension ObservableType where E: TransformGestureRecognizersType {
 
-    public func filterState(_ state: UIGestureRecognizerState) -> Observable<E> {
-        return filterState(in: [state])
-    }
-
-    public func filterState(in states: [UIGestureRecognizerState]) -> Observable<E> {
+    public func when(_ states: UIGestureRecognizerState...) -> Observable<E> {
         return filter { gestures in
             return states.contains(gestures.panGesture.state)
                 || states.contains(gestures.rotationGesture.state)
@@ -70,7 +66,7 @@ public extension ObservableType where E: TransformGestureRecognizersType {
         }
     }
 
-    public func transform(in view: TargetView = .view) -> Observable<(transform: CGAffineTransform, velocity: TransformVelocity)> {
+    public func asTransform(in view: TargetView = .view) -> Observable<(transform: CGAffineTransform, velocity: TransformVelocity)> {
         return self.map { gestures in
             let translationView = view.targetView(for: gestures.panGesture)
             let translation = gestures.panGesture.translation(in: translationView)

@@ -29,7 +29,7 @@ private enum Defaults {
 }
 
 /// A `GestureRecognizerFactory` for `UITapGestureRecognizer`
-public struct TapGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
+public struct TapGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = UITapGestureRecognizer
     public let configuration: (UITapGestureRecognizer) -> Void
 

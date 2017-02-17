@@ -27,7 +27,7 @@ private enum Defaults {
 }
 
 /// A `GestureRecognizerFactory` for `NSRotationGestureRecognizer`
-public struct RotationGestureRecognizerFactory: ConfigurableGestureRecognizerFactory {
+public struct RotationGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSRotationGestureRecognizer
     public let configuration: (NSRotationGestureRecognizer) -> Void
 
@@ -76,7 +76,7 @@ public extension ObservableType where E: NSRotationGestureRecognizer {
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of rotation values of the gesture in radians.
      */
-    public func rotation() -> Observable<CGFloat> {
+    public func asRotation() -> Observable<CGFloat> {
         return self.map { gesture in
             return gesture.rotation
         }

@@ -24,14 +24,16 @@ import RxCocoa
 public protocol GestureRecognizerFactory {
     associatedtype Gesture: GestureRecognizer
 
+    var configuration: (Gesture) -> Void { get }
     func make() -> Gesture
 }
 
-public protocol ConfigurableGestureRecognizerFactory: GestureRecognizerFactory {
-    var configuration: (Gesture) -> Void { get }
-}
+public extension GestureRecognizerFactory {
 
-public extension ConfigurableGestureRecognizerFactory {
+    public var configuration: (Gesture) -> Void {
+        return { _ in }
+    }
+
     public func make() -> Gesture {
         let gesture = Gesture()
         configuration(gesture)
@@ -41,14 +43,15 @@ public extension ConfigurableGestureRecognizerFactory {
 
 public struct AnyGestureRecognizerFactory: GestureRecognizerFactory {
 
-    private let _make: () -> GestureRecognizer
+    public typealias Gesture = GestureRecognizer
+
     public init<G: GestureRecognizerFactory>(_ factory: G) {
         _make = {
             return factory.make() as GestureRecognizer
         }
     }
 
-    public typealias Gesture = GestureRecognizer
+    private let _make: () -> GestureRecognizer
     public func make() -> GestureRecognizer {
         return _make()
     }
