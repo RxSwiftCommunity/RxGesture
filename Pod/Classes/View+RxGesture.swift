@@ -66,7 +66,8 @@ extension Reactive where Base: View {
      - parameter factory: a `GestureRecognizerFactory` you want to use to create the `GestureRecognizer` to add and observe
      - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
      */
-    public func gesture<GF: GestureRecognizerFactory, G: GestureRecognizer where GF.Gesture == G>(_ factory: GF) -> ControlEvent<G> {
+    public func gesture<GF: GestureRecognizerFactory, G: GestureRecognizer>(_ factory: GF) -> ControlEvent<G>
+        where GF.Gesture == G {
         return self.gesture(factory.make())
     }
 
