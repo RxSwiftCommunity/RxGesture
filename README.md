@@ -85,7 +85,7 @@ If you are observing multiple gestures at once, you can use the `.when()` operat
 view.rx
 	.anyGesture(.tap(), .swipe([.up, .down]))
 	.when(.recognized)
-	.subscribe(onNext { gesture in
+	.subscribe(onNext: { gesture in
 		// Called whenever a tap, a swipe-up or a swipe-down is recognized (state == .recognized)
 	})
 	.addDisposableTo(bag)
@@ -95,7 +95,7 @@ view.rx
 		(.tap(), when: .recognized),
 		(.pan(), when: .ended)
 	)
-	.subscribe(onNext { gesture in
+	.subscribe(onNext: { gesture in
 		// Called whenever:
 		// - a tap is recognized (state == .recognized) 
 		// - or a pan is ended (state == .ended)
