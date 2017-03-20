@@ -32,34 +32,48 @@ view.rx.anyGesture(.tap(), .swipe([.up, .down])).when(.recognized).subscribe(onN
 
 `rx.gesture` is defined as `Observable<G>` where `G` is the actual type of the gesture recognizer so what it emits is the gesture recognizer itself (handy if want to call methods like `asLocation(in view:)` or `asTranslation(in view:)`)
 
-On __iOS__ RxGesture supports:
 
-Use alone | Use alongside other gestures
----------|---------
-`view.rx.tapGesture() -> ControlEvent<UITapGestureRecognizer>` | `view.rx.anyGesture(.tap(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.pinchGesture() -> ControlEvent<UIPinchGestureRecognizer>` | `view.rx.anyGesture(.pinch(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.swipeGesture(.left) -> ControlEvent<UISwipeGestureRecognizer>` | `view.rx.anyGesture(.swipe(.left), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.panGesture() -> ControlEvent<UIPanGestureRecognizer>` | `view.rx.anyGesture(.pan(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.longPressGesture() -> ControlEvent<UILongPressGestureRecognizer>` | `view.rx.anyGesture(.longPress(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.rotationGesture() -> ControlEvent<UIRotationGestureRecognizer>` | `view.rx.anyGesture(.rotation(), ...) -> ControlEvent<UIGestureRecognizer>`
-`view.rx.screenEdgePanGesture() -> ControlEvent<UIScreenEdgePanGestureRecognizer>` | `view.rx.anyGesture(.screenEdgePan(), ...) -> ControlEvent<UIGestureRecognizer>`
+#### On iOS, RxGesture supports:
+
+```swift
+view.rx.tapGesture()           -> ControlEvent<UITapGestureRecognizer>
+view.rx.pinchGesture()         -> ControlEvent<UIPinchGestureRecognizer>
+view.rx.swipeGesture(.left)    -> ControlEvent<UISwipeGestureRecognizer>
+view.rx.panGesture()           -> ControlEvent<UIPanGestureRecognizer>
+view.rx.longPressGesture()     -> ControlEvent<UILongPressGestureRecognizer>
+view.rx.rotationGesture()      -> ControlEvent<UIRotationGestureRecognizer>
+view.rx.screenEdgePanGesture() -> ControlEvent<UIScreenEdgePanGestureRecognizer>
+
+view.rx.anyGesture(.tap(), ...)           -> ControlEvent<UIGestureRecognizer>
+view.rx.anyGesture(.pinch(), ...)         -> ControlEvent<UIGestureRecognizer>
+view.rx.anyGesture(.swipe(.left), ...)    -> ControlEvent<UIGestureRecognizer>
+view.rx.anyGesture(.pan(), ...)           -> ControlEvent<UIGestureRecognizer>
+view.rx.anyGesture(.longPress(), ...)     -> ControlEvent<UIGestureRecognizer>
+view.rx.anyGesture(.rotation(), ...)      -> ControlEvent<UIGestureRecognizer>
+view.rx.anyGesture(.screenEdgePan(), ...) -> ControlEvent<UIGestureRecognizer>
+```
+
+#### On macOS, RxGesture supports:
+
+```swift
+view.rx.clickGesture()         -> ControlEvent<NSClickGestureRecognizer>
+view.rx.rightClickGesture()    -> ControlEvent<NSClickGestureRecognizer>
+view.rx.panGesture()           -> ControlEvent<NSPanGestureRecognizer>
+view.rx.pressGesture()         -> ControlEvent<NSPressGestureRecognizer>
+view.rx.rotationGesture()      -> ControlEvent<NSRotationGestureRecognizer>
+view.rx.magnificationGesture() -> ControlEvent<NSMagnificationGestureRecognizer>
+
+view.rx.anyGesture(.click(), ...)         -> ControlEvent<NSGestureRecognizer>
+view.rx.anyGesture(.rightClick(), ...)    -> ControlEvent<NSGestureRecognizer>
+view.rx.anyGesture(.pan(), ...)           -> ControlEvent<NSGestureRecognizer>
+view.rx.anyGesture(.press(), ...)         -> ControlEvent<NSGestureRecognizer>
+view.rx.anyGesture(.rotation(), ...)      -> ControlEvent<NSGestureRecognizer>
+view.rx.anyGesture(.magnification(), ...) -> ControlEvent<NSGestureRecognizer>
+```
 
 
+ℹ️ If you use a gesture recognizer alone, prefer the `view.rx.fooGesture()` syntax over `view.rx.anyGesture(.foo())` because it returns the concrete `UIGestureRecognizer` subclass and avoid you to cast it in `subscribe()`.
 
-On __macOS__ RxGesture supports:
-
-Use alone | Use alongside other gestures
----------|---------
-`view.rx.clickGesture() -> ControlEvent<NSClickGestureRecognizer>` | `view.rx.anyGesture(.click(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.rightClickGesture() -> ControlEvent<NSClickGestureRecognizer>` | `view.rx.anyGesture(.rightClick(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.panGesture() -> ControlEvent<NSPanGestureRecognizer>` | `view.rx.anyGesture(.pan(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.pressGesture() -> ControlEvent<NSPressGestureRecognizer>` | `view.rx.anyGesture(.press(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.rotationGesture() -> ControlEvent<NSRotationGestureRecognizer>` | `view.rx.anyGesture(.rotation(), ...) -> ControlEvent<NSGestureRecognizer>`
-`view.rx.magnificationGesture() -> ControlEvent<NSMagnificationGestureRecognizer>` | `view.rx.anyGesture(.magnification(), ...) -> ControlEvent<NSGestureRecognizer>`
-
-
-
-ℹ️ If you use a gesture recognizer alone, prefer the __Use alone__ syntax because it returns the good `UIGestureRecognizer` subclass and avoid you a cast.
 
 ## Filtering State
 
@@ -104,11 +118,13 @@ view.rx
 ```
 
 
-__The demo app includes examples for all recognizers__ (=> [iOS](Example/RxGesture/ViewController.swift), [macOS](Example/RxGesture-OSX/ViewController.swift)).
+__The demo app includes examples for all recognizers ➡️ [iOS](Example/RxGesture/ViewController.swift), [macOS](Example/RxGesture-OSX/ViewController.swift)__.
+
 
 ## Requirements
 
 This library depends on both __RxSwift__ and __RxCocoa__.
+
 
 ## Installation
 
@@ -121,8 +137,8 @@ pod "RxGesture"
 
 ## TODO
 
-- can use help about adding tests - UI tests aren't my strongest side
-- make pr to RxCocoa to add native support for rx.event to `NSGestureRecognizer` and remove the implementation from this repo
+- [ ] add tests 
+- [ ] make pr to RxCocoa to add native support for rx.event to `NSGestureRecognizer` and remove the implementation from this repo
 
 ## Thanks
 
