@@ -100,7 +100,7 @@ extension Reactive where Base: View {
                 let disposable = genericGesture.rx.event
                     .map { $0 as! G }
                     .startWith(gesture)
-                    .bindNext(observer.onNext)
+                    .bind(onNext: observer.onNext)
 
                 return Disposables.create {
                     control.removeGestureRecognizer(gesture)
