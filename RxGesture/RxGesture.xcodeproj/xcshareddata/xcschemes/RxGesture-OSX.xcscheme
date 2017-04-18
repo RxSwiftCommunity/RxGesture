@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "0830"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "87F8F7211E511E2E00C3B1BE"
-               BuildableName = "RxGesture.framework"
+               BlueprintIdentifier = "66B5B0F41EA6963F001B2F72"
+               BuildableName = "RxGesture-OSX.framework"
                BlueprintName = "RxGesture-OSX"
                ReferencedContainer = "container:RxGesture.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "87F8F7211E511E2E00C3B1BE"
-            BuildableName = "RxGesture.framework"
+            BlueprintIdentifier = "66B5B0F41EA6963F001B2F72"
+            BuildableName = "RxGesture-OSX.framework"
             BlueprintName = "RxGesture-OSX"
             ReferencedContainer = "container:RxGesture.xcodeproj">
          </BuildableReference>
@@ -63,8 +63,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "87F8F7211E511E2E00C3B1BE"
-            BuildableName = "RxGesture.framework"
+            BlueprintIdentifier = "66B5B0F41EA6963F001B2F72"
+            BuildableName = "RxGesture-OSX.framework"
             BlueprintName = "RxGesture-OSX"
             ReferencedContainer = "container:RxGesture.xcodeproj">
          </BuildableReference>
