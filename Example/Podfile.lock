@@ -1,7 +1,7 @@
 PODS:
   - RxCocoa (3.4.0):
     - RxSwift (~> 3.4)
-  - RxGesture (1.0.0):
+  - RxGesture (1.0.1):
     - RxCocoa (~> 3.4)
     - RxSwift (~> 3.4)
   - RxSwift (3.4.0)
@@ -13,13 +13,13 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   RxGesture:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   RxCocoa: d14ef6b6029e1ddc6e966508c09289090de68ff9
-  RxGesture: 782865d042619e09f013a8a145078b64cabb5963
+  RxGesture: 22d6fbe3e54c6f62c0e0499a25325b8bc78b148c
   RxSwift: 3789a1af753002a14edecdb698a2424624296a9c
 
 PODFILE CHECKSUM: 79bafd5a8f473ac4c6a8b91c4794e723a3637091
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1
