@@ -3,8 +3,6 @@ use_frameworks!
 
 target 'RxGesture_iOS_Demo' do
     platform :ios, '8.3'
-    pod 'RxSwift', '~> 3.4.0'
-    pod 'RxCocoa', '~> 3.4.0'
     pod 'RxGesture', :path => '../'
 end
 
