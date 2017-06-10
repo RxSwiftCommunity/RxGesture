@@ -65,7 +65,7 @@ class ViewController: UIViewController {
             .startWith(0)
             .map { (steps[$0], $0) }
             .subscribe(onNext: updateStep)
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
 
     @IBAction func previousStep(_ sender: Any) {
@@ -98,7 +98,7 @@ class ViewController: UIViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var doubleTapStep: Step = Step(
@@ -115,7 +115,7 @@ class ViewController: UIViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var swipeDownStep: Step = Step(
@@ -132,7 +132,7 @@ class ViewController: UIViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var swipeHorizontallyStep: Step = Step(
@@ -149,7 +149,7 @@ class ViewController: UIViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var longPressStep: Step = Step(
@@ -166,7 +166,7 @@ class ViewController: UIViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var panStep: Step = Step(
@@ -186,14 +186,14 @@ class ViewController: UIViewController {
                     label.text = String(format: "(%.2f, %.2f)",translation.x, translation.y)
                     view.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
 
             panGesture
                 .when(.ended)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-               .addDisposableTo(stepBag)
+               .disposed(by: stepBag)
     })
 
     lazy var rotateStep: Step = Step(
@@ -213,14 +213,14 @@ class ViewController: UIViewController {
                     label.text = String(format: "%.2f rad", rotation)
                     view.transform = CGAffineTransform(rotationAngle: rotation)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
 
             rotationGesture
                 .when(.ended)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var pinchStep: Step = Step(
@@ -240,14 +240,14 @@ class ViewController: UIViewController {
                     label.text = String(format: "x%.2f", scale)
                     view.transform = CGAffineTransform(scaleX: scale, y: scale)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
 
             pinchGesture
                 .when(.ended)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var transformStep: Step = Step(
@@ -268,7 +268,7 @@ class ViewController: UIViewController {
                     label.text = String(format: "[%.2f, %.2f,\n%.2f, %.2f,\n%.2f, %.2f]", transform.a, transform.b, transform.c, transform.d, transform.tx, transform.ty)
                     view.transform = transform
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
 
             transformGestures
                 .when(.ended)
@@ -276,7 +276,7 @@ class ViewController: UIViewController {
                     label.numberOfLines = 1
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 }
 
