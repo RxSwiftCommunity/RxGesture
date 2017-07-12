@@ -120,6 +120,31 @@ view.rx
 
 __The demo app includes examples for all recognizers ➡️ [iOS](Example/RxGesture/ViewController.swift), [macOS](Example/RxGesture-OSX/ViewController.swift)__.
 
+## Delegate customization
+### Lightweight customization
+Each gesture recognizer has a default RxGestureRecognizerDelegate.
+For now it only provides a way to customize the result of `gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)` by using a policy:
+```swift
+view.rx.tapGesture(configure: { gestureRecognizer, delegate in 
+    delegate.simultaneousRecognitionPolicy = .always // (default value)
+    // or
+    delegate.simultaneousRecognitionPolicy = .never
+    // or
+    delegate.simultaneousRecognitionPolicy = .custom { gesture, otherGesture in
+    	return otherGesture is UIPanGestureRecognized
+	}
+})
+```
+### Full customization
+You can also replace the default delegate by your own, or remove it.
+```swift
+view.rx.tapGesture(configure: { [unowned self] gestureRecognizer, delegate in 
+    gestureRecognizer.delegate = nil
+    // or
+    gestureRecognizer.delegate = self
+	}
+})
+```
 
 ## Requirements
 

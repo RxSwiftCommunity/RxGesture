@@ -23,13 +23,13 @@ import RxCocoa
 
 /// Default values for `UIScreenEdgePanGestureRecognizer` configuration
 private enum Defaults {
-    static var configuration: ((UIScreenEdgePanGestureRecognizer) -> Void)? = nil
+    static var configuration: ((UIScreenEdgePanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
 }
 
 /// A `GestureRecognizerFactory` for `UIScreenEdgePanGestureRecognizer`
 public struct ScreenEdgePanGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = UIScreenEdgePanGestureRecognizer
-    public let configuration: (UIScreenEdgePanGestureRecognizer) -> Void
+    public let configuration: (UIScreenEdgePanGestureRecognizer, RxGestureRecognizerDelegate) -> Void
 
     /**
      Initialiaze a `GestureRecognizerFactory` for `UIScreenEdgePanGestureRecognizer`
@@ -38,11 +38,11 @@ public struct ScreenEdgePanGestureRecognizerFactory: GestureRecognizerFactory {
      */
     public init(
         edges: UIRectEdge,
-        configuration: ((UIScreenEdgePanGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UIScreenEdgePanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ){
-        self.configuration = { gestureRecognizer in
+        self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.edges = edges
-            configuration?(gestureRecognizer)
+            configuration?(gestureRecognizer, delegate)
         }
     }
 }
@@ -56,7 +56,7 @@ extension AnyGestureRecognizerFactory {
      */
     public static func screenEdgePan(
         edges: UIRectEdge,
-        configuration: ((UIScreenEdgePanGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UIScreenEdgePanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = ScreenEdgePanGestureRecognizerFactory(
             edges: edges,
@@ -75,7 +75,7 @@ public extension Reactive where Base: UIView {
      */
     public func screenEdgePanGesture(
         edges: UIRectEdge,
-        configuration: ((UIScreenEdgePanGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UIScreenEdgePanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UIScreenEdgePanGestureRecognizer> {
 
         return gesture(ScreenEdgePanGestureRecognizerFactory(

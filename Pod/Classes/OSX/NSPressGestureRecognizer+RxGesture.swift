@@ -26,13 +26,13 @@ private enum Defaults {
     static var buttonMask: Int = 0x1
     static var minimumPressDuration: TimeInterval? = nil
     static var allowableMovement: CGFloat? = nil
-    static var configuration: ((NSPressGestureRecognizer) -> Void)? = nil
+    static var configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
 }
 
 /// A `GestureRecognizerFactory` for `UIPanGestureRecognizer`
 public struct PressGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSPressGestureRecognizer
-    public let configuration: (NSPressGestureRecognizer) -> Void
+    public let configuration: (NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void
 
     /**
      Initialiaze a `GestureRecognizerFactory` for `UILongPressGestureRecognizer`
@@ -45,9 +45,9 @@ public struct PressGestureRecognizerFactory: GestureRecognizerFactory {
         buttonMask: Int = Defaults.buttonMask,
         minimumPressDuration: TimeInterval? = Defaults.minimumPressDuration,
         allowableMovement: CGFloat? = Defaults.allowableMovement,
-        configuration: ((NSPressGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ){
-        self.configuration = { gestureRecognizer in
+        self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.buttonMask = buttonMask
             minimumPressDuration.map {
                 gestureRecognizer.minimumPressDuration = $0
@@ -55,7 +55,7 @@ public struct PressGestureRecognizerFactory: GestureRecognizerFactory {
             allowableMovement.map {
                 gestureRecognizer.allowableMovement = $0
             }
-            configuration?(gestureRecognizer)
+            configuration?(gestureRecognizer, delegate)
         }
     }
 }
@@ -73,7 +73,7 @@ extension AnyGestureRecognizerFactory {
         buttonMask: Int = Defaults.buttonMask,
         minimumPressDuration: TimeInterval? = Defaults.minimumPressDuration,
         allowableMovement: CGFloat? = Defaults.allowableMovement,
-        configuration: ((NSPressGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = PressGestureRecognizerFactory(
             buttonMask: buttonMask,
@@ -99,7 +99,7 @@ public extension Reactive where Base: NSView {
         buttonMask: Int = Defaults.buttonMask,
         minimumPressDuration: TimeInterval? = Defaults.minimumPressDuration,
         allowableMovement: CGFloat? = Defaults.allowableMovement,
-        configuration: ((NSPressGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSPressGestureRecognizer> {
 
         return gesture(PressGestureRecognizerFactory(

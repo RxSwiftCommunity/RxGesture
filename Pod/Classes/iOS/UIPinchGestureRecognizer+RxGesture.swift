@@ -23,20 +23,20 @@ import RxCocoa
 
 /// Default values for `UIPinchGestureRecognizer` configuration
 private enum Defaults {
-    static var configuration: ((UIPinchGestureRecognizer) -> Void)? = nil
+    static var configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
 }
 
 /// A `GestureRecognizerFactory` for `UIPinchGestureRecognizer`
 public struct PinchGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = UIPinchGestureRecognizer
-    public let configuration: (UIPinchGestureRecognizer) -> Void
+    public let configuration: (UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void
 
     /**
      Initialiaze a `GestureRecognizerFactory` for `UIPinchGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public init(
-        configuration: ((UIPinchGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ){
         self.configuration = configuration ?? { _ in }
     }
@@ -49,7 +49,7 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func pinch(
-        configuration: ((UIPinchGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = PinchGestureRecognizerFactory(
             configuration: configuration
@@ -65,7 +65,7 @@ public extension Reactive where Base: UIView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func pinchGesture(
-        configuration: ((UIPinchGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UIPinchGestureRecognizer> {
 
         return gesture(PinchGestureRecognizerFactory(

@@ -20,23 +20,34 @@
 
 import RxSwift
 import RxCocoa
+import ObjectiveC
 
 public protocol GestureRecognizerFactory {
     associatedtype Gesture: GestureRecognizer
 
-    var configuration: (Gesture) -> Void { get }
+    var configuration: (Gesture, RxGestureRecognizerDelegate) -> Void { get }
     func make() -> Gesture
 }
 
+
+private var gestureRecognizerStrongDelegateKey: UInt8 = 0
 public extension GestureRecognizerFactory {
 
-    public var configuration: (Gesture) -> Void {
+    public var configuration: (Gesture, RxGestureRecognizerDelegate) -> Void {
         return { _ in }
     }
 
     public func make() -> Gesture {
         let gesture = Gesture()
-        configuration(gesture)
+        let delegate = RxGestureRecognizerDelegate()
+        objc_setAssociatedObject(
+            gesture,
+            &gestureRecognizerStrongDelegateKey,
+            delegate,
+            .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+        )
+        gesture.delegate = delegate
+        configuration(gesture, delegate)
         return gesture
     }
 }

@@ -41,7 +41,7 @@ public struct TransformVelocity {
 
 public extension Reactive where Base: UIView {
     public func transformGestures(
-        configuration: ((TransformGestureRecognizers) -> Void)? = nil
+        configuration: ((TransformGestureRecognizers, RxGestureRecognizerDelegate) -> Void)? = nil
         ) -> ControlEvent<TransformGestureRecognizers> {
 
         let source = Observable.combineLatest(panGesture(), rotationGesture(), pinchGesture()) {
