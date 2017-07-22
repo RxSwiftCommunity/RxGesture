@@ -128,11 +128,28 @@ This library depends on both __RxSwift__ and __RxCocoa__.
 
 ## Installation
 
-RxGesture is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
+
+Add this to `Podfile`
 
 ```swift
 pod "RxGesture"
+```
+
+```bash
+$ pod install
+```
+
+### [Carthage](https://github.com/Carthage/Carthage)
+
+Add this to `Cartfile`
+
+```
+github "RxSwiftCommunity/RxGesture" ~> 1.0.1
+```
+
+```bash
+$ carthage update
 ```
 
 ## TODO
