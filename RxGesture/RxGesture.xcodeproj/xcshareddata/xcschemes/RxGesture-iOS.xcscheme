@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F4CC4C1C1DEBA895009ED835"
-               BuildableName = "RxGesture-iOS.framework"
+               BuildableName = "RxGesture.framework"
                BlueprintName = "RxGesture-iOS"
                ReferencedContainer = "container:RxGesture.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F4CC4C1C1DEBA895009ED835"
-            BuildableName = "RxGesture-iOS.framework"
+            BuildableName = "RxGesture.framework"
             BlueprintName = "RxGesture-iOS"
             ReferencedContainer = "container:RxGesture.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F4CC4C1C1DEBA895009ED835"
-            BuildableName = "RxGesture-iOS.framework"
+            BuildableName = "RxGesture.framework"
             BlueprintName = "RxGesture-iOS"
             ReferencedContainer = "container:RxGesture.xcodeproj">
          </BuildableReference>
