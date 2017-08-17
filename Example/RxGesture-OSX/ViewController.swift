@@ -76,6 +76,17 @@ class MacViewController: NSViewController {
             .addDisposableTo(bag)
     }
 
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        updateAnchorPoint()
+    }
+
+    private func updateAnchorPoint() {
+        let frame = myView.layer!.frame
+        myView.layer!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        myView.layer!.frame = frame
+    }
+
     @IBAction func previousStep(_ sender: Any) {
         nextStepObserver.onNext(.previous)
     }
