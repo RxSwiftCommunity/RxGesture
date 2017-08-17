@@ -64,7 +64,7 @@ class ViewController: UIViewController {
             .scan(0, accumulator: newIndex)
             .startWith(0)
             .map { (steps[$0], $0) }
-            .subscribe(onNext: updateStep)
+            .subscribe(onNext: { [unowned self] in self.updateStep($0, at: $1) })
             .disposed(by: bag)
     }
 
