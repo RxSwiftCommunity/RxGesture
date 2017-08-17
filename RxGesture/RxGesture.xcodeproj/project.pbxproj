@@ -35,7 +35,6 @@
 		87F8F7361E511E9D00C3B1BE /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C541DEBAD9E009ED835 /* RxSwift.framework */; };
 		87F8F7371E511E9D00C3B1BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */; };
 		F4CC4C221DEBA895009ED835 /* RxGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CC4C201DEBA895009ED835 /* RxGesture.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F4CC4C341DEBAA40009ED835 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = F4CC4C2B1DEBAA40009ED835 /* .gitkeep */; };
 		F4CC4C571DEBAF98009ED835 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */; };
 		F4CC4C581DEBAF9B009ED835 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C531DEBAD9E009ED835 /* RxCocoa.framework */; };
 		F4CC4C591DEBAF9B009ED835 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C541DEBAD9E009ED835 /* RxSwift.framework */; };
@@ -66,8 +65,6 @@
 		F4CC4C1D1DEBA895009ED835 /* RxGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CC4C201DEBA895009ED835 /* RxGesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxGesture.h; sourceTree = "<group>"; };
 		F4CC4C211DEBA895009ED835 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4CC4C2B1DEBAA40009ED835 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		F4CC4C4D1DEBAC8A009ED835 /* RxGesture copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "RxGesture copy-Info.plist"; path = "/Users/home/Developer/GitHub/RxGesture/RxGesture/RxGesture copy-Info.plist"; sourceTree = "<absolute>"; };
 		F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4CC4C531DEBAD9E009ED835 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = ../Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		F4CC4C541DEBAD9E009ED835 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = ../Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
@@ -78,9 +75,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87F8F7351E511E9D00C3B1BE /* RxCocoa.framework in Frameworks */,
-				87F8F7361E511E9D00C3B1BE /* RxSwift.framework in Frameworks */,
 				87F8F7371E511E9D00C3B1BE /* Foundation.framework in Frameworks */,
+				87F8F7361E511E9D00C3B1BE /* RxSwift.framework in Frameworks */,
+				87F8F7351E511E9D00C3B1BE /* RxCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,8 +86,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4CC4C571DEBAF98009ED835 /* Foundation.framework in Frameworks */,
-				F4CC4C581DEBAF9B009ED835 /* RxCocoa.framework in Frameworks */,
 				F4CC4C591DEBAF9B009ED835 /* RxSwift.framework in Frameworks */,
+				F4CC4C581DEBAF9B009ED835 /* RxCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +129,6 @@
 			children = (
 				F4CC4C1F1DEBA895009ED835 /* RxGesture */,
 				F4CC4C1E1DEBA895009ED835 /* Products */,
-				F4CC4C4D1DEBAC8A009ED835 /* RxGesture copy-Info.plist */,
 				F4CC4C4E1DEBACC7009ED835 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -159,7 +155,6 @@
 		F4CC4C2A1DEBAA40009ED835 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F4CC4C2B1DEBAA40009ED835 /* .gitkeep */,
 				87A5177A1E4FED3900A65547 /* GestureFactory.swift */,
 				87A5177B1E4FED3900A65547 /* RxGestureRecognizerDelegate.swift */,
 				87A5177C1E4FED3900A65547 /* SharedTypes.swift */,
@@ -288,7 +283,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4CC4C341DEBAA40009ED835 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,12 +340,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "../Carthage/Build/Mac/**";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = RxGesture/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture.macOS;
 				PRODUCT_NAME = RxGesture;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -369,12 +364,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "../Carthage/Build/Mac/**";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = RxGesture/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture.macOS;
 				PRODUCT_NAME = RxGesture;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -493,12 +489,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "../Carthage/Build/**";
+				FRAMEWORK_SEARCH_PATHS = "../Carthage/Build/iOS/**";
 				INFOPLIST_FILE = RxGesture/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture;
+				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture.iOS;
 				PRODUCT_NAME = RxGesture;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -516,12 +512,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "../Carthage/Build/**";
+				FRAMEWORK_SEARCH_PATHS = "../Carthage/Build/iOS/**";
 				INFOPLIST_FILE = RxGesture/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture;
+				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture.iOS;
 				PRODUCT_NAME = RxGesture;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
