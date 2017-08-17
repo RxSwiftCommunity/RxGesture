@@ -163,6 +163,7 @@ class ViewController: UIViewController {
             view.rx
                 .longPressGesture()
                 .when(.began)
+                .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
