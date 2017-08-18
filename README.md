@@ -17,17 +17,25 @@ You _might_ need to run `pod install` from the Example directory first.
 __RxGesture__ allows you to easily turn any view into a tappable or swipeable control like so:
 
 ```swift
-view.rx.tapGesture().when(.recognized).subscribe(onNext: {_ in
-   //react to taps
-}).addDisposableTo(stepBag)
+view.rx
+  .tapGesture()
+  .when(.recognized)
+  .subscribe(onNext: { _ in
+    //react to taps
+  })
+  .disposed(by: stepBag)
 ```
 
 You can also react to more than one  gesture. For example to dismiss a photo preview you might want to do that when the user taps it, or swipes up or down:
 
 ```swift
-view.rx.anyGesture(.tap(), .swipe([.up, .down])).when(.recognized).subscribe(onNext: {_ in
-   //dismiss presented photo
-}).addDisposableTo(stepBag)
+view.rx
+  .anyGesture(.tap(), .swipe([.up, .down]))
+  .when(.recognized)
+  .subscribe(onNext: { _ in 
+    //dismiss presented photo
+  })
+  .disposed(by: stepBag)
 ```
 
 `rx.gesture` is defined as `Observable<G>` where `G` is the actual type of the gesture recognizer so what it emits is the gesture recognizer itself (handy if want to call methods like `asLocation(in view:)` or `asTranslation(in view:)`)
@@ -83,9 +91,9 @@ Here are the preferred states that can be used for each kind of gestures (__iOS_
 
 Kind | States
 ---|---
-`.tap()`, `.click()`, `.rightClick()`, `.swipe()`| `.recognized`
-`.longPress()`, `.press()`, | `.began`
-`.pan()`, `.pinch()`, `.rotation()`, `.magnification()`, `.screenEdgePan()` | `.began`, `.changed`, `.ended`
+`.tap()` `.click()` `.rightClick()` `.swipe()`| `.recognized`
+`.longPress()` `.press()` | `.began`
+`.pan()` `.pinch()` `.rotation()` `.magnification()` `.screenEdgePan()` | `.began` `.changed` `.ended`
 
 You usually filter the state using the `.when()` operator:
 ```swift
@@ -97,24 +105,24 @@ If you are observing multiple gestures at once, you can use the `.when()` operat
 
 ```swift
 view.rx
-	.anyGesture(.tap(), .swipe([.up, .down]))
-	.when(.recognized)
-	.subscribe(onNext: { gesture in
-		// Called whenever a tap, a swipe-up or a swipe-down is recognized (state == .recognized)
-	})
-	.addDisposableTo(bag)
+  .anyGesture(.tap(), .swipe([.up, .down]))
+  .when(.recognized)
+  .subscribe(onNext: { gesture in
+    // Called whenever a tap, a swipe-up or a swipe-down is recognized (state == .recognized)
+  })
+  .disposed(by: bag)
 	
 view.rx
-	.anyGesture(
-		(.tap(), when: .recognized),
-		(.pan(), when: .ended)
-	)
-	.subscribe(onNext: { gesture in
-		// Called whenever:
-		// - a tap is recognized (state == .recognized) 
-		// - or a pan is ended (state == .ended)
-	})
-	.addDisposableTo(bag)
+  .anyGesture(
+    (.tap(), when: .recognized),
+    (.pan(), when: .ended)
+  )
+  .subscribe(onNext: { gesture in
+    // Called whenever:
+    // - a tap is recognized (state == .recognized) 
+    // - or a pan is ended (state == .ended)
+  })
+  .disposed(by: bag)
 ```
 
 
@@ -122,28 +130,45 @@ __The demo app includes examples for all recognizers ➡️ [iOS](Example/RxGest
 
 ## Delegate customization
 ### Lightweight customization
-Each gesture recognizer has a default RxGestureRecognizerDelegate.
-For now it only provides a way to customize the result of `gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)` by using a policy:
+Each gesture recognizer has a default `RxGestureRecognizerDelegate`. It allows you to customize every delegate method using a policy:
+- `.always` will return `true` to the corresponding delegate method
+- `.never` will return `false` to the corresponding delegate method
+- `.custom` takes an associated closure that will be executed to return a value to the corresponding delegate method
+
+Here are the available policies with their corresponding delegate method:
+```swift
+beginPolicy                   -> gestureRecognizerShouldBegin(:_)
+touchReceptionPolicy          -> gestureRecognizer(_:shouldReceive:)
+selfFailureRequirementPolicy  -> gestureRecognizer(_:shouldBeRequiredToFailBy:)
+otherFailureRequirementPolicy -> gestureRecognizer(_:shouldRequireFailureOf:)
+simultaneousRecognitionPolicy -> gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)
+eventRecognitionAttemptPolicy -> gestureRecognizer(_:shouldAttemptToRecognizeWith:) // macOS only
+pressReceptionPolicy          -> gestureRecognizer(_:shouldReceive:) // iOS only
+```
+
+This delegate can be customized in the configuration closure:
 ```swift
 view.rx.tapGesture(configure: { gestureRecognizer, delegate in 
-    delegate.simultaneousRecognitionPolicy = .always // (default value)
-    // or
-    delegate.simultaneousRecognitionPolicy = .never
-    // or
-    delegate.simultaneousRecognitionPolicy = .custom { gesture, otherGesture in
-    	return otherGesture is UIPanGestureRecognized
-	}
+  delegate.simultaneousRecognitionPolicy = .always // (default value)
+  // or
+  delegate.simultaneousRecognitionPolicy = .never
+  // or
+  delegate.simultaneousRecognitionPolicy = .custom { gesture, otherGesture in
+    return otherGesture is UIPanGestureRecognized
+  }
 })
 ```
+
+Default values can be found in [`RxGestureRecognizerDelegate.swift`](Pod/Classes/RxGestureRecognizerDelegate.swift#L56).
+
 ### Full customization
 You can also replace the default delegate by your own, or remove it.
 ```swift
-view.rx.tapGesture(configure: { [unowned self] gestureRecognizer, delegate in 
-    gestureRecognizer.delegate = nil
-    // or
-    gestureRecognizer.delegate = self
-	}
-})
+view.rx.tapGesture { [unowned self] gestureRecognizer, delegate in 
+  gestureRecognizer.delegate = nil
+  // or
+  gestureRecognizer.delegate = self
+}
 ```
 
 ## Requirements
@@ -170,17 +195,12 @@ $ pod install
 Add this to `Cartfile`
 
 ```
-github "RxSwiftCommunity/RxGesture" ~> 1.0.1
+github "RxSwiftCommunity/RxGesture" ~> 1.1.0
 ```
 
 ```bash
 $ carthage update
 ```
-
-## TODO
-
-- [ ] add tests 
-- [ ] make pr to RxCocoa to add native support for rx.event to `NSGestureRecognizer` and remove the implementation from this repo
 
 ## Thanks
 
