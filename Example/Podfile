@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'RxGesture_iOS_Demo' do
-    platform :ios, '8.3'
+    platform :ios, '8.0'
     pod 'RxGesture', :path => '../'
 end
 

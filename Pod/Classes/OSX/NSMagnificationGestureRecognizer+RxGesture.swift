@@ -18,25 +18,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import AppKit
 import RxSwift
 import RxCocoa
 
 /// Default values for `NSMagnificationGestureRecognizer` configuration
 private enum Defaults {
-    static var configuration: ((NSMagnificationGestureRecognizer) -> Void)? = nil
+    static var configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
 }
 
 /// A `GestureRecognizerFactory` for `NSMagnificationGestureRecognizer`
 public struct MagnificationGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSMagnificationGestureRecognizer
-    public let configuration: (NSMagnificationGestureRecognizer) -> Void
+    public let configuration: (NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void
 
     /**
      Initialiaze a `GestureRecognizerFactory` for `NSMagnificationGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public init(
-        configuration: ((NSMagnificationGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ){
         self.configuration = configuration ?? { _ in }
     }
@@ -49,7 +50,7 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func magnification(
-        configuration: ((NSMagnificationGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = MagnificationGestureRecognizerFactory(
             configuration: configuration
@@ -65,7 +66,7 @@ public extension Reactive where Base: NSView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func magnificationGesture(
-        configuration: ((NSMagnificationGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSMagnificationGestureRecognizer> {
 
         return gesture(MagnificationGestureRecognizerFactory(

@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import UIKit
 import RxSwift
 import RxCocoa
 
@@ -41,7 +42,7 @@ public struct TransformVelocity {
 
 public extension Reactive where Base: UIView {
     public func transformGestures(
-        configuration: ((TransformGestureRecognizers) -> Void)? = nil
+        configuration: ((TransformGestureRecognizers, RxGestureRecognizerDelegate) -> Void)? = nil
         ) -> ControlEvent<TransformGestureRecognizers> {
 
         let source = Observable.combineLatest(panGesture(), rotationGesture(), pinchGesture()) {

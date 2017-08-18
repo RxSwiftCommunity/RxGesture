@@ -64,7 +64,7 @@ class ViewController: UIViewController {
             .scan(0, accumulator: newIndex)
             .startWith(0)
             .map { (steps[$0], $0) }
-            .subscribe(onNext: updateStep)
+            .subscribe(onNext: { [unowned self] in self.updateStep($0, at: $1) })
             .disposed(by: bag)
     }
 
@@ -163,6 +163,7 @@ class ViewController: UIViewController {
             view.rx
                 .longPressGesture()
                 .when(.began)
+                .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })

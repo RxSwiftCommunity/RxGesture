@@ -22,12 +22,14 @@ import Foundation
 
 #if os(iOS)
     import UIKit
+    public typealias Touch = UITouch
     public typealias GestureRecognizer = UIGestureRecognizer
     public typealias GestureRecognizerState = UIGestureRecognizerState
     public typealias GestureRecognizerDelegate = UIGestureRecognizerDelegate
     public typealias View = UIView
 #elseif os(OSX)
     import AppKit
+    public typealias Touch = NSTouch
     public typealias GestureRecognizer = NSGestureRecognizer
     public typealias GestureRecognizerState = NSGestureRecognizerState
     public typealias GestureRecognizerDelegate = NSGestureRecognizerDelegate

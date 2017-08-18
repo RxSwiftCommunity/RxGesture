@@ -18,19 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import UIKit
 import RxSwift
 import RxCocoa
 
 /// Default values for `UISwipeGestureRecognizer` configuration
 private enum Defaults {
     static var numberOfTouchesRequired: Int = 1
-    static var configuration: ((UISwipeGestureRecognizer) -> Void)? = nil
+    static var configuration: ((UISwipeGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
 }
 
 /// A `GestureRecognizerFactory` for `UISwipeGestureRecognizer`
 public struct SwipeGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = UISwipeGestureRecognizer
-    public let configuration: (UISwipeGestureRecognizer) -> Void
+    public let configuration: (UISwipeGestureRecognizer, RxGestureRecognizerDelegate) -> Void
 
     /**
      Initialiaze a `GestureRecognizerFactory` for `UISwipeGestureRecognizer`
@@ -40,12 +41,12 @@ public struct SwipeGestureRecognizerFactory: GestureRecognizerFactory {
     public init(
         _ direction: UISwipeGestureRecognizerDirection,
         numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
-        configuration: ((UISwipeGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UISwipeGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ){
-        self.configuration = { gesture in
+        self.configuration = { gesture, delegate in
             gesture.direction = direction
             gesture.numberOfTouchesRequired = numberOfTouchesRequired
-            configuration?(gesture)
+            configuration?(gesture, delegate)
         }
     }
 }
@@ -60,7 +61,7 @@ extension AnyGestureRecognizerFactory {
     public static func swipe(
         _ direction: UISwipeGestureRecognizerDirection,
         numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
-        configuration: ((UISwipeGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UISwipeGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = SwipeGestureRecognizerFactory(
             direction,
@@ -82,7 +83,7 @@ public extension Reactive where Base: UIView {
     public func swipeGesture(
         _ direction: UISwipeGestureRecognizerDirection,
         numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
-        configuration: ((UISwipeGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((UISwipeGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UISwipeGestureRecognizer> {
 
         return gesture(SwipeGestureRecognizerFactory(

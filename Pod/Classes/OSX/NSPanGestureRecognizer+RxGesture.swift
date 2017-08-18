@@ -18,19 +18,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import AppKit
 import RxSwift
 import RxCocoa
 
 /// Default values for `NSPanGestureRecognizer` configuration
 private enum Defaults {
     static var buttonMask: Int = 0x1
-    static var configuration: ((NSPanGestureRecognizer) -> Void)? = nil
+    static var configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
 }
 
 /// A `GestureRecognizerFactory` for `NSPanGestureRecognizer`
 public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSPanGestureRecognizer
-    public let configuration: (NSPanGestureRecognizer) -> Void
+    public let configuration: (NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void
 
     /**
      Initialiaze a `GestureRecognizerFactory` for `NSPanGestureRecognizer`
@@ -39,11 +40,11 @@ public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
      */
     public init(
         buttonMask: Int = Defaults.buttonMask,
-        configuration: ((NSPanGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ){
-        self.configuration = { gestureRecognizer in
+        self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.buttonMask = buttonMask
-            configuration?(gestureRecognizer)
+            configuration?(gestureRecognizer, delegate)
         }
     }
 }
@@ -57,7 +58,7 @@ extension AnyGestureRecognizerFactory {
      */
     public static func pan(
         buttonMask: Int = Defaults.buttonMask,
-        configuration: ((NSPanGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = PanGestureRecognizerFactory(
             buttonMask: buttonMask,
@@ -76,7 +77,7 @@ public extension Reactive where Base: NSView {
      */
     public func panGesture(
         buttonMask: Int = Defaults.buttonMask,
-        configuration: ((NSPanGestureRecognizer) -> Void)? = Defaults.configuration
+        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSPanGestureRecognizer> {
 
         return gesture(PanGestureRecognizerFactory(
