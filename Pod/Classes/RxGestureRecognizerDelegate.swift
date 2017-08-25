@@ -55,22 +55,22 @@ public struct GestureRecognizerDelegatePolicy<PolicyInput> {
 
 public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDelegate {
 
-    var beginPolicy: GestureRecognizerDelegatePolicy<GestureRecognizer> = .always
+    public var beginPolicy: GestureRecognizerDelegatePolicy<GestureRecognizer> = .always
 
-    var touchReceptionPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, Touch)> = .always
+    public var touchReceptionPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, Touch)> = .always
 
-    var selfFailureRequirementPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, GestureRecognizer)> = .never
+    public var selfFailureRequirementPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, GestureRecognizer)> = .never
 
-    var otherFailureRequirementPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, GestureRecognizer)> = .never
+    public var otherFailureRequirementPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, GestureRecognizer)> = .never
 
-    var simultaneousRecognitionPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, GestureRecognizer)> = .always
+    public var simultaneousRecognitionPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, GestureRecognizer)> = .always
 
     #if os(iOS)
     // Workaround because we can't have stored properties with @available annotation
     private var _pressReceptionPolicy: Any?
 
     @available(iOS 9.0, *)
-    var pressReceptionPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, UIPress)> {
+    public var pressReceptionPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, UIPress)> {
         get {
             if let policy = _pressReceptionPolicy as? GestureRecognizerDelegatePolicy<(GestureRecognizer, UIPress)> {
                 return policy
@@ -84,7 +84,7 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
     #endif
 
     #if os(OSX)
-    var eventRecognitionAttemptPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, NSEvent)> = .always
+    public var eventRecognitionAttemptPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, NSEvent)> = .always
     #endif
 
 
