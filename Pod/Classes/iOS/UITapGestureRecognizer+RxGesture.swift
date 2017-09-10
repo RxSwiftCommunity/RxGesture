@@ -23,11 +23,13 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `UITapGestureRecognizer` configuration
-private enum Defaults {
-    static var numberOfTouchesRequired: Int = 1
-    static var numberOfTapsRequired: Int = 1
-    static var configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum UITapGestureRecognizerDefaults {
+    public static var numberOfTouchesRequired: Int = 1
+    public static var numberOfTapsRequired: Int = 1
+    public static var configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
 }
+
+fileprivate typealias Defaults = UITapGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `UITapGestureRecognizer`
 public struct TapGestureRecognizerFactory: GestureRecognizerFactory {
