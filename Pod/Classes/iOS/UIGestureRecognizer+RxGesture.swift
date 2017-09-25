@@ -31,7 +31,9 @@ public extension ObservableType where E: UIGestureRecognizer {
      - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match the given `state`.
      */
     public func when(_ states: UIGestureRecognizerState...) -> Observable<E> {
-        return when(states)
+        return filter { gesture in
+            return states.contains(gesture.state)
+        }
     }
 
     /**
@@ -44,7 +46,6 @@ public extension ObservableType where E: UIGestureRecognizer {
         return filter { gesture in
             return states.contains(gesture.state)
         }
-
     }
 
     /**
