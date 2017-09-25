@@ -22,6 +22,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/// Default values for `UILongPressGestureRecognizer` configuration
 public enum LongPressGestureRecognizerDefaults {
     public static var numberOfTouchesRequired: Int = 1
     public static var numberOfTapsRequired: Int = 0
@@ -34,7 +35,6 @@ fileprivate typealias Defaults = LongPressGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `UITapGestureRecognizer`
 public struct LongPressGestureRecognizerFactory: GestureRecognizerFactory {
-    /// Default values for `UILongPressGestureRecognizer` configuration
 
     public typealias Gesture = UILongPressGestureRecognizer
     public let configuration: (UILongPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void
