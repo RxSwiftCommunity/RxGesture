@@ -23,16 +23,19 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `UILongPressGestureRecognizer` configuration
-private enum Defaults {
-    static var numberOfTouchesRequired: Int = 1
-    static var numberOfTapsRequired: Int = 0
-    static var minimumPressDuration: CFTimeInterval = 0.5
-    static var allowableMovement: CGFloat = 10
-    static var configuration: ((UILongPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum LongPressGestureRecognizerDefaults {
+    public static var numberOfTouchesRequired: Int = 1
+    public static var numberOfTapsRequired: Int = 0
+    public static var minimumPressDuration: CFTimeInterval = 0.5
+    public static var allowableMovement: CGFloat = 10
+    public static var configuration: ((UILongPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
 }
+
+fileprivate typealias Defaults = LongPressGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `UITapGestureRecognizer`
 public struct LongPressGestureRecognizerFactory: GestureRecognizerFactory {
+
     public typealias Gesture = UILongPressGestureRecognizer
     public let configuration: (UILongPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void
 

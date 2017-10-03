@@ -23,9 +23,11 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `UIPinchGestureRecognizer` configuration
-private enum Defaults {
-    static var configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum PinchGestureRecognizerDefaults {
+    public static var configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
 }
+
+fileprivate typealias Defaults = PinchGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `UIPinchGestureRecognizer`
 public struct PinchGestureRecognizerFactory: GestureRecognizerFactory {
@@ -39,7 +41,7 @@ public struct PinchGestureRecognizerFactory: GestureRecognizerFactory {
     public init(
         configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ){
-        self.configuration = configuration ?? { _ in }
+        self.configuration = configuration ?? { _,_  in }
     }
 }
 
