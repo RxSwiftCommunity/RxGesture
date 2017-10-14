@@ -82,7 +82,8 @@ extension Reactive where Base: View {
      */
     public func gesture<G: GestureRecognizer>(_ gesture: G) -> ControlEvent<G> {
 
-        let source = Observable<G>.deferred { [weak control = self.base] _ in
+        let source = Observable.deferred {
+            [weak control = self.base] () -> Observable<G> in
             MainScheduler.ensureExecutingOnScheduler()
 
             guard let control = control else { return .empty() }
@@ -96,13 +97,13 @@ extension Reactive where Base: View {
             control.addGestureRecognizer(gesture)
 
             return genericGesture.rx.event
-            .map { $0 as! G }
-            .startWith(gesture)
-            .do(onDispose: { [weak control, weak gesture] _ in
-                guard let gesture = gesture else { return }
-                control?.removeGestureRecognizer(gesture)
-            })
-            .takeUntil(control.rx.deallocated)
+                .map { $0 as! G }
+                .startWith(gesture)
+                .do(onDispose: { [weak control, weak gesture] () in
+                    guard let gesture = gesture else { return }
+                    control?.removeGestureRecognizer(gesture)
+                })
+                .takeUntil(control.rx.deallocated)
         }
 
         return ControlEvent(events: source)
