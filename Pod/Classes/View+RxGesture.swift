@@ -82,30 +82,28 @@ extension Reactive where Base: View {
      */
     public func gesture<G: GestureRecognizer>(_ gesture: G) -> ControlEvent<G> {
 
-        let control = self.base
-        let genericGesture = gesture as GestureRecognizer
+        let source = Observable<G>.deferred { [weak control = self.base] _ in
+            MainScheduler.ensureExecutingOnScheduler()
 
-        #if os(iOS)
-            control.isUserInteractionEnabled = true
-        #endif
+            guard let control = control else { return .empty() }
 
-        let source: Observable<G> = Observable
-            .create { observer in
-                MainScheduler.ensureExecutingOnScheduler()
+            let genericGesture = gesture as GestureRecognizer
 
-                control.addGestureRecognizer(gesture)
+            #if os(iOS)
+                control.isUserInteractionEnabled = true
+            #endif
 
-                let disposable = genericGesture.rx.event
-                    .map { $0 as! G }
-                    .startWith(gesture)
-                    .bind(onNext: observer.onNext)
+            control.addGestureRecognizer(gesture)
 
-                return Disposables.create {
-                    control.removeGestureRecognizer(gesture)
-                    disposable.dispose()
-                }
-            }
-            .takeUntil(deallocated)
+            return genericGesture.rx.event
+            .map { $0 as! G }
+            .startWith(gesture)
+            .do(onDispose: { [weak control, weak gesture] _ in
+                guard let gesture = gesture else { return }
+                control?.removeGestureRecognizer(gesture)
+            })
+            .takeUntil(control.rx.deallocated)
+        }
 
         return ControlEvent(events: source)
     }
