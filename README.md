@@ -32,7 +32,7 @@ You can also react to more than one  gesture. For example to dismiss a photo pre
 view.rx
   .anyGesture(.tap(), .swipe([.up, .down]))
   .when(.recognized)
-  .subscribe(onNext: { _ in 
+  .subscribe(onNext: { _ in
     //dismiss presented photo
   })
   .disposed(by: stepBag)
@@ -111,7 +111,7 @@ view.rx
     // Called whenever a tap, a swipe-up or a swipe-down is recognized (state == .recognized)
   })
   .disposed(by: bag)
-	
+
 view.rx
   .anyGesture(
     (.tap(), when: .recognized),
@@ -119,7 +119,7 @@ view.rx
   )
   .subscribe(onNext: { gesture in
     // Called whenever:
-    // - a tap is recognized (state == .recognized) 
+    // - a tap is recognized (state == .recognized)
     // - or a pan is ended (state == .ended)
   })
   .disposed(by: bag)
@@ -148,7 +148,7 @@ pressReceptionPolicy          -> gestureRecognizer(_:shouldReceive:) // iOS only
 
 This delegate can be customized in the configuration closure:
 ```swift
-view.rx.tapGesture(configuration: { gestureRecognizer, delegate in 
+view.rx.tapGesture(configuration: { gestureRecognizer, delegate in
   delegate.simultaneousRecognitionPolicy = .always // (default value)
   // or
   delegate.simultaneousRecognitionPolicy = .never
@@ -167,7 +167,7 @@ Default values can be found in [`RxGestureRecognizerDelegate.swift`](Pod/Classes
 ### Full customization
 You can also replace the default delegate by your own, or remove it.
 ```swift
-view.rx.tapGesture { [unowned self] gestureRecognizer, delegate in 
+view.rx.tapGesture { [unowned self] gestureRecognizer, delegate in
   gestureRecognizer.delegate = nil
   // or
   gestureRecognizer.delegate = self
@@ -198,7 +198,7 @@ $ pod install
 Add this to `Cartfile`
 
 ```
-github "RxSwiftCommunity/RxGesture" ~> 1.1.0
+github "RxSwiftCommunity/RxGesture" ~> 1.1.1
 ```
 
 ```bash

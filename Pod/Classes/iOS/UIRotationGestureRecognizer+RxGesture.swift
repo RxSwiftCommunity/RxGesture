@@ -24,7 +24,7 @@ import RxCocoa
 
 /// Default values for `UIRotationGestureRecognizer` configuration
 public enum RotationGestureRecognizerDefaults {
-    public static var configuration: ((UIRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+    public static var configuration: ((UIRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
 fileprivate typealias Defaults = RotationGestureRecognizerDefaults
@@ -40,7 +40,7 @@ public struct RotationGestureRecognizerFactory: GestureRecognizerFactory {
      */
     public init(
         configuration: ((UIRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        ) {
         self.configuration = { gesture, delegate in
             configuration?(gesture, delegate)
         }

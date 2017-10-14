@@ -39,7 +39,7 @@ public struct MagnificationGestureRecognizerFactory: GestureRecognizerFactory {
     public init(
         configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSMagnificationGestureRecognizerDefaults.configuration
         ) {
-        self.configuration = configuration ?? { _,_  in }
+        self.configuration = configuration ?? { _, _  in }
     }
 }
 

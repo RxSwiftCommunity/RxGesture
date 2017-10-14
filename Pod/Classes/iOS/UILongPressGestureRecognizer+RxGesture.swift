@@ -28,7 +28,7 @@ public enum LongPressGestureRecognizerDefaults {
     public static var numberOfTapsRequired: Int = 0
     public static var minimumPressDuration: CFTimeInterval = 0.5
     public static var allowableMovement: CGFloat = 10
-    public static var configuration: ((UILongPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+    public static var configuration: ((UILongPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
 fileprivate typealias Defaults = LongPressGestureRecognizerDefaults
@@ -53,7 +53,7 @@ public struct LongPressGestureRecognizerFactory: GestureRecognizerFactory {
         minimumPressDuration: CFTimeInterval = Defaults.minimumPressDuration,
         allowableMovement: CGFloat = Defaults.allowableMovement,
         configuration: ((UILongPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        ) {
         self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
             gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
