@@ -184,7 +184,7 @@ class ViewController: UIViewController {
                 .when(.changed)
                 .asTranslation()
                 .subscribe(onNext: { [unowned self] translation, _ in
-                    label.text = String(format: "(%.2f, %.2f)",translation.x, translation.y)
+                    label.text = String(format: "(%.2f, %.2f)", translation.x, translation.y)
                     view.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
                 })
                 .disposed(by: stepBag)

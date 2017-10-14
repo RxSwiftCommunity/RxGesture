@@ -23,10 +23,10 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `NSClickGestureRecognizer` configuration
-private enum Defaults {
-    static var buttonMask: Int = 0x1
-    static var numberOfClicksRequired: Int = 1
-    static var configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum NSClickGestureRecognizerDefaults {
+    public static var buttonMask: Int = 0x1
+    public static var numberOfClicksRequired: Int = 1
+    public static var configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
 /// A `GestureRecognizerFactory` for `NSClickGestureRecognizer`
@@ -41,10 +41,10 @@ public struct ClickGestureRecognizerFactory: GestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public init(
-        buttonMask: Int = Defaults.buttonMask,
-        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        buttonMask: Int = NSClickGestureRecognizerDefaults.buttonMask,
+        numberOfClicksRequired: Int = NSClickGestureRecognizerDefaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSClickGestureRecognizerDefaults.configuration
+        ) {
         self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.buttonMask = buttonMask
             gestureRecognizer.numberOfClicksRequired = numberOfClicksRequired
@@ -62,9 +62,9 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func click(
-        buttonMask: Int = Defaults.buttonMask,
-        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
+        buttonMask: Int = NSClickGestureRecognizerDefaults.buttonMask,
+        numberOfClicksRequired: Int = NSClickGestureRecognizerDefaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSClickGestureRecognizerDefaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = ClickGestureRecognizerFactory(
             buttonMask: buttonMask,
@@ -80,8 +80,8 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func rightClick(
-        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
+        numberOfClicksRequired: Int = NSClickGestureRecognizerDefaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSClickGestureRecognizerDefaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = ClickGestureRecognizerFactory(
             buttonMask: 0x2,
@@ -102,9 +102,9 @@ public extension Reactive where Base: NSView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func clickGesture(
-        buttonMask: Int = Defaults.buttonMask,
-        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
+        buttonMask: Int = NSClickGestureRecognizerDefaults.buttonMask,
+        numberOfClicksRequired: Int = NSClickGestureRecognizerDefaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSClickGestureRecognizerDefaults.configuration
         ) -> ControlEvent<NSClickGestureRecognizer> {
 
         return gesture(ClickGestureRecognizerFactory(

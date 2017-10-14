@@ -23,8 +23,8 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `NSRotationGestureRecognizer` configuration
-private enum Defaults {
-    static var configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum NSRotationGestureRecognizerDefaults {
+    public static var configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
 /// A `GestureRecognizerFactory` for `NSRotationGestureRecognizer`
@@ -33,8 +33,8 @@ public struct RotationGestureRecognizerFactory: GestureRecognizerFactory {
     public let configuration: (NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void
 
     public init(
-        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSRotationGestureRecognizerDefaults.configuration
+        ) {
         self.configuration = { gesture, delegate in
             configuration?(gesture, delegate)
         }
@@ -48,7 +48,7 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func rotation(
-        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
+        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSRotationGestureRecognizerDefaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = RotationGestureRecognizerFactory(
             configuration: configuration
@@ -64,7 +64,7 @@ public extension Reactive where Base: NSView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func rotationGesture(
-        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
+        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSRotationGestureRecognizerDefaults.configuration
         ) -> ControlEvent<NSRotationGestureRecognizer> {
         return gesture(RotationGestureRecognizerFactory(
             configuration: configuration

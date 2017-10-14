@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   s.description      = <<-DESC
 					  RxSwift reactive wrapper for view gestures. It lets you to easily observe
-					  a single gesture like tap or a custom group of gestures on a view. You can 
+					  a single gesture like tap or a custom group of gestures on a view. You can
 					  combine taps, presses, or swipes in any direction
                        DESC
 
@@ -23,14 +23,13 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.10'
-  
+
   s.source_files = 'Pod/Classes/*.swift'
-    
+
   s.ios.source_files      = 'Pod/Classes/iOS/*.swift'
   s.osx.source_files      = 'Pod/Classes/OSX/*.swift'
-  
+
   s.dependency 'RxSwift', '>= 4.0.0-rc.0'
   s.dependency 'RxCocoa', '>= 4.0.0-rc.0'
-  
-end
 
+end
