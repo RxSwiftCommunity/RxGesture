@@ -23,11 +23,13 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `NSClickGestureRecognizer` configuration
-private enum Defaults {
-    static var buttonMask: Int = 0x1
-    static var numberOfClicksRequired: Int = 1
-    static var configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum NSClickGestureRecognizerDefaults {
+    public static var buttonMask: Int = 0x1
+    public static var numberOfClicksRequired: Int = 1
+    public static var configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
+
+fileprivate typealias Defaults = NSClickGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `NSClickGestureRecognizer`
 public struct ClickGestureRecognizerFactory: GestureRecognizerFactory {
@@ -44,7 +46,7 @@ public struct ClickGestureRecognizerFactory: GestureRecognizerFactory {
         buttonMask: Int = Defaults.buttonMask,
         numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
         configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        ) {
         self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.buttonMask = buttonMask
             gestureRecognizer.numberOfClicksRequired = numberOfClicksRequired

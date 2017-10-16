@@ -12,7 +12,6 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-
 class Step {
     enum Action { case previous, next }
 
@@ -73,7 +72,7 @@ class MacViewController: NSViewController {
             .startWith(0)
             .map { (steps[$0], $0) }
             .subscribe(onNext: { [unowned self] in self.updateStep($0, at: $1) })
-            .addDisposableTo(bag)
+            .disposed(by: bag)
     }
 
     override func viewDidAppear() {
@@ -117,7 +116,7 @@ class MacViewController: NSViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var doubleClickStep: Step = Step(
@@ -134,7 +133,7 @@ class MacViewController: NSViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var rightClickStep: Step = Step(
@@ -151,7 +150,7 @@ class MacViewController: NSViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var anyClickStep: Step = Step(
@@ -167,7 +166,7 @@ class MacViewController: NSViewController {
                 .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
-                }).addDisposableTo(stepBag)
+                }).disposed(by: stepBag)
     })
 
     lazy var pressStep: Step = Step(
@@ -184,7 +183,7 @@ class MacViewController: NSViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var panStep: Step = Step(
@@ -202,7 +201,7 @@ class MacViewController: NSViewController {
                     label.stringValue = String(format: "(%.f, %.f)", arguments: [translation.x, translation.y])
                     view.layer!.transform = CATransform3DMakeTranslation(translation.x, translation.y, 0.0)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
 
             view.rx
                 .anyGesture(
@@ -212,7 +211,7 @@ class MacViewController: NSViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var rotateStep: Step = Step(
@@ -230,7 +229,7 @@ class MacViewController: NSViewController {
                     label.stringValue = String(format: "angle: %.2f", rotation)
                     view.layer!.transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
 
             view.rx
                 .anyGesture(
@@ -240,7 +239,7 @@ class MacViewController: NSViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
     lazy var magnificationStep: Step = Step(
@@ -258,7 +257,7 @@ class MacViewController: NSViewController {
                     label.stringValue = String(format: "scale: %.2f", scale)
                     view.layer!.transform = CATransform3DMakeScale(scale, scale, 1)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
 
             view.rx
                 .anyGesture(
@@ -268,7 +267,7 @@ class MacViewController: NSViewController {
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
                 })
-                .addDisposableTo(stepBag)
+                .disposed(by: stepBag)
     })
 
 }

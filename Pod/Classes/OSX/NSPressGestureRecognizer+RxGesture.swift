@@ -22,15 +22,17 @@ import AppKit
 import RxSwift
 import RxCocoa
 
-/// Default values for `UIPanGestureRecognizer` configuration
-private enum Defaults {
-    static var buttonMask: Int = 0x1
-    static var minimumPressDuration: TimeInterval? = nil
-    static var allowableMovement: CGFloat? = nil
-    static var configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+/// Default values for `NSPressGestureRecognizer` configuration
+public enum NSPressGestureRecognizerDefaults {
+    public static var buttonMask: Int = 0x1
+    public static var minimumPressDuration: TimeInterval?
+    public static var allowableMovement: CGFloat?
+    public static var configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
-/// A `GestureRecognizerFactory` for `UIPanGestureRecognizer`
+fileprivate typealias Defaults = NSPressGestureRecognizerDefaults
+
+/// A `GestureRecognizerFactory` for `NSPressGestureRecognizer`
 public struct PressGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSPressGestureRecognizer
     public let configuration: (NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void
@@ -47,7 +49,7 @@ public struct PressGestureRecognizerFactory: GestureRecognizerFactory {
         minimumPressDuration: TimeInterval? = Defaults.minimumPressDuration,
         allowableMovement: CGFloat? = Defaults.allowableMovement,
         configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        ) {
         self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.buttonMask = buttonMask
             minimumPressDuration.map {
@@ -85,7 +87,6 @@ extension AnyGestureRecognizerFactory {
         return AnyGestureRecognizerFactory(gesture)
     }
 }
-
 
 public extension Reactive where Base: NSView {
 

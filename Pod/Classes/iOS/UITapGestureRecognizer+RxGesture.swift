@@ -26,7 +26,7 @@ import RxCocoa
 public enum UITapGestureRecognizerDefaults {
     public static var numberOfTouchesRequired: Int = 1
     public static var numberOfTapsRequired: Int = 1
-    public static var configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+    public static var configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
 fileprivate typealias Defaults = UITapGestureRecognizerDefaults
@@ -46,7 +46,7 @@ public struct TapGestureRecognizerFactory: GestureRecognizerFactory {
         numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
         numberOfTapsRequired: Int = Defaults.numberOfTapsRequired,
         configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        ) {
         self.configuration = { gesture, delegate in
             gesture.numberOfTouchesRequired = numberOfTouchesRequired
             gesture.numberOfTapsRequired = numberOfTapsRequired

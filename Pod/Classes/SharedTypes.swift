@@ -31,7 +31,7 @@ import Foundation
     import AppKit
     public typealias Touch = NSTouch
     public typealias GestureRecognizer = NSGestureRecognizer
-    public typealias GestureRecognizerState = NSGestureRecognizerState
+    public typealias GestureRecognizerState = NSGestureRecognizer.State
     public typealias GestureRecognizerDelegate = NSGestureRecognizerDelegate
     public typealias View = NSView
 #endif

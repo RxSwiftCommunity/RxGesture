@@ -87,7 +87,6 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
     public var eventRecognitionAttemptPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, NSEvent)> = .always
     #endif
 
-
     public func gestureRecognizerShouldBegin(
         _ gestureRecognizer: GestureRecognizer
         ) -> Bool {
@@ -143,7 +142,6 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
     }
 
     #endif
-
 
     #if os(OSX)
 
