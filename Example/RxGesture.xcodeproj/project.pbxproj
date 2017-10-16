@@ -577,6 +577,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.underplot.RxGesture-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -596,6 +597,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.underplot.RxGesture-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

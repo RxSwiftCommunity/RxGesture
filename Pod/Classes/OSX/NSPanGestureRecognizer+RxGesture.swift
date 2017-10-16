@@ -28,6 +28,8 @@ public enum NSPanGestureRecognizerDefaults {
     public static var configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
+fileprivate typealias Defaults = NSPanGestureRecognizerDefaults
+
 /// A `GestureRecognizerFactory` for `NSPanGestureRecognizer`
 public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSPanGestureRecognizer
@@ -39,8 +41,8 @@ public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public init(
-        buttonMask: Int = NSPanGestureRecognizerDefaults.buttonMask,
-        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSPanGestureRecognizerDefaults.configuration
+        buttonMask: Int = Defaults.buttonMask,
+        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) {
         self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.buttonMask = buttonMask
@@ -57,8 +59,8 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func pan(
-        buttonMask: Int = NSPanGestureRecognizerDefaults.buttonMask,
-        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSPanGestureRecognizerDefaults.configuration
+        buttonMask: Int = Defaults.buttonMask,
+        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = PanGestureRecognizerFactory(
             buttonMask: buttonMask,
@@ -76,8 +78,8 @@ public extension Reactive where Base: NSView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func panGesture(
-        buttonMask: Int = NSPanGestureRecognizerDefaults.buttonMask,
-        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSPanGestureRecognizerDefaults.configuration
+        buttonMask: Int = Defaults.buttonMask,
+        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSPanGestureRecognizer> {
 
         return gesture(PanGestureRecognizerFactory(

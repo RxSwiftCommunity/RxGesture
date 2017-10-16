@@ -29,6 +29,8 @@ public enum NSClickGestureRecognizerDefaults {
     public static var configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
+fileprivate typealias Defaults = NSClickGestureRecognizerDefaults
+
 /// A `GestureRecognizerFactory` for `NSClickGestureRecognizer`
 public struct ClickGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSClickGestureRecognizer
@@ -41,9 +43,9 @@ public struct ClickGestureRecognizerFactory: GestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public init(
-        buttonMask: Int = NSClickGestureRecognizerDefaults.buttonMask,
-        numberOfClicksRequired: Int = NSClickGestureRecognizerDefaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSClickGestureRecognizerDefaults.configuration
+        buttonMask: Int = Defaults.buttonMask,
+        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) {
         self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.buttonMask = buttonMask
@@ -62,9 +64,9 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func click(
-        buttonMask: Int = NSClickGestureRecognizerDefaults.buttonMask,
-        numberOfClicksRequired: Int = NSClickGestureRecognizerDefaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSClickGestureRecognizerDefaults.configuration
+        buttonMask: Int = Defaults.buttonMask,
+        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = ClickGestureRecognizerFactory(
             buttonMask: buttonMask,
@@ -80,8 +82,8 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func rightClick(
-        numberOfClicksRequired: Int = NSClickGestureRecognizerDefaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSClickGestureRecognizerDefaults.configuration
+        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = ClickGestureRecognizerFactory(
             buttonMask: 0x2,
@@ -102,9 +104,9 @@ public extension Reactive where Base: NSView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func clickGesture(
-        buttonMask: Int = NSClickGestureRecognizerDefaults.buttonMask,
-        numberOfClicksRequired: Int = NSClickGestureRecognizerDefaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSClickGestureRecognizerDefaults.configuration
+        buttonMask: Int = Defaults.buttonMask,
+        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
+        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSClickGestureRecognizer> {
 
         return gesture(ClickGestureRecognizerFactory(

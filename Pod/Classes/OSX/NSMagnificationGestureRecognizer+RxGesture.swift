@@ -27,6 +27,8 @@ public enum NSMagnificationGestureRecognizerDefaults {
     public static var configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
+fileprivate typealias Defaults = NSMagnificationGestureRecognizerDefaults
+
 /// A `GestureRecognizerFactory` for `NSMagnificationGestureRecognizer`
 public struct MagnificationGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSMagnificationGestureRecognizer
@@ -37,7 +39,7 @@ public struct MagnificationGestureRecognizerFactory: GestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public init(
-        configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSMagnificationGestureRecognizerDefaults.configuration
+        configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) {
         self.configuration = configuration ?? { _, _  in }
     }
@@ -50,7 +52,7 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func magnification(
-        configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSMagnificationGestureRecognizerDefaults.configuration
+        configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = MagnificationGestureRecognizerFactory(
             configuration: configuration
@@ -66,7 +68,7 @@ public extension Reactive where Base: NSView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func magnificationGesture(
-        configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSMagnificationGestureRecognizerDefaults.configuration
+        configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSMagnificationGestureRecognizer> {
 
         return gesture(MagnificationGestureRecognizerFactory(

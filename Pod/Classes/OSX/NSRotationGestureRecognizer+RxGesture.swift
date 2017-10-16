@@ -27,13 +27,15 @@ public enum NSRotationGestureRecognizerDefaults {
     public static var configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
 
+fileprivate typealias Defaults = NSRotationGestureRecognizerDefaults
+
 /// A `GestureRecognizerFactory` for `NSRotationGestureRecognizer`
 public struct RotationGestureRecognizerFactory: GestureRecognizerFactory {
     public typealias Gesture = NSRotationGestureRecognizer
     public let configuration: (NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void
 
     public init(
-        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSRotationGestureRecognizerDefaults.configuration
+        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) {
         self.configuration = { gesture, delegate in
             configuration?(gesture, delegate)
@@ -48,7 +50,7 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func rotation(
-        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSRotationGestureRecognizerDefaults.configuration
+        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = RotationGestureRecognizerFactory(
             configuration: configuration
@@ -64,7 +66,7 @@ public extension Reactive where Base: NSView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func rotationGesture(
-        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = NSRotationGestureRecognizerDefaults.configuration
+        configuration: ((NSRotationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<NSRotationGestureRecognizer> {
         return gesture(RotationGestureRecognizerFactory(
             configuration: configuration

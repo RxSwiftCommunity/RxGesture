@@ -43,9 +43,9 @@ public struct TapGestureRecognizerFactory: GestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public init(
-        numberOfTouchesRequired: Int = UITapGestureRecognizerDefaults.numberOfTouchesRequired,
-        numberOfTapsRequired: Int = UITapGestureRecognizerDefaults.numberOfTapsRequired,
-        configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = UITapGestureRecognizerDefaults.configuration
+        numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
+        numberOfTapsRequired: Int = Defaults.numberOfTapsRequired,
+        configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) {
         self.configuration = { gesture, delegate in
             gesture.numberOfTouchesRequired = numberOfTouchesRequired
@@ -64,9 +64,9 @@ extension AnyGestureRecognizerFactory {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func tap(
-        numberOfTouchesRequired: Int = UITapGestureRecognizerDefaults.numberOfTouchesRequired,
-        numberOfTapsRequired: Int = UITapGestureRecognizerDefaults.numberOfTapsRequired,
-        configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = UITapGestureRecognizerDefaults.configuration
+        numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
+        numberOfTapsRequired: Int = Defaults.numberOfTapsRequired,
+        configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> AnyGestureRecognizerFactory {
         let gesture = TapGestureRecognizerFactory(
             numberOfTouchesRequired: numberOfTouchesRequired,
@@ -86,9 +86,9 @@ public extension Reactive where Base: UIView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func tapGesture(
-        numberOfTouchesRequired: Int = UITapGestureRecognizerDefaults.numberOfTouchesRequired,
-        numberOfTapsRequired: Int = UITapGestureRecognizerDefaults.numberOfTapsRequired,
-        configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = UITapGestureRecognizerDefaults.configuration
+        numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
+        numberOfTapsRequired: Int = Defaults.numberOfTapsRequired,
+        configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) -> ControlEvent<UITapGestureRecognizer> {
 
         return gesture(TapGestureRecognizerFactory(
