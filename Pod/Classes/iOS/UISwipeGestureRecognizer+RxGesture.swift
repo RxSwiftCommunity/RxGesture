@@ -23,10 +23,12 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `UISwipeGestureRecognizer` configuration
-private enum Defaults {
-    static var numberOfTouchesRequired: Int = 1
-    static var configuration: ((UISwipeGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum UISwipeGestureRecognizerDefaults {
+    public static var numberOfTouchesRequired: Int = 1
+    public static var configuration: ((UISwipeGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
+
+fileprivate typealias Defaults = UISwipeGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `UISwipeGestureRecognizer`
 public struct SwipeGestureRecognizerFactory: GestureRecognizerFactory {
@@ -42,7 +44,7 @@ public struct SwipeGestureRecognizerFactory: GestureRecognizerFactory {
         _ direction: UISwipeGestureRecognizerDirection,
         numberOfTouchesRequired: Int = Defaults.numberOfTouchesRequired,
         configuration: ((UISwipeGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        ) {
         self.configuration = { gesture, delegate in
             gesture.direction = direction
             gesture.numberOfTouchesRequired = numberOfTouchesRequired
@@ -71,7 +73,6 @@ extension AnyGestureRecognizerFactory {
         return AnyGestureRecognizerFactory(gesture)
     }
 }
-
 
 public extension Reactive where Base: UIView {
 

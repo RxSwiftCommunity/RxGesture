@@ -22,13 +22,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-
 /// Default values for `UIPanGestureRecognizer` configuration
-private enum Defaults {
-    static var minimumNumberOfTouches: Int = 1
-    static var maximumNumberOfTouches: Int = Int.max
-    static var configuration: ((UIPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum PanGestureRecognizerDefaults {
+    public static var minimumNumberOfTouches: Int = 1
+    public static var maximumNumberOfTouches: Int = Int.max
+    public static var configuration: ((UIPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
+
+fileprivate typealias Defaults = PanGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `UIPanGestureRecognizer`
 public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
@@ -45,7 +46,7 @@ public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
         minimumNumberOfTouches: Int = Defaults.minimumNumberOfTouches,
         maximumNumberOfTouches: Int = Defaults.maximumNumberOfTouches,
         configuration: ((UIPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        ) {
         self.configuration = { gesture, delegate in
             gesture.minimumNumberOfTouches = minimumNumberOfTouches
             gesture.maximumNumberOfTouches = maximumNumberOfTouches

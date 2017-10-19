@@ -23,9 +23,9 @@ import RxSwift
 import RxCocoa
 
 private class GestureTarget {
-    
+
     fileprivate var retainedSelf: GestureTarget?
-    
+
     init() {
         retainedSelf = self
     }
@@ -33,16 +33,16 @@ private class GestureTarget {
     func dispose() {
         retainedSelf = nil
     }
-    
+
     @objc func controlEvent() {
         handler?()
     }
-    
-    var handler: (()->Void)?
+
+    var handler: (() -> Void)?
 }
 
 extension Reactive where Base: NSGestureRecognizer {
-    
+
     /**
      Reactive wrapper for gesture recognizer events.
      */
@@ -52,12 +52,12 @@ extension Reactive where Base: NSGestureRecognizer {
 
             let control = self.base
             control.isEnabled = true
-            
+
             let gestureTarget = GestureTarget()
             gestureTarget.handler = {
                 observer.on(.next(control))
             }
-            
+
             control.target = gestureTarget
             control.action = #selector(GestureTarget.controlEvent)
 
@@ -68,8 +68,8 @@ extension Reactive where Base: NSGestureRecognizer {
                 gestureTarget.dispose()
             }
         }.takeUntil(self.deallocated)
-        
+
         return ControlEvent(events: source)
     }
-    
+
 }

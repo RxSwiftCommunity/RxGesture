@@ -178,13 +178,13 @@ class ViewController: UIViewController {
             view.animateTransform(to: .identity)
             view.animateBackgroundColor(to: .blue)
 
-            let panGesture = view.rx.panGesture().shareReplay(1)
+            let panGesture = view.rx.panGesture().share(replay: 1)
 
             panGesture
                 .when(.changed)
                 .asTranslation()
                 .subscribe(onNext: { [unowned self] translation, _ in
-                    label.text = String(format: "(%.2f, %.2f)",translation.x, translation.y)
+                    label.text = String(format: "(%.2f, %.2f)", translation.x, translation.y)
                     view.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
                 })
                 .disposed(by: stepBag)
@@ -205,7 +205,7 @@ class ViewController: UIViewController {
             view.animateTransform(to: .identity)
             view.animateBackgroundColor(to: .blue)
 
-            let rotationGesture = view.rx.rotationGesture().shareReplay(1)
+            let rotationGesture = view.rx.rotationGesture().share(replay: 1)
 
             rotationGesture
                 .when(.changed)
@@ -232,7 +232,7 @@ class ViewController: UIViewController {
             view.animateTransform(to: .identity)
             view.animateBackgroundColor(to: .blue)
 
-            let pinchGesture = view.rx.pinchGesture().shareReplay(1)
+            let pinchGesture = view.rx.pinchGesture().share(replay: 1)
 
             pinchGesture
                 .when(.changed)
@@ -259,7 +259,7 @@ class ViewController: UIViewController {
             view.animateTransform(to: .identity)
             view.animateBackgroundColor(to: .blue)
 
-            let transformGestures = view.rx.transformGestures().shareReplay(1)
+            let transformGestures = view.rx.transformGestures().share(replay: 1)
 
             transformGestures
                 .when(.changed)

@@ -23,9 +23,11 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `NSMagnificationGestureRecognizer` configuration
-private enum Defaults {
-    static var configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum NSMagnificationGestureRecognizerDefaults {
+    public static var configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
+
+fileprivate typealias Defaults = NSMagnificationGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `NSMagnificationGestureRecognizer`
 public struct MagnificationGestureRecognizerFactory: GestureRecognizerFactory {
@@ -38,8 +40,8 @@ public struct MagnificationGestureRecognizerFactory: GestureRecognizerFactory {
      */
     public init(
         configuration: ((NSMagnificationGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
-        self.configuration = configuration ?? { _ in }
+        ) {
+        self.configuration = configuration ?? { _, _  in }
     }
 }
 

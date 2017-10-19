@@ -23,10 +23,12 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `NSPanGestureRecognizer` configuration
-private enum Defaults {
-    static var buttonMask: Int = 0x1
-    static var configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum NSPanGestureRecognizerDefaults {
+    public static var buttonMask: Int = 0x1
+    public static var configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
+
+fileprivate typealias Defaults = NSPanGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `NSPanGestureRecognizer`
 public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
@@ -41,7 +43,7 @@ public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
     public init(
         buttonMask: Int = Defaults.buttonMask,
         configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        ) {
         self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.buttonMask = buttonMask
             configuration?(gestureRecognizer, delegate)

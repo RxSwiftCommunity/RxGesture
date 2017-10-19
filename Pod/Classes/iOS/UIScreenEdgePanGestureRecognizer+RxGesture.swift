@@ -23,9 +23,11 @@ import RxSwift
 import RxCocoa
 
 /// Default values for `UIScreenEdgePanGestureRecognizer` configuration
-private enum Defaults {
-    static var configuration: ((UIScreenEdgePanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+public enum UIScreenEdgePanGestureRecognizerDefaults {
+    public static var configuration: ((UIScreenEdgePanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
 }
+
+fileprivate typealias Defaults = UIScreenEdgePanGestureRecognizerDefaults
 
 /// A `GestureRecognizerFactory` for `UIScreenEdgePanGestureRecognizer`
 public struct ScreenEdgePanGestureRecognizerFactory: GestureRecognizerFactory {
@@ -40,7 +42,7 @@ public struct ScreenEdgePanGestureRecognizerFactory: GestureRecognizerFactory {
     public init(
         edges: UIRectEdge,
         configuration: ((UIScreenEdgePanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ){
+        ) {
         self.configuration = { gestureRecognizer, delegate in
             gestureRecognizer.edges = edges
             configuration?(gestureRecognizer, delegate)
