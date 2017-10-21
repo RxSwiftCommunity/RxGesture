@@ -31,7 +31,9 @@ public extension ObservableType where E: NSGestureRecognizer {
      - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match any of the given `states`.
      */
     public func when(_ states: NSGestureRecognizer.State...) -> Observable<E> {
-        return when(states)
+        return filter { gesture in
+            return states.contains(gesture.state)
+        }
     }
 
     /**
@@ -41,7 +43,7 @@ public extension ObservableType where E: NSGestureRecognizer {
      - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match any of the given `states`.
      */
     internal func when(_ states: [NSGestureRecognizer.State]) -> Observable<E> {
-        return self.filter { gesture in
+        return filter { gesture in
             return states.contains(gesture.state)
         }
     }
@@ -52,7 +54,7 @@ public extension ObservableType where E: NSGestureRecognizer {
      - parameter view: A `TargetView` value on which the gesture took place.
      */
     public func asLocation(in view: TargetView = .view) -> Observable<NSPoint> {
-        return self.map { gesture in
+        return map { gesture in
             return gesture.location(in: view.targetView(for: gesture))
         }
     }
