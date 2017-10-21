@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13528"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -645,7 +648,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="RxGesture_OSX_Demo" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="32" y="-126"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -654,8 +657,11 @@
                     <window key="window" title="RXGesture demo" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="370"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <connections>
+                            <outlet property="delegate" destination="B8D-0N-5wS" id="JHW-BO-QSl"/>
+                        </connections>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -670,51 +676,51 @@
             <objects>
                 <viewController storyboardIdentifier="MacViewController" id="XfG-lQ-9wD" customClass="MacViewController" customModule="RxGesture_OSX_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="604" height="340"/>
+                        <rect key="frame" x="0.0" y="0.0" width="604" height="515"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lTO-sj-z2M">
-                                <rect key="frame" x="8" y="157" width="588" height="17"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lTO-sj-z2M">
+                                <rect key="frame" x="8" y="257" width="588" height="17"/>
                                 <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="z7l-ey-l5X">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="systemSemibold" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="FyC-yP-0QP">
-                                <rect key="frame" x="0.0" y="182" width="604" height="125"/>
+                                <rect key="frame" x="0.0" y="282" width="604" height="200"/>
                             </customView>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOy-X2-geJ">
-                                <rect key="frame" x="-1" y="-1" width="606" height="150"/>
+                                <rect key="frame" x="-1" y="-1" width="606" height="250"/>
                                 <clipView key="contentView" id="qLO-cP-gmy">
-                                    <rect key="frame" x="1" y="1" width="604" height="148"/>
+                                    <rect key="frame" x="1" y="1" width="604" height="248"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <textView editable="NO" importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="yQf-m1-uCQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="604" height="148"/>
+                                        <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="yQf-m1-uCQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="604" height="248"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="604" height="148"/>
+                                            <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="minSize" width="604" height="248"/>
                                             <size key="maxSize" width="606" height="10000000"/>
                                             <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="deviceWhite"/>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="dqb-IG-9rA"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="bRX-vZ-yXi"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="bxz-EL-tog">
                                     <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="He1-c2-aU3">
-                                    <rect key="frame" x="589" y="1" width="16" height="148"/>
+                                    <rect key="frame" x="589" y="1" width="16" height="248"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OwV-4a-kfe">
-                                <rect key="frame" x="2" y="304" width="93" height="32"/>
+                                <rect key="frame" x="2" y="479" width="93" height="32"/>
                                 <buttonCell key="cell" type="push" title="Previous" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="DFi-iG-ZdI">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -723,10 +729,20 @@
                                     <action selector="previousStep:" target="XfG-lQ-9wD" id="hNE-Pa-rFs"/>
                                 </connections>
                             </button>
+                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9pj-jG-hq9">
+                                <rect key="frame" x="531" y="479" width="69" height="32"/>
+                                <buttonCell key="cell" type="push" title="Next" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="8RW-BQ-qgL">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="nextStep:" target="XfG-lQ-9wD" id="I1Y-Kf-d2b"/>
+                                </connections>
+                            </button>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="J7o-ag-sCE">
-                                <rect key="frame" x="252" y="195" width="100" height="100"/>
+                                <rect key="frame" x="252" y="332" width="100" height="100"/>
                                 <subviews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PxO-V0-c9c">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PxO-V0-c9c">
                                         <rect key="frame" x="-2" y="42" width="104" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="FJH-j3-NDm"/>
@@ -749,16 +765,20 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="OwV-4a-kfe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="8" id="1vS-Q8-F5Y"/>
+                            <constraint firstItem="J7o-ag-sCE" firstAttribute="centerY" secondItem="FyC-yP-0QP" secondAttribute="centerY" id="8IR-QR-v2l"/>
                             <constraint firstItem="yOy-X2-geJ" firstAttribute="top" secondItem="lTO-sj-z2M" secondAttribute="bottom" constant="8" id="BFi-KL-IpY"/>
                             <constraint firstItem="FyC-yP-0QP" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="GRZ-zH-Ezp"/>
-                            <constraint firstItem="J7o-ag-sCE" firstAttribute="centerX" secondItem="FyC-yP-0QP" secondAttribute="centerX" id="Sx2-g8-iQz"/>
+                            <constraint firstItem="9pj-jG-hq9" firstAttribute="centerY" secondItem="OwV-4a-kfe" secondAttribute="centerY" id="MLi-9K-sdg"/>
                             <constraint firstAttribute="trailing" secondItem="FyC-yP-0QP" secondAttribute="trailing" id="Uoy-8w-9cY"/>
                             <constraint firstItem="lTO-sj-z2M" firstAttribute="top" secondItem="FyC-yP-0QP" secondAttribute="bottom" constant="8" id="WxQ-pg-VVL"/>
                             <constraint firstAttribute="bottom" secondItem="yOy-X2-geJ" secondAttribute="bottom" constant="-1" id="ZpC-JS-9Nu"/>
                             <constraint firstAttribute="trailing" secondItem="yOy-X2-geJ" secondAttribute="trailing" constant="-1" id="g24-dh-FJK"/>
                             <constraint firstItem="OwV-4a-kfe" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="gUX-yB-Z7i"/>
+                            <constraint firstItem="J7o-ag-sCE" firstAttribute="centerX" secondItem="FyC-yP-0QP" secondAttribute="centerX" id="hus-Rl-1G2"/>
+                            <constraint firstAttribute="trailing" secondItem="9pj-jG-hq9" secondAttribute="trailing" constant="10" id="jqF-ui-I9f"/>
                             <constraint firstAttribute="trailing" secondItem="lTO-sj-z2M" secondAttribute="trailing" constant="10" id="nuP-8q-ysO"/>
-                            <constraint firstItem="J7o-ag-sCE" firstAttribute="centerY" secondItem="FyC-yP-0QP" secondAttribute="centerY" id="oH5-M9-Z9s"/>
+                            <constraint firstItem="FyC-yP-0QP" firstAttribute="height" secondItem="J7o-ag-sCE" secondAttribute="height" multiplier="2" id="oLG-qG-PWV"/>
+                            <constraint firstItem="9pj-jG-hq9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="OwV-4a-kfe" secondAttribute="trailing" constant="12" id="oz2-eT-a1g"/>
                             <constraint firstItem="FyC-yP-0QP" firstAttribute="top" secondItem="OwV-4a-kfe" secondAttribute="bottom" constant="4" id="vKo-0j-q13"/>
                             <constraint firstItem="yOy-X2-geJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="-1" id="viT-nh-bn3"/>
                             <constraint firstItem="lTO-sj-z2M" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="10" id="vpG-E4-hCi"/>
@@ -773,7 +793,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="688"/>
+            <point key="canvasLocation" x="75" y="920"/>
         </scene>
     </scenes>
 </document>
