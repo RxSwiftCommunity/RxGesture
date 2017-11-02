@@ -27,6 +27,7 @@ import Foundation
     public typealias GestureRecognizerState = UIGestureRecognizerState
     public typealias GestureRecognizerDelegate = UIGestureRecognizerDelegate
     public typealias View = UIView
+    public typealias Point = CGPoint
 #elseif os(OSX)
     import AppKit
     public typealias Touch = NSTouch
@@ -34,6 +35,7 @@ import Foundation
     public typealias GestureRecognizerState = NSGestureRecognizer.State
     public typealias GestureRecognizerDelegate = NSGestureRecognizerDelegate
     public typealias View = NSView
+    public typealias Point = NSPoint
 #endif
 
 public enum TargetView {

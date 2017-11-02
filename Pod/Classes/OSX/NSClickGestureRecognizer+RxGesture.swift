@@ -22,114 +22,58 @@ import AppKit
 import RxSwift
 import RxCocoa
 
-/// Default values for `NSClickGestureRecognizer` configuration
-public enum NSClickGestureRecognizerDefaults {
-    public static var buttonMask: Int = 0x1
-    public static var numberOfClicksRequired: Int = 1
-    public static var configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
-}
-
-fileprivate typealias Defaults = NSClickGestureRecognizerDefaults
-
-/// A `GestureRecognizerFactory` for `NSClickGestureRecognizer`
-public struct ClickGestureRecognizerFactory: GestureRecognizerFactory {
-    public typealias Gesture = NSClickGestureRecognizer
-    public let configuration: (NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void
-
-    /**
-     Initialiaze a `GestureRecognizerFactory` for `NSClickGestureRecognizer`
-     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
-     - parameter numberOfClicksRequired: The number of clicks required to match
-     - parameter configuration: A closure that allows to fully configure the gesture recognizer
-     */
-    public init(
-        buttonMask: Int = Defaults.buttonMask,
-        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) {
-        self.configuration = { gestureRecognizer, delegate in
-            gestureRecognizer.buttonMask = buttonMask
-            gestureRecognizer.numberOfClicksRequired = numberOfClicksRequired
-            configuration?(gestureRecognizer, delegate)
-        }
+private func make(mask: Int, configuration: Configuration<NSClickGestureRecognizer>?) -> Factory<NSClickGestureRecognizer> {
+    return make {
+        $0.buttonMask = mask
+        configuration?($0, $1)
     }
 }
 
-extension AnyGestureRecognizerFactory {
+extension Factory where Gesture == GestureRecognizer {
 
     /**
-     Returns an `AnyGestureRecognizerFactory` for `NSClickGestureRecognizer`
-     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
-     - parameter numberOfClicksRequired: The number of clicks required to match
+     Returns an `AnyFactory` for `NSClickGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func click(
-        buttonMask: Int = Defaults.buttonMask,
-        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) -> AnyGestureRecognizerFactory {
-        let gesture = ClickGestureRecognizerFactory(
-            buttonMask: buttonMask,
-            numberOfClicksRequired: numberOfClicksRequired,
-            configuration: configuration
-        )
-        return AnyGestureRecognizerFactory(gesture)
+        configuration: Configuration<NSClickGestureRecognizer>? = nil
+        ) -> AnyFactory {
+        return make(mask: 0x1, configuration: configuration).abstracted()
     }
 
     /**
-     Returns an `AnyGestureRecognizerFactory` for `NSClickGestureRecognizer` configured to match a right click
-     - parameter numberOfClicksRequired: The number of clicks required to match
+     Returns an `AnyFactory` for `NSClickGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func rightClick(
-        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) -> AnyGestureRecognizerFactory {
-        let gesture = ClickGestureRecognizerFactory(
-            buttonMask: 0x2,
-            numberOfClicksRequired: numberOfClicksRequired,
-            configuration: configuration
-        )
-        return AnyGestureRecognizerFactory(gesture)
+        configuration: Configuration<NSClickGestureRecognizer>? = nil
+        ) -> AnyFactory {
+        return make(mask: 0x2, configuration: configuration).abstracted()
     }
-
 }
 
-public extension Reactive where Base: NSView {
+public extension Reactive where Base: View {
 
     /**
      Returns an observable `NSClickGestureRecognizer` events sequence
-     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
-     - parameter numberOfClicksRequired: The number of clicks required to match
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func clickGesture(
-        buttonMask: Int = Defaults.buttonMask,
-        numberOfClicksRequired: Int = Defaults.numberOfClicksRequired,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
+        configuration: Configuration<NSClickGestureRecognizer>? = nil
         ) -> ControlEvent<NSClickGestureRecognizer> {
 
-        return gesture(ClickGestureRecognizerFactory(
-            buttonMask: buttonMask,
-            numberOfClicksRequired: numberOfClicksRequired,
-            configuration: configuration
-        ))
+        return gesture(make(mask: 0x1, configuration: configuration))
     }
 
     /**
-     Returns an observable `NSClickGestureRecognizer` events sequence, configured to match a right click
-     - parameter numberOfClicksRequired: The number of clicks required to match
+     Returns an observable `NSClickGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func rightClickGesture(
-        numberOfClicksRequired: Int = 1,
-        configuration: ((NSClickGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = nil
+        configuration: Configuration<NSClickGestureRecognizer>? = nil
         ) -> ControlEvent<NSClickGestureRecognizer> {
 
-        return gesture(ClickGestureRecognizerFactory(
-            buttonMask: 0x2,
-            numberOfClicksRequired: numberOfClicksRequired,
-            configuration: configuration
-        ))
+        return gesture(make(mask: 0x2, configuration: configuration))
     }
+
 }

@@ -117,7 +117,9 @@ class ViewController: UIViewController {
         title: "Double tap the green square",
         code: """
         view.rx
-            .tapGesture(numberOfTapsRequired: 2)
+            .tapGesture() { gesture, _ in
+                gesture.numberOfTapsRequired = 2
+            }
             .when(.recognized)
             .subscribe(onNext: { _ in
                 // Do something
@@ -130,7 +132,9 @@ class ViewController: UIViewController {
             view.animateBackgroundColor(to: .green)
 
             view.rx
-                .tapGesture(numberOfTapsRequired: 2)
+                .tapGesture() { gesture, _ in
+                    gesture.numberOfTapsRequired = 2
+                }
                 .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)

@@ -135,7 +135,9 @@ class MacViewController: NSViewController {
         title: "Double click the square",
         code: """
         view.rx
-            .clickGesture(numberOfClicksRequired: 2)
+            .clickGesture { gesture, _ in
+                gesture.numberOfClicksRequired = 2
+            }
             .when(.recognized)
             .subscribe(onNext: { _ in
                 // Do something
@@ -148,7 +150,9 @@ class MacViewController: NSViewController {
             view.animateBackgroundColor(to: .green)
 
             view.rx
-                .clickGesture(numberOfClicksRequired: 2)
+                .clickGesture { gesture, _ in
+                    gesture.numberOfClicksRequired = 2
+                }
                 .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)

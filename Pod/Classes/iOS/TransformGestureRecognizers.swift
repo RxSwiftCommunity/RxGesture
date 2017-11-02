@@ -40,7 +40,7 @@ public struct TransformVelocity {
     let scale: CGFloat
 }
 
-public extension Reactive where Base: UIView {
+public extension Reactive where Base: View {
     public func transformGestures(
         configuration: ((TransformGestureRecognizers, RxGestureRecognizerDelegate) -> Void)? = nil
         ) -> ControlEvent<TransformGestureRecognizers> {

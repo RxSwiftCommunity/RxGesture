@@ -22,58 +22,30 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-/// Default values for `UIPinchGestureRecognizer` configuration
-public enum PinchGestureRecognizerDefaults {
-    public static var configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
-}
-
-fileprivate typealias Defaults = PinchGestureRecognizerDefaults
-
-/// A `GestureRecognizerFactory` for `UIPinchGestureRecognizer`
-public struct PinchGestureRecognizerFactory: GestureRecognizerFactory {
-    public typealias Gesture = UIPinchGestureRecognizer
-    public let configuration: (UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void
+extension Factory where Gesture == GestureRecognizer {
 
     /**
-     Initialiaze a `GestureRecognizerFactory` for `UIPinchGestureRecognizer`
-     - parameter configuration: A closure that allows to fully configure the gesture recognizer
-     */
-    public init(
-        configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) {
-        self.configuration = configuration ?? { _, _  in }
-    }
-}
-
-extension AnyGestureRecognizerFactory {
-
-    /**
-     Returns an `AnyGestureRecognizerFactory` for `UIPinchGestureRecognizer`
+     Returns an `AnyFactory` for `UIPinchGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func pinch(
-        configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) -> AnyGestureRecognizerFactory {
-        let gesture = PinchGestureRecognizerFactory(
-            configuration: configuration
-        )
-        return AnyGestureRecognizerFactory(gesture)
+        configuration: Configuration<UIPinchGestureRecognizer>? = nil
+        ) -> AnyFactory {
+        return make(configuration: configuration).abstracted()
     }
 }
 
-public extension Reactive where Base: UIView {
+public extension Reactive where Base: View {
 
     /**
      Returns an observable `UIPinchGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func pinchGesture(
-        configuration: ((UIPinchGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
+        configuration: Configuration<UIPinchGestureRecognizer>? = nil
         ) -> ControlEvent<UIPinchGestureRecognizer> {
 
-        return gesture(PinchGestureRecognizerFactory(
-            configuration: configuration
-        ))
+        return gesture(make(configuration: configuration))
     }
 }
 
