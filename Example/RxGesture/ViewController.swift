@@ -39,17 +39,22 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let steps: [Step] = [
+        var steps: [Step] = [
             tapStep,
             doubleTapStep,
             swipeDownStep,
             swipeHorizontallyStep,
             longPressStep,
+            touchDownStep,
             panStep,
             pinchStep,
             rotateStep,
             transformStep
         ]
+
+        if #available(iOS 9.0, *), let index = steps.index(where: { $0 === panStep }) {
+            steps.insert(forceTouchStep, at: index)
+        }
 
         func newIndex(for index: Int, action: Step.Action) -> Int {
             switch action {
@@ -217,6 +222,76 @@ class ViewController: UIViewController {
                     nextStep.onNext(.next)
                 })
                 .disposed(by: stepBag)
+    })
+
+    lazy var touchDownStep: Step = Step(
+        title: "Touch down the view",
+        code: """
+        view.rx
+            .touchDownGesture()
+            .when(.began)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { _ in
+                // Do something
+            })
+            .disposed(by: disposeBag)
+        """,
+        install: { view, _, nextStep, stepBag in
+
+            view.animateTransform(to: .identity)
+            view.animateBackgroundColor(to: .green)
+
+            view.rx
+                .touchDownGesture()
+                .when(.began)
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
+                })
+                .disposed(by: stepBag)
+    })
+
+    @available(iOS 9.0, *)
+    lazy var forceTouchStep: Step = Step(
+        title: "Force Touch the view",
+        code: """
+        let forceTouch = view.rx.forceTouchGesture().share(replay: 1)
+
+        forceTouch
+            .asForce()
+            .subscribe(onNext: { force in
+                // Do something
+            })
+            .disposed(by: stepBag)
+
+        forceTouch
+            .when(.ended)
+            .subscribe(onNext: { _ in
+                // Do something
+            })
+            .disposed(by: stepBag)
+        """,
+        install: { view, label, nextStep, stepBag in
+
+            view.animateTransform(to: .identity)
+            view.animateBackgroundColor(to: .green)
+
+            let forceTouch = view.rx.forceTouchGesture().share(replay: 1)
+
+            forceTouch
+                .asForce()
+                .subscribe(onNext: { force in
+                    label.text = String(format: "%.2f", force)
+                })
+                .disposed(by: stepBag)
+
+            forceTouch
+                .when(.ended)
+                .subscribe(onNext: { _ in
+                    nextStep.onNext(.next)
+                })
+                .disposed(by: stepBag)
+
     })
 
     lazy var panStep: Step = Step(

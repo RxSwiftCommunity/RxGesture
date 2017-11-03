@@ -48,4 +48,3 @@ public extension Reactive where Base: View {
         return gesture(make(configuration: configuration))
     }
 }
-
