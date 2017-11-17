@@ -68,3 +68,18 @@ public enum TargetView {
         }
     }
 }
+
+extension GestureRecognizerState: CustomStringConvertible {
+    public var description: String {
+        return String(describing: type(of: self)) + {
+            switch self {
+            case .possible:  return ".possible"
+            case .began:     return ".began"
+            case .changed:   return ".changed"
+            case .ended:     return ".ended"
+            case .cancelled: return ".cancelled"
+            case .failed:    return ".failed"
+            }
+            }()
+    }
+}

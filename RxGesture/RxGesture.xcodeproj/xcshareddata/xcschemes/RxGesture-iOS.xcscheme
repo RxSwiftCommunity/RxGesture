@@ -20,6 +20,20 @@
                ReferencedContainer = "container:RxGesture.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "874DD3E61FAD0F7D00A61D4F"
+               BuildableName = "RxGesture-iOS-Tests.xctest"
+               BlueprintName = "RxGesture-iOS-Tests"
+               ReferencedContainer = "container:RxGesture.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -29,7 +43,26 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "874DD3E61FAD0F7D00A61D4F"
+               BuildableName = "RxGesture-iOS-Tests.xctest"
+               BlueprintName = "RxGesture-iOS-Tests"
+               ReferencedContainer = "container:RxGesture.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F4CC4C1C1DEBA895009ED835"
+            BuildableName = "RxGesture.framework"
+            BlueprintName = "RxGesture-iOS"
+            ReferencedContainer = "container:RxGesture.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

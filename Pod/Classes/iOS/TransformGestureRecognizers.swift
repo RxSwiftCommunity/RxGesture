@@ -22,13 +22,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-public protocol TransformGestureRecognizersType {
-    var panGesture: UIPanGestureRecognizer { get }
-    var rotationGesture: UIRotationGestureRecognizer { get }
-    var pinchGesture: UIPinchGestureRecognizer { get }
-}
-
-public struct TransformGestureRecognizers: TransformGestureRecognizersType {
+public struct TransformGestureRecognizers {
     public let panGesture: UIPanGestureRecognizer
     public let rotationGesture: UIRotationGestureRecognizer
     public let pinchGesture: UIPinchGestureRecognizer
@@ -57,7 +51,7 @@ public extension Reactive where Base: View {
     }
 }
 
-public extension ObservableType where E: TransformGestureRecognizersType {
+public extension ObservableType where E == TransformGestureRecognizers {
 
     public func when(_ states: UIGestureRecognizerState...) -> Observable<E> {
         return filter { gestures in

@@ -1,7 +1,6 @@
 import UIKit.UIGestureRecognizerSubclass
 import RxSwift
 import RxCocoa
-import RxGesture
 
 public class TouchDownGestureRecognizer: UILongPressGestureRecognizer {
 
