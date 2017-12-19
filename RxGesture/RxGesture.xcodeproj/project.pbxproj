@@ -121,20 +121,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		87A517681E4FED3900A65547 /* iOS */ = {
+		8457301D1FE90FE200AEC98E /* iOS_tvOS */ = {
 			isa = PBXGroup;
 			children = (
+				87A517701E4FED3900A65547 /* UISwipeGestureRecognizer+RxGesture.swift */,
+				87A517711E4FED3900A65547 /* UITapGestureRecognizer+RxGesture.swift */,
 				87A5176A1E4FED3900A65547 /* UIGestureRecognizer+RxGesture.swift */,
 				87A5176B1E4FED3900A65547 /* UILongPressGestureRecognizer+RxGesture.swift */,
 				87A5176C1E4FED3900A65547 /* UIPanGestureRecognizer+RxGesture.swift */,
+			);
+			path = iOS_tvOS;
+			sourceTree = "<group>";
+		};
+		87A517681E4FED3900A65547 /* iOS_only */ = {
+			isa = PBXGroup;
+			children = (
 				87A5176D1E4FED3900A65547 /* UIPinchGestureRecognizer+RxGesture.swift */,
 				87A5176E1E4FED3900A65547 /* UIRotationGestureRecognizer+RxGesture.swift */,
 				87A5176F1E4FED3900A65547 /* UIScreenEdgePanGestureRecognizer+RxGesture.swift */,
-				87A517701E4FED3900A65547 /* UISwipeGestureRecognizer+RxGesture.swift */,
-				87A517711E4FED3900A65547 /* UITapGestureRecognizer+RxGesture.swift */,
 				87A517691E4FED3900A65547 /* TransformGestureRecognizers.swift */,
 			);
-			path = iOS;
+			path = iOS_only;
 			sourceTree = "<group>";
 		};
 		87A517721E4FED3900A65547 /* OSX */ = {
@@ -188,7 +195,8 @@
 				87A5177B1E4FED3900A65547 /* RxGestureRecognizerDelegate.swift */,
 				87A5177C1E4FED3900A65547 /* SharedTypes.swift */,
 				87A5177D1E4FED3900A65547 /* View+RxGesture.swift */,
-				87A517681E4FED3900A65547 /* iOS */,
+				8457301D1FE90FE200AEC98E /* iOS_tvOS */,
+				87A517681E4FED3900A65547 /* iOS_only */,
 				87A517721E4FED3900A65547 /* OSX */,
 			);
 			name = Classes;
