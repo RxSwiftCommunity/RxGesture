@@ -47,7 +47,9 @@ public struct SwipeGestureRecognizerFactory: GestureRecognizerFactory {
         ) {
         self.configuration = { gesture, delegate in
             gesture.direction = direction
+          #if os(iOS)
             gesture.numberOfTouchesRequired = numberOfTouchesRequired
+            #endif
             configuration?(gesture, delegate)
         }
     }

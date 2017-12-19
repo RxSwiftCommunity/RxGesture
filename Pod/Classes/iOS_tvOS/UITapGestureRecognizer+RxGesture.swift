@@ -48,7 +48,9 @@ public struct TapGestureRecognizerFactory: GestureRecognizerFactory {
         configuration: ((UITapGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) {
         self.configuration = { gesture, delegate in
+          #if os(iOS)
             gesture.numberOfTouchesRequired = numberOfTouchesRequired
+          #endif
             gesture.numberOfTapsRequired = numberOfTapsRequired
             configuration?(gesture, delegate)
         }
