@@ -48,8 +48,11 @@ public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
         configuration: ((UIPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) {
         self.configuration = { gesture, delegate in
+          #if os(iOS)
             gesture.minimumNumberOfTouches = minimumNumberOfTouches
             gesture.maximumNumberOfTouches = maximumNumberOfTouches
+          #endif
+
             configuration?(gesture, delegate)
         }
     }

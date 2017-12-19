@@ -55,7 +55,10 @@ public struct LongPressGestureRecognizerFactory: GestureRecognizerFactory {
         configuration: ((UILongPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
         ) {
         self.configuration = { gestureRecognizer, delegate in
+          #if os(iOS)
             gestureRecognizer.numberOfTouchesRequired = numberOfTouchesRequired
+          #endif
+
             gestureRecognizer.numberOfTapsRequired = numberOfTapsRequired
             gestureRecognizer.minimumPressDuration = minimumPressDuration
             gestureRecognizer.allowableMovement = allowableMovement
