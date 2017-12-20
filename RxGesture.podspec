@@ -22,11 +22,13 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.ios.deployment_target = '8.0'
+  s.tvos.deployment_target = '9.0'
   s.osx.deployment_target = '10.10'
 
   s.source_files = 'Pod/Classes/*.swift'
 
   s.ios.source_files      = 'Pod/Classes/iOS/*.swift'
+  s.tvos.source_files     = 'Pod/Classes/iOStvOS/*.swift'
   s.osx.source_files      = 'Pod/Classes/OSX/*.swift'
 
   s.dependency 'RxSwift', '~> 4.0'
