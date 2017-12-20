@@ -20,7 +20,7 @@
 
 import Foundation
 
-#if os(iOS)
+#if os(iOS) || os(tvOS)
     import UIKit
     public typealias Touch = UITouch
     public typealias GestureRecognizer = UIGestureRecognizer
@@ -58,7 +58,7 @@ public enum TargetView {
         case .superview:
             return gestureRecognizer.view?.superview
         case .window:
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
                 return gestureRecognizer.view?.window
             #elseif os(OSX)
                 return gestureRecognizer.view?.window?.contentView

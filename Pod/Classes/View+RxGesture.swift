@@ -89,7 +89,7 @@ extension Reactive where Base: View {
 
             let genericGesture = gesture as GestureRecognizer
 
-            #if os(iOS)
+            #if os(iOS) || os(tvOS)
                 control.isUserInteractionEnabled = true
             #endif
 
