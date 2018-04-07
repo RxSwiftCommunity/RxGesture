@@ -7,6 +7,7 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
 
     public var numberOfTouchesRequired: Int = 1
     public var force: CGFloat = 0
+    public var maximumPossibleForce: CGFloat = 0
     
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
@@ -35,6 +36,11 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
             .lazy
             .map { $0.force}
             .reduce(touch.force, +) / CGFloat(touches.count)
+
+        maximumPossibleForce = Array(touches)[1...]
+            .lazy
+            .map { $0.maximumPossibleForce}
+            .reduce(touch.maximumPossibleForce, +) / CGFloat(touches.count)
     }
 }
 

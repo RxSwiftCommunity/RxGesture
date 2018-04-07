@@ -274,9 +274,11 @@ class ViewController: UIViewController {
         install: { view, label, nextStep, stepBag in
 
             view.animateTransform(to: .identity)
-            view.animateBackgroundColor(to: .green)
+            view.animateBackgroundColor(to: .red)
 
             let forceTouch = view.rx.forceTouchGesture().share(replay: 1)
+
+            self.makeImpact(on: forceTouch, stepBag: stepBag)
 
             forceTouch
                 .asForce()
@@ -363,7 +365,7 @@ class ViewController: UIViewController {
             view.animateTransform(to: .identity)
             view.animateBackgroundColor(to: .blue)
 
-            let rotationGesture = view.rx.rotationGesture().share(replay: 1)
+            let rotationGesture = self.view.rx.rotationGesture().share(replay: 1)
 
             rotationGesture
                 .when(.changed)
@@ -407,7 +409,7 @@ class ViewController: UIViewController {
             view.animateTransform(to: .identity)
             view.animateBackgroundColor(to: .blue)
 
-            let pinchGesture = view.rx.pinchGesture().share(replay: 1)
+            let pinchGesture = self.view.rx.pinchGesture().share(replay: 1)
 
             pinchGesture
                 .when(.changed)
@@ -471,6 +473,20 @@ class ViewController: UIViewController {
                 })
                 .disposed(by: stepBag)
     })
+
+    @available(iOS 9, *)
+    private func makeImpact(on forceTouch: Observable<ForceTouchGestureRecognizer>, stepBag: DisposeBag) {
+        // It looks like #available(iOS 10.0, *) is ignored in the lazy var declaration ¯\_(ツ)_/¯
+        guard #available(iOS 10.0, *) else { return }
+        forceTouch
+            .map { ($0.force / $0.maximumPossibleForce) > 0.7 ? UIImpactFeedbackStyle.medium : .light }
+            .distinctUntilChanged()
+            .skip(1)
+            .subscribe(onNext: { style in
+                UIImpactFeedbackGenerator(style: style).impactOccurred()
+            })
+            .disposed(by: stepBag)
+    }
 }
 
 private extension UIView {
