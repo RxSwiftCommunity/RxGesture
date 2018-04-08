@@ -22,15 +22,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+public typealias LongPressConfiguration = Configuration<UILongPressGestureRecognizer>
+public typealias LongPressControlEvent = ControlEvent<UILongPressGestureRecognizer>
+public typealias LongPressObservable = Observable<UILongPressGestureRecognizer>
+
 extension Factory where Gesture == GestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UILongPressGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func longPress(
-        configuration: Configuration<UILongPressGestureRecognizer>? = nil
-        ) -> AnyFactory {
+    public static func longPress(configuration: LongPressConfiguration? = nil) -> AnyFactory {
         return make(configuration: configuration).abstracted()
     }
 }
@@ -41,10 +43,7 @@ public extension Reactive where Base: View {
      Returns an observable `UILongPressGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func longPressGesture(
-        configuration: Configuration<UILongPressGestureRecognizer>? = nil
-        ) -> ControlEvent<UILongPressGestureRecognizer> {
-
+    public func longPressGesture(configuration: LongPressConfiguration? = nil) -> LongPressControlEvent {
         return gesture(make(configuration: configuration))
     }
 }

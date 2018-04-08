@@ -22,15 +22,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+public typealias RotationConfiguration = Configuration<UIRotationGestureRecognizer>
+public typealias RotationControlEvent = ControlEvent<UIRotationGestureRecognizer>
+public typealias RotationObservable = Observable<UIRotationGestureRecognizer>
+
 extension Factory where Gesture == GestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UIRotationGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func rotation(
-        configuration: Configuration<UIRotationGestureRecognizer>? = nil
-        ) -> AnyFactory {
+    public static func rotation(configuration: RotationConfiguration? = nil) -> AnyFactory {
         return make(configuration: configuration).abstracted()
     }
 }
@@ -41,10 +43,7 @@ public extension Reactive where Base: View {
      Returns an observable `UIRotationGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func rotationGesture(
-        configuration: Configuration<UIRotationGestureRecognizer>? = nil
-        ) -> ControlEvent<UIRotationGestureRecognizer> {
-
+    public func rotationGesture(configuration: RotationConfiguration? = nil) -> RotationControlEvent {
         return gesture(make(configuration: configuration))
     }
 }

@@ -45,15 +45,17 @@ public class TouchDownGestureRecognizer: UILongPressGestureRecognizer {
 
 }
 
+public typealias TouchDownConfiguration = Configuration<TouchDownGestureRecognizer>
+public typealias TouchDownControlEvent = ControlEvent<TouchDownGestureRecognizer>
+public typealias TouchDownObservable = Observable<TouchDownGestureRecognizer>
+
 extension Factory where Gesture == GestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `TouchDownGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func touchDown(
-        configuration: Configuration<TouchDownGestureRecognizer>? = nil
-        ) -> AnyFactory {
+    public static func touchDown(configuration: TouchDownConfiguration? = nil) -> AnyFactory {
         return make(configuration: configuration).abstracted()
     }
 }
@@ -64,9 +66,7 @@ public extension Reactive where Base: View {
      Returns an observable `TouchDownGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func touchDownGesture(
-        configuration: Configuration<TouchDownGestureRecognizer>? = nil
-        ) -> ControlEvent<TouchDownGestureRecognizer> {
+    public func touchDownGesture(configuration: TouchDownConfiguration? = nil) -> TouchDownControlEvent {
 
         return gesture(make(configuration: configuration))
     }

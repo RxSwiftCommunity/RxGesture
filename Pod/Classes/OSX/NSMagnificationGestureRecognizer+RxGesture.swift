@@ -22,15 +22,17 @@ import AppKit
 import RxSwift
 import RxCocoa
 
+public typealias MagnificationConfiguration = Configuration<NSMagnificationGestureRecognizer>
+public typealias MagnificationControlEvent = ControlEvent<NSMagnificationGestureRecognizer>
+public typealias MagnificationObservable = Observable<NSMagnificationGestureRecognizer>
+
 extension Factory where Gesture == GestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `NSMagnificationGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func magnification(
-        configuration: Configuration<NSMagnificationGestureRecognizer>? = nil
-        ) -> AnyFactory {
+    public static func magnification(configuration: MagnificationConfiguration? = nil) -> AnyFactory {
         return make(configuration: configuration).abstracted()
     }
 }
@@ -41,10 +43,7 @@ public extension Reactive where Base: View {
      Returns an observable `NSMagnificationGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func magnificationGesture(
-        configuration: Configuration<NSMagnificationGestureRecognizer>? = nil
-        ) -> ControlEvent<NSMagnificationGestureRecognizer> {
-
+    public func magnificationGesture(configuration: MagnificationConfiguration? = nil) -> MagnificationControlEvent {
         return gesture(make(configuration: configuration))
     }
 }

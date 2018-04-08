@@ -42,16 +42,17 @@ private func make(direction: SwipeDirection, configuration: Configuration<UISwip
     }
 }
 
+public typealias SwipeConfiguration = Configuration<UISwipeGestureRecognizer>
+public typealias SwipeControlEvent = ControlEvent<UISwipeGestureRecognizer>
+public typealias SwipeObservable = Observable<UISwipeGestureRecognizer>
+
 extension Factory where Gesture == GestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UISwipeGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func swipe(
-        direction: SwipeDirection,
-        configuration: Configuration<UISwipeGestureRecognizer>? = nil
-        ) -> AnyFactory {
+    public static func swipe(direction: SwipeDirection, configuration: SwipeConfiguration? = nil) -> AnyFactory {
         return make(direction: direction, configuration: configuration).abstracted()
     }
 }
@@ -62,11 +63,7 @@ public extension Reactive where Base: View {
      Returns an observable `UISwipeGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    private func swipeGesture(
-        direction: SwipeDirection,
-        configuration: Configuration<UISwipeGestureRecognizer>? = nil
-        ) -> ControlEvent<UISwipeGestureRecognizer> {
-
+    private func swipeGesture(direction: SwipeDirection,configuration: SwipeConfiguration? = nil) -> SwipeControlEvent {
         return gesture(make(direction: direction, configuration: configuration))
     }
 
@@ -74,15 +71,10 @@ public extension Reactive where Base: View {
      Returns an observable `UISwipeGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func swipeGesture(
-        _ directions: Set<SwipeDirection>,
-        configuration: Configuration<UISwipeGestureRecognizer>? = nil
-        ) -> ControlEvent<UISwipeGestureRecognizer> {
-
+    public func swipeGesture(_ directions: Set<SwipeDirection>,configuration: SwipeConfiguration? = nil) -> SwipeControlEvent {
         let source = Observable.merge(directions.map {
             swipeGesture(direction: $0).asObservable()
         })
-
         return ControlEvent(events: source)
     }
 
@@ -90,11 +82,7 @@ public extension Reactive where Base: View {
      Returns an observable `UISwipeGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func swipeGesture(
-        _ directions: SwipeDirection...,
-        configuration: Configuration<UISwipeGestureRecognizer>? = nil
-        ) -> ControlEvent<UISwipeGestureRecognizer> {
-
+    public func swipeGesture(_ directions: SwipeDirection...,configuration: SwipeConfiguration? = nil) -> SwipeControlEvent {
         return swipeGesture(Set(directions))
     }
 

@@ -22,15 +22,17 @@ import AppKit
 import RxSwift
 import RxCocoa
 
+public typealias PanConfiguration = Configuration<NSPanGestureRecognizer>
+public typealias PanControlEvent = ControlEvent<NSPanGestureRecognizer>
+public typealias PanObservable = Observable<NSPanGestureRecognizer>
+
 extension Factory where Gesture == GestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `NSPanGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func pan(
-        configuration: Configuration<NSPanGestureRecognizer>? = nil
-        ) -> AnyFactory {
+    public static func pan(configuration: PanConfiguration? = nil) -> AnyFactory {
         return make(configuration: configuration).abstracted()
     }
 }
@@ -41,10 +43,7 @@ public extension Reactive where Base: View {
      Returns an observable `NSPanGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func panGesture(
-        configuration: Configuration<NSPanGestureRecognizer>? = nil
-        ) -> ControlEvent<NSPanGestureRecognizer> {
-
+    public func panGesture(configuration: PanConfiguration? = nil) -> PanControlEvent {
         return gesture(make(configuration: configuration))
     }
 }

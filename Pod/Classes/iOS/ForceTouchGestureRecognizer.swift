@@ -45,15 +45,20 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
 }
 
 @available(iOS 9.0, *)
+public typealias ForceTouchConfiguration = Configuration<ForceTouchGestureRecognizer>
+@available(iOS 9.0, *)
+public typealias ForceTouchControlEvent = ControlEvent<ForceTouchGestureRecognizer>
+@available(iOS 9.0, *)
+public typealias ForceTouchObservable = Observable<ForceTouchGestureRecognizer>
+
+@available(iOS 9.0, *)
 extension Factory where Gesture == GestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `ForceTouchGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func forceTouch(
-        configuration: Configuration<ForceTouchGestureRecognizer>? = nil
-        ) -> AnyFactory {
+    public static func forceTouch(configuration: ForceTouchConfiguration? = nil) -> AnyFactory {
         return make(configuration: configuration).abstracted()
     }
 }
@@ -65,10 +70,7 @@ public extension Reactive where Base: View {
      Returns an observable `ForceTouchGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func forceTouchGesture(
-        configuration: Configuration<ForceTouchGestureRecognizer>? = nil
-        ) -> ControlEvent<ForceTouchGestureRecognizer> {
-
+    public func forceTouchGesture(configuration: ForceTouchConfiguration? = nil) -> ForceTouchControlEvent {
         return gesture(make(configuration: configuration))
     }
 }

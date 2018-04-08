@@ -22,15 +22,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+public typealias PinchConfiguration = Configuration<UIPinchGestureRecognizer>
+public typealias PinchControlEvent = ControlEvent<UIPinchGestureRecognizer>
+public typealias PinchObservable = Observable<UIPinchGestureRecognizer>
+
 extension Factory where Gesture == GestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UIPinchGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func pinch(
-        configuration: Configuration<UIPinchGestureRecognizer>? = nil
-        ) -> AnyFactory {
+    public static func pinch(configuration: PinchConfiguration? = nil) -> AnyFactory {
         return make(configuration: configuration).abstracted()
     }
 }
@@ -41,10 +43,7 @@ public extension Reactive where Base: View {
      Returns an observable `UIPinchGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func pinchGesture(
-        configuration: Configuration<UIPinchGestureRecognizer>? = nil
-        ) -> ControlEvent<UIPinchGestureRecognizer> {
-
+    public func pinchGesture(configuration: PinchConfiguration? = nil) -> PinchControlEvent {
         return gesture(make(configuration: configuration))
     }
 }

@@ -22,15 +22,17 @@ import AppKit
 import RxSwift
 import RxCocoa
 
+public typealias PressConfiguration = Configuration<NSPressGestureRecognizer>
+public typealias PressControlEvent = ControlEvent<NSPressGestureRecognizer>
+public typealias PressObservable = Observable<NSPressGestureRecognizer>
+
 extension Factory where Gesture == GestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `NSPressGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func press(
-        configuration: Configuration<NSPressGestureRecognizer>? = nil
-        ) -> AnyFactory {
+    public static func press(configuration: PressConfiguration? = nil) -> AnyFactory {
         return make(configuration: configuration).abstracted()
     }
 }
@@ -41,10 +43,7 @@ public extension Reactive where Base: View {
      Returns an observable `NSPressGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func pressGesture(
-        configuration: Configuration<NSPressGestureRecognizer>? = nil
-        ) -> ControlEvent<NSPressGestureRecognizer> {
-
+    public func pressGesture(configuration: PressConfiguration? = nil) -> PressControlEvent {
         return gesture(make(configuration: configuration))
     }
 }
