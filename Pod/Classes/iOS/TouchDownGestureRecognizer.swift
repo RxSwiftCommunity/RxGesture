@@ -9,8 +9,14 @@ public class TouchDownGestureRecognizer: UILongPressGestureRecognizer {
         minimumPressDuration = 0.0
     }
 
-    var ignoreTouch: Bool = true
-    @nonobjc var touches: Set<UITouch> = []
+    /**
+     When set to `false`, it allows to bypass the touch ignoring mechanism in order to get absolutely all touch down events.
+     Defaults to `true`.
+     - note: See [ignore(_ touch: UITouch, for event: UIEvent)](https://developer.apple.com/documentation/uikit/uigesturerecognizer/1620010-ignore)
+     */
+    public var isTouchIgnoringEnabled: Bool = true
+
+    @nonobjc public var touches: Set<UITouch> = []
 
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
@@ -38,9 +44,10 @@ public class TouchDownGestureRecognizer: UILongPressGestureRecognizer {
     }
 
     public override func ignore(_ touch: UITouch, for event: UIEvent) {
-        if !ignoreTouch {
-            super.ignore(touch, for: event)
+        guard isTouchIgnoringEnabled else {
+            return
         }
+        super.ignore(touch, for: event)
     }
 
 }
