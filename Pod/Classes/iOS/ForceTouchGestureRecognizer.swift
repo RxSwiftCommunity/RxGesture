@@ -8,6 +8,12 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
     public var numberOfTouchesRequired: Int = 1
     public var force: CGFloat = 0
     public var maximumPossibleForce: CGFloat = 0
+    public var fractionCompleted: CGFloat {
+        guard maximumPossibleForce > 0 else {
+            return 0
+        }
+        return force / maximumPossibleForce
+    }
     
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
