@@ -22,6 +22,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+#if swift(>=4.2)
+    public typealias UISwipeGestureRecognizerDirection = UISwipeGestureRecognizer.Direction
+#endif
+
 /// Default values for `UISwipeGestureRecognizer` configuration
 public enum UISwipeGestureRecognizerDefaults {
     public static var numberOfTouchesRequired: Int = 1
