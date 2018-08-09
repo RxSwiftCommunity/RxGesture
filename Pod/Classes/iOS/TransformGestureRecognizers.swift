@@ -59,7 +59,7 @@ public extension Reactive where Base: UIView {
 
 public extension ObservableType where E: TransformGestureRecognizersType {
 
-    public func when(_ states: UIGestureRecognizerState...) -> Observable<E> {
+    public func when(_ states: GestureRecognizerState...) -> Observable<E> {
         return filter { gestures in
             return states.contains(gestures.panGesture.state)
                 || states.contains(gestures.rotationGesture.state)
