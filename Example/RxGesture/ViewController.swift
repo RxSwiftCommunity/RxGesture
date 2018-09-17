@@ -501,9 +501,10 @@ class ViewController: UIViewController {
     @available(iOS 9, *)
     private func makeImpact(on forceTouch: Observable<ForceTouchGestureRecognizer>, stepBag: DisposeBag) {
         // It looks like #available(iOS 10.0, *) is ignored in the lazy var declaration ¯\_(ツ)_/¯
+
         guard #available(iOS 10.0, *) else { return }
         forceTouch
-            .map { ($0.force / $0.maximumPossibleForce) > 0.75 ? UIImpactFeedbackStyle.medium : .light }
+            .map { ($0.force / $0.maximumPossibleForce) > 0.75 ? UIImpactFeedbackGenerator.FeedbackStyle.medium : .light }
             .distinctUntilChanged()
             .skip(1)
             .subscribe(onNext: { style in

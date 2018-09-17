@@ -25,7 +25,13 @@ import RxCocoa
 public enum SwipeDirection {
     case right, left, up, down
 
-    fileprivate var direction: UISwipeGestureRecognizerDirection {
+    #if swift(>=4.2)
+    fileprivate typealias SwipeGestureRecognizerDirection = UISwipeGestureRecognizer.Direction
+    #else
+    fileprivate typealias SwipeGestureRecognizerDirection = UISwipeGestureRecognizerDirection
+    #endif
+
+    fileprivate var direction: SwipeGestureRecognizerDirection {
         switch self {
         case .right: return .right
         case .left: return .left
