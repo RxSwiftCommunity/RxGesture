@@ -41,7 +41,6 @@ class MacViewController: NSViewController {
         super.viewWillAppear()
 
         view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.white.cgColor
 
         myView.wantsLayer = true
         myView.layer?.backgroundColor = NSColor.red.cgColor
