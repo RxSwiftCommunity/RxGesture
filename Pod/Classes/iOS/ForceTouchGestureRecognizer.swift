@@ -6,8 +6,8 @@ import RxCocoa
 public class ForceTouchGestureRecognizer: UIGestureRecognizer {
 
     public var numberOfTouchesRequired: Int = 1
-    public var force: CGFloat = 0
-    public var maximumPossibleForce: CGFloat = 0
+    public private(set) var force: CGFloat = 0
+    public private(set) var maximumPossibleForce: CGFloat = 0
     public var fractionCompleted: CGFloat {
         guard maximumPossibleForce > 0 else {
             return 0
