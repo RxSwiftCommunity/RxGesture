@@ -27,7 +27,7 @@ public typealias Configuration<Gesture> = (Gesture, RxGestureRecognizerDelegate)
 public struct Factory<Gesture: GestureRecognizer> {
     public let gesture: Gesture
     public init(_ configuration: Configuration<Gesture>?) {
-        let gesture = Gesture.init()
+        let gesture = Gesture()
         let delegate = RxGestureRecognizerDelegate()
         objc_setAssociatedObject(
             gesture,
