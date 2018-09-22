@@ -22,70 +22,29 @@ import AppKit
 import RxSwift
 import RxCocoa
 
-/// Default values for `NSPanGestureRecognizer` configuration
-public enum NSPanGestureRecognizerDefaults {
-    public static var buttonMask: Int = 0x1
-    public static var configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
-}
+public typealias PanConfiguration = Configuration<NSPanGestureRecognizer>
+public typealias PanControlEvent = ControlEvent<NSPanGestureRecognizer>
+public typealias PanObservable = Observable<NSPanGestureRecognizer>
 
-fileprivate typealias Defaults = NSPanGestureRecognizerDefaults
-
-/// A `GestureRecognizerFactory` for `NSPanGestureRecognizer`
-public struct PanGestureRecognizerFactory: GestureRecognizerFactory {
-    public typealias Gesture = NSPanGestureRecognizer
-    public let configuration: (NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void
+extension Factory where Gesture == GestureRecognizer {
 
     /**
-     Initialiaze a `GestureRecognizerFactory` for `NSPanGestureRecognizer`
-     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
+     Returns an `AnyFactory` for `NSPanGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public init(
-        buttonMask: Int = Defaults.buttonMask,
-        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) {
-        self.configuration = { gestureRecognizer, delegate in
-            gestureRecognizer.buttonMask = buttonMask
-            configuration?(gestureRecognizer, delegate)
-        }
+    public static func pan(configuration: PanConfiguration? = nil) -> AnyFactory {
+        return make(configuration: configuration).abstracted()
     }
 }
 
-extension AnyGestureRecognizerFactory {
-
-    /**
-     Returns an `AnyGestureRecognizerFactory` for `NSPanGestureRecognizer`
-     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
-     - parameter configuration: A closure that allows to fully configure the gesture recognizer
-     */
-    public static func pan(
-        buttonMask: Int = Defaults.buttonMask,
-        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) -> AnyGestureRecognizerFactory {
-        let gesture = PanGestureRecognizerFactory(
-            buttonMask: buttonMask,
-            configuration: configuration
-        )
-        return AnyGestureRecognizerFactory(gesture)
-    }
-}
-
-public extension Reactive where Base: NSView {
+public extension Reactive where Base: View {
 
     /**
      Returns an observable `NSPanGestureRecognizer` events sequence
-     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func panGesture(
-        buttonMask: Int = Defaults.buttonMask,
-        configuration: ((NSPanGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) -> ControlEvent<NSPanGestureRecognizer> {
-
-        return gesture(PanGestureRecognizerFactory(
-            buttonMask: buttonMask,
-            configuration: configuration
-        ))
+    public func panGesture(configuration: PanConfiguration? = nil) -> PanControlEvent {
+        return gesture(make(configuration: configuration))
     }
 }
 

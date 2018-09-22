@@ -29,10 +29,10 @@ extension Reactive where Base: View {
      The value the `Observable` emits is the gesture recognizer itself.
 
      rx.anyGesture can't error and is subscribed/observed on main scheduler.
-     - parameter factories: a `(GestureRecognizerFactory + state)` collection you want to use to create the `GestureRecognizers` to add and observe
+     - parameter factories: a `(Factory + state)` collection you want to use to create the `GestureRecognizers` to add and observe
      - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
      */
-    public func anyGesture(_ factories: (AnyGestureRecognizerFactory, when: GestureRecognizerState)...) -> ControlEvent<GestureRecognizer> {
+    public func anyGesture(_ factories: (AnyFactory, when: GestureRecognizerState)...) -> ControlEvent<GestureRecognizer> {
         let observables = factories.map { gesture, state in
             self.gesture(gesture).when(state).asObservable() as Observable<GestureRecognizer>
         }
@@ -46,12 +46,12 @@ extension Reactive where Base: View {
      The value the `Observable` emits is the gesture recognizer itself.
 
      rx.anyGesture can't error and is subscribed/observed on main scheduler.
-     - parameter factories: a `GestureRecognizerFactory` collection you want to use to create the `GestureRecognizers` to add and observe
+     - parameter factories: a `Factory` collection you want to use to create the `GestureRecognizers` to add and observe
      - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
      */
-    public func anyGesture(_ factories: AnyGestureRecognizerFactory...) -> ControlEvent<GestureRecognizer> {
-        let observables = factories.map { gesture in
-            self.gesture(gesture).asObservable() as Observable<GestureRecognizer>
+    public func anyGesture(_ factories: AnyFactory...) -> ControlEvent<GestureRecognizer> {
+        let observables = factories.map { factory in
+            self.gesture(factory).asObservable() as Observable<GestureRecognizer>
         }
         let source = Observable.from(observables).merge()
         return ControlEvent(events: source)
@@ -63,12 +63,11 @@ extension Reactive where Base: View {
      The value the `Observable` emits is the gesture recognizer itself.
 
      rx.gesture can't error and is subscribed/observed on main scheduler.
-     - parameter factory: a `GestureRecognizerFactory` you want to use to create the `GestureRecognizer` to add and observe
+     - parameter factory: a `Factory` you want to use to create the `GestureRecognizer` to add and observe
      - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
      */
-    public func gesture<GF: GestureRecognizerFactory, G>(_ factory: GF) -> ControlEvent<G>
-        where GF.Gesture == G {
-        return self.gesture(factory.make())
+    public func gesture<G>(_ factory: Factory<G>) -> ControlEvent<G> {
+        return self.gesture(factory.gesture)
     }
 
     /**

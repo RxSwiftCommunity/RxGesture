@@ -41,7 +41,6 @@ class MacViewController: NSViewController {
         super.viewWillAppear()
 
         view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.white.cgColor
 
         myView.wantsLayer = true
         myView.layer?.backgroundColor = NSColor.red.cgColor
@@ -110,7 +109,7 @@ class MacViewController: NSViewController {
         title: "Click the square",
         code: """
         view.rx
-            .clickGesture()
+            .leftClickGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in
                 // Do something
@@ -123,7 +122,7 @@ class MacViewController: NSViewController {
             view.animateBackgroundColor(to: .red)
 
             view.rx
-                .clickGesture()
+                .leftClickGesture()
                 .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
@@ -135,7 +134,9 @@ class MacViewController: NSViewController {
         title: "Double click the square",
         code: """
         view.rx
-            .clickGesture(numberOfClicksRequired: 2)
+            .leftClickGesture { gesture, _ in
+                gesture.numberOfClicksRequired = 2
+            }
             .when(.recognized)
             .subscribe(onNext: { _ in
                 // Do something
@@ -148,7 +149,9 @@ class MacViewController: NSViewController {
             view.animateBackgroundColor(to: .green)
 
             view.rx
-                .clickGesture(numberOfClicksRequired: 2)
+                .leftClickGesture { gesture, _ in
+                    gesture.numberOfClicksRequired = 2
+                }
                 .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
@@ -185,7 +188,7 @@ class MacViewController: NSViewController {
         title: "Click any button (left or right)",
         code: """
         view.rx
-            .anyGesture(.click(), .rightClick())
+            .anyGesture(.leftClick(), .rightClick())
             .when(.recognized)
             .subscribe(onNext: { _ in
                 // Do something
@@ -198,7 +201,7 @@ class MacViewController: NSViewController {
             view.animateBackgroundColor(to: .red)
 
             view.rx
-                .anyGesture(.click(), .rightClick())
+                .anyGesture(.leftClick(), .rightClick())
                 .when(.recognized)
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
@@ -270,7 +273,7 @@ class MacViewController: NSViewController {
             view.rx
                 .anyGesture(
                     (.pan(), when: .ended),
-                    (.click(), when: .recognized)
+                    (.leftClick(), when: .recognized)
                 )
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
@@ -317,7 +320,7 @@ class MacViewController: NSViewController {
             view.rx
                 .anyGesture(
                     (.rotation(), when: .ended),
-                    (.click(), when: .recognized)
+                    (.leftClick(), when: .recognized)
                 )
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)
@@ -364,7 +367,7 @@ class MacViewController: NSViewController {
             view.rx
                 .anyGesture(
                     (.magnification(), when: .ended),
-                    (.click(), when: .recognized)
+                    (.leftClick(), when: .recognized)
                 )
                 .subscribe(onNext: { _ in
                     nextStep.onNext(.next)

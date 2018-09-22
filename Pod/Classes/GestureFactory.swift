@@ -22,21 +22,11 @@ import RxSwift
 import RxCocoa
 import ObjectiveC
 
-public protocol GestureRecognizerFactory {
-    associatedtype Gesture: GestureRecognizer
+public typealias Configuration<Gesture> = (Gesture, RxGestureRecognizerDelegate) -> Void
 
-    var configuration: (Gesture, RxGestureRecognizerDelegate) -> Void { get }
-    func make() -> Gesture
-}
-
-private var gestureRecognizerStrongDelegateKey: UInt8 = 0
-public extension GestureRecognizerFactory {
-
-    public var configuration: (Gesture, RxGestureRecognizerDelegate) -> Void {
-        return { _, _  in }
-    }
-
-    public func make() -> Gesture {
+public struct Factory<Gesture: GestureRecognizer> {
+    public let gesture: Gesture
+    public init(_ configuration: Configuration<Gesture>?) {
         let gesture = Gesture()
         let delegate = RxGestureRecognizerDelegate()
         objc_setAssociatedObject(
@@ -46,23 +36,24 @@ public extension GestureRecognizerFactory {
             .OBJC_ASSOCIATION_RETAIN_NONATOMIC
         )
         gesture.delegate = delegate
-        configuration(gesture, delegate)
-        return gesture
+        configuration?(gesture, delegate)
+        self.gesture = gesture
+    }
+
+    internal func abstracted() -> AnyFactory {
+        return AnyFactory(self.gesture)
     }
 }
 
-public struct AnyGestureRecognizerFactory: GestureRecognizerFactory {
+internal func make<G>(configuration: Configuration<G>? = nil) -> Factory<G> {
+    return Factory<G>(configuration)
+}
 
-    public typealias Gesture = GestureRecognizer
-
-    public init<G: GestureRecognizerFactory>(_ factory: G) {
-        _make = {
-            return factory.make() as GestureRecognizer
-        }
-    }
-
-    private let _make: () -> GestureRecognizer
-    public func make() -> GestureRecognizer {
-        return _make()
+public typealias AnyFactory = Factory<GestureRecognizer>
+extension Factory where Gesture == GestureRecognizer {
+    private init<G: GestureRecognizer>(_ gesture: G) {
+        self.gesture = gesture
     }
 }
+
+private var gestureRecognizerStrongDelegateKey: UInt8 = 0

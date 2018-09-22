@@ -22,93 +22,28 @@ import AppKit
 import RxSwift
 import RxCocoa
 
-/// Default values for `NSPressGestureRecognizer` configuration
-public enum NSPressGestureRecognizerDefaults {
-    public static var buttonMask: Int = 0x1
-    public static var minimumPressDuration: TimeInterval?
-    public static var allowableMovement: CGFloat?
-    public static var configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)?
-}
+public typealias PressConfiguration = Configuration<NSPressGestureRecognizer>
+public typealias PressControlEvent = ControlEvent<NSPressGestureRecognizer>
+public typealias PressObservable = Observable<NSPressGestureRecognizer>
 
-fileprivate typealias Defaults = NSPressGestureRecognizerDefaults
-
-/// A `GestureRecognizerFactory` for `NSPressGestureRecognizer`
-public struct PressGestureRecognizerFactory: GestureRecognizerFactory {
-    public typealias Gesture = NSPressGestureRecognizer
-    public let configuration: (NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void
+extension Factory where Gesture == GestureRecognizer {
 
     /**
-     Initialiaze a `GestureRecognizerFactory` for `UILongPressGestureRecognizer`
-     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
-     - parameter minimumPressDuration: Time in seconds the fingers must be held down for the gesture to be recognized
-     - parameter allowableMovement: Maximum movement in pixels allowed before the gesture fails. Once recognized (after minimumPressDuration) there is no limit on finger movement for the remainder of the touch tracking
+     Returns an `AnyFactory` for `NSPressGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public init(
-        buttonMask: Int = Defaults.buttonMask,
-        minimumPressDuration: TimeInterval? = Defaults.minimumPressDuration,
-        allowableMovement: CGFloat? = Defaults.allowableMovement,
-        configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) {
-        self.configuration = { gestureRecognizer, delegate in
-            gestureRecognizer.buttonMask = buttonMask
-            minimumPressDuration.map {
-                gestureRecognizer.minimumPressDuration = $0
-            }
-            allowableMovement.map {
-                gestureRecognizer.allowableMovement = $0
-            }
-            configuration?(gestureRecognizer, delegate)
-        }
+    public static func press(configuration: PressConfiguration? = nil) -> AnyFactory {
+        return make(configuration: configuration).abstracted()
     }
 }
 
-extension AnyGestureRecognizerFactory {
+public extension Reactive where Base: View {
 
     /**
-     Returns an `AnyGestureRecognizerFactory` for `UILongPressGestureRecognizer`
-     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
-     - parameter minimumPressDuration: Time in seconds the fingers must be held down for the gesture to be recognized
-     - parameter allowableMovement: Maximum movement in pixels allowed before the gesture fails. Once recognized (after minimumPressDuration) there is no limit on finger movement for the remainder of the touch tracking
+     Returns an observable `NSPressGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func press(
-        buttonMask: Int = Defaults.buttonMask,
-        minimumPressDuration: TimeInterval? = Defaults.minimumPressDuration,
-        allowableMovement: CGFloat? = Defaults.allowableMovement,
-        configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) -> AnyGestureRecognizerFactory {
-        let gesture = PressGestureRecognizerFactory(
-            buttonMask: buttonMask,
-            minimumPressDuration: minimumPressDuration,
-            allowableMovement: allowableMovement,
-            configuration: configuration
-        )
-        return AnyGestureRecognizerFactory(gesture)
-    }
-}
-
-public extension Reactive where Base: NSView {
-
-    /**
-     Returns an observable `UILongPressGestureRecognizer` events sequence
-     - parameter buttonMask: bitfield of the button(s) required to recognize this click where bit 0 is the primary button, 1 is the secondary button, etc...
-     - parameter minimumPressDuration: Time in seconds the fingers must be held down for the gesture to be recognized
-     - parameter allowableMovement: Maximum movement in pixels allowed before the gesture fails. Once recognized (after minimumPressDuration) there is no limit on finger movement for the remainder of the touch tracking
-     - parameter configuration: A closure that allows to fully configure the gesture recognizer
-     */
-    public func pressGesture(
-        buttonMask: Int = Defaults.buttonMask,
-        minimumPressDuration: TimeInterval? = Defaults.minimumPressDuration,
-        allowableMovement: CGFloat? = Defaults.allowableMovement,
-        configuration: ((NSPressGestureRecognizer, RxGestureRecognizerDelegate) -> Void)? = Defaults.configuration
-        ) -> ControlEvent<NSPressGestureRecognizer> {
-
-        return gesture(PressGestureRecognizerFactory(
-            buttonMask: buttonMask,
-            minimumPressDuration: minimumPressDuration,
-            allowableMovement: allowableMovement,
-            configuration: configuration
-        ))
+    public func pressGesture(configuration: PressConfiguration? = nil) -> PressControlEvent {
+        return gesture(make(configuration: configuration))
     }
 }

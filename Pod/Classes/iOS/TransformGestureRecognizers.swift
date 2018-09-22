@@ -22,13 +22,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-public protocol TransformGestureRecognizersType {
-    var panGesture: UIPanGestureRecognizer { get }
-    var rotationGesture: UIRotationGestureRecognizer { get }
-    var pinchGesture: UIPinchGestureRecognizer { get }
-}
-
-public struct TransformGestureRecognizers: TransformGestureRecognizersType {
+public struct TransformGestureRecognizers {
     public let panGesture: UIPanGestureRecognizer
     public let rotationGesture: UIRotationGestureRecognizer
     public let pinchGesture: UIPinchGestureRecognizer
@@ -40,10 +34,14 @@ public struct TransformVelocity {
     let scale: CGFloat
 }
 
-public extension Reactive where Base: UIView {
+public typealias TransformConfiguration = Configuration<TransformGestureRecognizers>
+public typealias TransformControlEvent = ControlEvent<TransformGestureRecognizers>
+public typealias TransformObservable = Observable<TransformGestureRecognizers>
+
+public extension Reactive where Base: View {
     public func transformGestures(
-        configuration: ((TransformGestureRecognizers, RxGestureRecognizerDelegate) -> Void)? = nil
-        ) -> ControlEvent<TransformGestureRecognizers> {
+        configuration: TransformConfiguration? = nil
+        ) -> TransformControlEvent {
 
         let source = Observable.combineLatest(panGesture(), rotationGesture(), pinchGesture()) {
             return TransformGestureRecognizers(
@@ -57,7 +55,7 @@ public extension Reactive where Base: UIView {
     }
 }
 
-public extension ObservableType where E: TransformGestureRecognizersType {
+public extension ObservableType where E == TransformGestureRecognizers {
 
     public func when(_ states: GestureRecognizerState...) -> Observable<E> {
         return filter { gestures in
