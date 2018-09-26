@@ -79,7 +79,7 @@ public extension Reactive where Base: View {
      */
     public func swipeGesture(_ directions: Set<SwipeDirection>,configuration: SwipeConfiguration? = nil) -> SwipeControlEvent {
         let source = Observable.merge(directions.map {
-            swipeGesture(direction: $0).asObservable()
+            swipeGesture(direction: $0, configuration: configuration).asObservable()
         })
         return ControlEvent(events: source)
     }
@@ -89,7 +89,7 @@ public extension Reactive where Base: View {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func swipeGesture(_ directions: SwipeDirection...,configuration: SwipeConfiguration? = nil) -> SwipeControlEvent {
-        return swipeGesture(Set(directions))
+        return swipeGesture(Set(directions), configuration: configuration)
     }
 
 }
