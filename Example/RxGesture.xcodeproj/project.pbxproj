@@ -41,7 +41,7 @@
 		9CBB5C961CA3D9C30089E3EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CBB5C991CA3D9C30089E3EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CBB5C9B1CA3D9C30089E3EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A32D46FFF817D17B80E368BB /* RxGesture.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxGesture.podspec; path = ../RxGesture.podspec; sourceTree = "<group>"; };
+		A32D46FFF817D17B80E368BB /* RxGesture.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxGesture.podspec; path = ../RxGesture.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A8ACB04E64DDA0D81C1AD26C /* Pods-RxGesture_iOS_Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxGesture_iOS_Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxGesture_iOS_Demo/Pods-RxGesture_iOS_Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		AEA5E5F8794395306DA818D0 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		F8E0FE7FD951353CF0314F2E /* Pods_RxGesture_iOS_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxGesture_iOS_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
