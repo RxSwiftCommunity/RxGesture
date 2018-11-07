@@ -21,6 +21,8 @@
 import RxSwift
 import RxCocoa
 
+public typealias LocationInView = (UIView) -> CGPoint
+
 extension ObservableType where Element: GestureRecognizer {
 
     /**
@@ -57,4 +59,15 @@ extension ObservableType where Element: GestureRecognizer {
             return gesture.location(in: view.targetView(for: gesture))
         }
     }
+
+    public func asLocationInView() -> Observable<LocationInView> {
+        return map { gesture in
+            let targetView = gesture.view!
+            let location = gesture.location(in: targetView)
+            return { view in
+                return targetView.convert(location, to: view)
+            }
+        }
+    }
+
 }
