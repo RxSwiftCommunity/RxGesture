@@ -100,7 +100,9 @@ extension Reactive where Base: View {
                 .startWith(gesture)
                 .do(onDispose: { [weak control, weak gesture] () in
                     guard let gesture = gesture else { return }
-                    control?.removeGestureRecognizer(gesture)
+                    DispatchQueue.main.async {
+                        control?.removeGestureRecognizer(gesture)
+                    }
                 })
                 .takeUntil(control.rx.deallocated)
         }
