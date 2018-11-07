@@ -36,7 +36,7 @@ class RxGestureTests: XCTestCase {
 
     func testObservable() {
 
-        let states: [UIGestureRecognizerState] = [.began, .changed, .changed, .changed, .ended]
+        let states: [UIGestureRecognizer.State] = [.began, .changed, .changed, .changed, .ended]
 
         send(states)
 
@@ -51,7 +51,7 @@ class RxGestureTests: XCTestCase {
         XCTAssertEqual(result ?? [], expected)
     }
 
-    func send(_ states: [UIGestureRecognizerState]) {
+    func send(_ states: [UIGestureRecognizer.State]) {
         guard let first = states.first else {
             return
         }
