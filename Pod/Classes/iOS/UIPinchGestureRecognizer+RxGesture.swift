@@ -37,7 +37,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-public extension Reactive where Base: View {
+extension Reactive where Base: View {
 
     /**
      Returns an observable `UIPinchGestureRecognizer` events sequence
@@ -48,7 +48,7 @@ public extension Reactive where Base: View {
     }
 }
 
-public extension ObservableType where E: UIPinchGestureRecognizer {
+extension ObservableType where E: UIPinchGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of scale factors relative to the points of the two touches in screen coordinates alongside the gesture velocity.

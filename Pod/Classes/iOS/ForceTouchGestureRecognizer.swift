@@ -70,7 +70,7 @@ extension Factory where Gesture == GestureRecognizer {
 }
 
 @available(iOS 9.0, *)
-public extension Reactive where Base: View {
+extension Reactive where Base: View {
 
     /**
      Returns an observable `ForceTouchGestureRecognizer` events sequence
@@ -82,7 +82,7 @@ public extension Reactive where Base: View {
 }
 
 @available(iOS 9.0, *)
-public extension ObservableType where E: ForceTouchGestureRecognizer {
+extension ObservableType where E: ForceTouchGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of force values.

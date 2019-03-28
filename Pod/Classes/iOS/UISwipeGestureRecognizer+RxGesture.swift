@@ -63,7 +63,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-public extension Reactive where Base: View {
+extension Reactive where Base: View {
 
     /**
      Returns an observable `UISwipeGestureRecognizer` events sequence

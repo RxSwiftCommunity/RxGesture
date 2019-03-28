@@ -21,7 +21,7 @@
 import RxSwift
 import RxCocoa
 
-public extension ObservableType where E: GestureRecognizer {
+extension ObservableType where E: GestureRecognizer {
 
     /**
      Filters the observable `GestureRecognizer` events sequence based on the `GestureRecognizer` state.

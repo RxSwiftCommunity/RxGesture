@@ -283,20 +283,22 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-RxGesture_iOS_Demo/Pods-RxGesture_iOS_Demo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-RxGesture_iOS_Demo/Pods-RxGesture_iOS_Demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic-iOS/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxGesture-iOS/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxGesture_iOS_Demo/Pods-RxGesture_iOS_Demo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxGesture_iOS_Demo/Pods-RxGesture_iOS_Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		806AE04460EE07E485B38C35 /* [CP] Embed Pods Frameworks */ = {
@@ -305,20 +307,22 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-RxGesture_OSX_Demo/Pods-RxGesture_OSX_Demo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-RxGesture_OSX_Demo/Pods-RxGesture_OSX_Demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic-macOS/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa-macOS/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxGesture-macOS/RxGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-macOS/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxGesture_OSX_Demo/Pods-RxGesture_OSX_Demo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxGesture_OSX_Demo/Pods-RxGesture_OSX_Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CDB795DBD98169E1348CB0E6 /* [CP] Check Pods Manifest.lock */ = {
