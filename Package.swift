@@ -7,7 +7,7 @@ let package = Package(
         .library(name: "RxGesture", targets: ["RxGesture"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "4.4.0")),
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "4.5.0")),
     ],
     targets: [
         .target(
