@@ -53,7 +53,7 @@ class ViewController: UIViewController {
             transformStep
         ]
 
-        if #available(iOS 9.0, *), let index = steps.index(where: { $0 === panStep }) {
+        if #available(iOS 9.0, *), let index = steps.firstIndex(where: { $0 === panStep }) {
             steps.insert(forceTouchStep, at: index)
         }
 
