@@ -37,7 +37,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-public extension Reactive where Base: View {
+extension Reactive where Base: View {
 
     /**
      Returns an observable `NSRotationGestureRecognizer` events sequence
@@ -48,7 +48,7 @@ public extension Reactive where Base: View {
     }
 }
 
-public extension ObservableType where E: NSRotationGestureRecognizer {
+extension ObservableType where E: NSRotationGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of rotation values of the gesture in radians.

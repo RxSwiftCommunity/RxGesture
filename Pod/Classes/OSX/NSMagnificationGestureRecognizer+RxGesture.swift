@@ -37,7 +37,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-public extension Reactive where Base: View {
+extension Reactive where Base: View {
 
     /**
      Returns an observable `NSMagnificationGestureRecognizer` events sequence
@@ -48,7 +48,7 @@ public extension Reactive where Base: View {
     }
 }
 
-public extension ObservableType where E: NSMagnificationGestureRecognizer {
+extension ObservableType where E: NSMagnificationGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of magnification amounts alongside the gesture velocity.
