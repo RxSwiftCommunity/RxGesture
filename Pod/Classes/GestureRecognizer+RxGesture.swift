@@ -21,7 +21,7 @@
 import RxSwift
 import RxCocoa
 
-extension ObservableType where E: GestureRecognizer {
+extension ObservableType where Element: GestureRecognizer {
 
     /**
      Filters the observable `GestureRecognizer` events sequence based on the `GestureRecognizer` state.
@@ -29,7 +29,7 @@ extension ObservableType where E: GestureRecognizer {
      - parameter state: An `GestureRecognizerState` that is used to filter the `GestureRecognizer` events sequence.
      - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match the given `state`.
      */
-    public func when(_ states: GestureRecognizerState...) -> Observable<E> {
+    public func when(_ states: GestureRecognizerState...) -> Observable<Element> {
         return filter { gesture in
             return states.contains(gesture.state)
         }
@@ -41,7 +41,7 @@ extension ObservableType where E: GestureRecognizer {
      - parameter state: An `GestureRecognizerState` that is used to filter the `GestureRecognizer` events sequence.
      - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match the given `state`.
      */
-    internal func when(_ states: [GestureRecognizerState]) -> Observable<E> {
+    internal func when(_ states: [GestureRecognizerState]) -> Observable<Element> {
         return filter { gesture in
             return states.contains(gesture.state)
         }

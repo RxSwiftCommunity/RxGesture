@@ -48,7 +48,7 @@ extension Reactive where Base: View {
     }
 }
 
-extension ObservableType where E: UIPinchGestureRecognizer {
+extension ObservableType where Element: UIPinchGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of scale factors relative to the points of the two touches in screen coordinates alongside the gesture velocity.

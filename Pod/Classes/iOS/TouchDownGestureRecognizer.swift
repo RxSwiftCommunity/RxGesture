@@ -79,7 +79,7 @@ extension Reactive where Base: View {
     }
 }
 
-extension ObservableType where E: TouchDownGestureRecognizer {
+extension ObservableType where Element: TouchDownGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of force values.
