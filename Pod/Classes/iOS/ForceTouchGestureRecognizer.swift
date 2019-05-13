@@ -82,7 +82,7 @@ extension Reactive where Base: View {
 }
 
 @available(iOS 9.0, *)
-extension ObservableType where E: ForceTouchGestureRecognizer {
+extension ObservableType where Element: ForceTouchGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of force values.
