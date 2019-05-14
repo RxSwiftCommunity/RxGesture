@@ -198,7 +198,7 @@ $ pod install
 Add this to `Cartfile`
 
 ```
-github "RxSwiftCommunity/RxGesture" ~> 1.1.1
+github "RxSwiftCommunity/RxGesture" ~> 3.0
 ```
 
 ```bash
