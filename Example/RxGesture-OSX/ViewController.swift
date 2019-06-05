@@ -28,10 +28,10 @@ class Step {
 
 class MacViewController: NSViewController {
 
-    @IBOutlet weak var myView: NSView!
-    @IBOutlet weak var myViewText: NSTextField!
-    @IBOutlet weak var info: NSTextField!
-    @IBOutlet weak var code: NSTextView!
+    @IBOutlet private weak var myView: NSView!
+    @IBOutlet private weak var myViewText: NSTextField!
+    @IBOutlet private weak var info: NSTextField!
+    @IBOutlet private weak var code: NSTextView!
 
     fileprivate let nextStepObserver = PublishSubject<Step.Action>()
     fileprivate let bag = DisposeBag()
@@ -264,7 +264,7 @@ class MacViewController: NSViewController {
                 .panGesture()
                 .when(.changed)
                 .asTranslation()
-                .subscribe(onNext: {[unowned self] translation, _ in
+                .subscribe(onNext: { translation, _ in
                     label.stringValue = String(format: "(%.f, %.f)", arguments: [translation.x, translation.y])
                     view.layer!.transform = CATransform3DMakeTranslation(translation.x, translation.y, 0.0)
                 })
@@ -358,7 +358,7 @@ class MacViewController: NSViewController {
                 .magnificationGesture()
                 .when(.changed)
                 .asScale()
-                .subscribe(onNext: {[unowned self] scale in
+                .subscribe(onNext: { scale in
                     label.stringValue = String(format: "scale: %.2f", scale)
                     view.layer!.transform = CATransform3DMakeScale(scale, scale, 1)
                 })
