@@ -292,6 +292,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4CC4C251DEBA895009ED835 /* Build configuration list for PBXNativeTarget "RxGesture-iOS" */;
 			buildPhases = (
+				784D1E3522A84EE300082659 /* Swiftlint */,
 				F4CC4C181DEBA895009ED835 /* Sources */,
 				F4CC4C191DEBA895009ED835 /* Frameworks */,
 				F4CC4C1A1DEBA895009ED835 /* Headers */,
@@ -338,6 +339,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = F4CC4C131DEBA895009ED835;
@@ -377,6 +379,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		784D1E3522A84EE300082659 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		87AF2B5A1FAE55FA0002FC29 /* Copy carthage frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

@@ -27,10 +27,10 @@ class Step {
 
 class ViewController: UIViewController {
 
-    @IBOutlet var myView: UIView!
-    @IBOutlet var myViewText: UILabel!
-    @IBOutlet var info: UILabel!
-    @IBOutlet var code: UITextView!
+    @IBOutlet private var myView: UIView!
+    @IBOutlet private var myViewText: UILabel!
+    @IBOutlet private var info: UILabel!
+    @IBOutlet private var code: UITextView!
 
     private let nextStepObserver = PublishSubject<Step.Action>()
     private let bag = DisposeBag()
@@ -150,7 +150,7 @@ class ViewController: UIViewController {
             view.animateBackgroundColor(to: .green)
 
             view.rx
-                .tapGesture() { gesture, _ in
+                .tapGesture { gesture, _ in
                     gesture.numberOfTapsRequired = 2
                 }
                 .when(.recognized)
@@ -346,7 +346,7 @@ class ViewController: UIViewController {
             panGesture
                 .when(.possible, .began, .changed)
                 .asTranslation()
-                .subscribe(onNext: { [unowned self] translation, _ in
+                .subscribe(onNext: { translation, _ in
                     label.text = String(format: "(%.2f, %.2f)", translation.x, translation.y)
                     view.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
                 })
@@ -394,7 +394,7 @@ class ViewController: UIViewController {
             rotationGesture
                 .when(.possible, .began, .changed)
                 .asRotation()
-                .subscribe(onNext: { [unowned self] rotation, _ in
+                .subscribe(onNext: { rotation, _ in
                     label.text = String(format: "%.2f rad", rotation)
                     view.transform = CGAffineTransform(rotationAngle: rotation)
                 })
