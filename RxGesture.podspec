@@ -7,6 +7,7 @@ Pod::Spec.new do |s|
   s.name             = "RxGesture"
   s.version          = "3.0.0"
   s.summary          = "RxSwift reactive wrapper for view gestures."
+  s.swift_version    = "5.0"
 
   s.description      = <<-DESC
 					  RxSwift reactive wrapper for view gestures. It lets you to easily observe
