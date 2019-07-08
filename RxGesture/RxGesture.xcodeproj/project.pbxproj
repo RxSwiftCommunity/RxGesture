@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		78FCA3A222D08A7B0022018E /* RxGestureTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FCA3A122D08A7B0022018E /* RxGestureTest.swift */; };
 		874DD3DD1FAD067200A61D4F /* GestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874DD3DC1FAD067200A61D4F /* GestureRecognizer+RxGesture.swift */; };
 		874DD3DE1FAD067200A61D4F /* GestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874DD3DC1FAD067200A61D4F /* GestureRecognizer+RxGesture.swift */; };
 		874DD3E11FAD068500A61D4F /* ForceTouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874DD3DF1FAD068500A61D4F /* ForceTouchGestureRecognizer.swift */; };
@@ -61,6 +62,7 @@
 
 /* Begin PBXFileReference section */
 		06002C42227C208400C7FBDD /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = ../Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
+		78FCA3A122D08A7B0022018E /* RxGestureTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxGestureTest.swift; sourceTree = "<group>"; };
 		874DD3DC1FAD067200A61D4F /* GestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		874DD3DF1FAD068500A61D4F /* ForceTouchGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceTouchGestureRecognizer.swift; sourceTree = "<group>"; };
 		874DD3E01FAD068500A61D4F /* TouchDownGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchDownGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			children = (
 				87AF2B5F1FAF1D3E0002FC29 /* RxGestureTests.swift */,
 				874DD3EB1FAD0F7D00A61D4F /* Info.plist */,
+				78FCA3A122D08A7B0022018E /* RxGestureTest.swift */,
 			);
 			path = "RxGesture-iOS-Tests";
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87AF2B601FAF1D3E0002FC29 /* RxGestureTests.swift in Sources */,
+				78FCA3A222D08A7B0022018E /* RxGestureTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,9 +496,10 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "RxGesture-iOS-Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks /Users/antonnazarov/Projects/RxGesture/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture.iOS.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -515,9 +520,10 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "RxGesture-iOS-Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks /Users/antonnazarov/Projects/RxGesture/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture.iOS.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -703,9 +709,11 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = RxSwiftCommunity.RxGesture.iOS;
 				PRODUCT_NAME = RxGesture;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};

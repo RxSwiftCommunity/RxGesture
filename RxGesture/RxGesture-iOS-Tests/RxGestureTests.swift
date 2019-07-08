@@ -12,9 +12,10 @@ import RxSwift
 import RxCocoa
 import RxTest
 import RxBlocking
+import SceneKit
 @testable import RxGesture
 
-class RxGestureTests: XCTestCase {
+class RxGestureTests: RxGestureTest {
 
     var disposeBag: DisposeBag!
     var view: UIView!
@@ -28,10 +29,10 @@ class RxGestureTests: XCTestCase {
     }
 
     override func tearDown() {
-        super.tearDown()
         disposeBag = nil
         view = nil
         gesture = nil
+        super.tearDown()
     }
 
     func testObservable() {
@@ -61,4 +62,19 @@ class RxGestureTests: XCTestCase {
         }
     }
 
+    func testMemoryLeak() {
+        _ = TestViewController()
+    }
+}
+
+// MARK: - Private
+private extension RxGestureTest {
+    final class TestViewController {
+        private let scnView = SCNView()
+        private let disposeBag = DisposeBag()
+
+        init() {
+            scnView.rx.tapGesture().when(.recognized).subscribe().disposed(by: disposeBag)
+        }
+    }
 }
