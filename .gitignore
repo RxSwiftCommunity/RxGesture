@@ -6,6 +6,10 @@
 build/
 DerivedData
 
+## SPM Generated
+*.xcodeproj
+*.resolved
+
 ## Various settings
 *.pbxuser
 !default.pbxuser
@@ -44,6 +48,7 @@ playground.xcworkspace
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
 # Pods/
+!Example/*.xcodeproj
 
 # Carthage
 #
