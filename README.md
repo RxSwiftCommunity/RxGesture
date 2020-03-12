@@ -149,9 +149,9 @@ pressReceptionPolicy          -> gestureRecognizer(_:shouldReceive:) // iOS only
 This delegate can be customized in the configuration closure:
 ```swift
 view.rx.tapGesture(configuration: { gestureRecognizer, delegate in
-  delegate.simultaneousRecognitionPolicy = .always // (default value)
+  delegate.simultaneousRecognitionPolicy = .never // (default value)
   // or
-  delegate.simultaneousRecognitionPolicy = .never
+  delegate.simultaneousRecognitionPolicy = .always
   // or
   delegate.simultaneousRecognitionPolicy = .custom { gestureRecognizer, otherGestureRecognizer in
     return otherGestureRecognizer is UIPanGestureRecognizer

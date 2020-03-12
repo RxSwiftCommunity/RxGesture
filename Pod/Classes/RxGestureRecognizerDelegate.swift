@@ -68,7 +68,7 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
     public var otherFailureRequirementPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, GestureRecognizer)> = .never
 
     /// Corresponding delegate method: gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)
-    public var simultaneousRecognitionPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, GestureRecognizer)> = .always
+    public var simultaneousRecognitionPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, GestureRecognizer)> = .never
 
     #if os(iOS)
     // Workaround because we can't have stored properties with @available annotation
