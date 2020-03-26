@@ -33,7 +33,7 @@ public typealias ClickConfiguration = Configuration<NSClickGestureRecognizer>
 public typealias ClickControlEvent = ControlEvent<NSClickGestureRecognizer>
 public typealias ClickObservable = Observable<NSClickGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `NSClickGestureRecognizer`
@@ -61,7 +61,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `NSClickGestureRecognizer` events sequence

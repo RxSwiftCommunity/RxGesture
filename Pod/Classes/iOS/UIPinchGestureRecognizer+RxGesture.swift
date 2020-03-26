@@ -26,7 +26,7 @@ public typealias PinchConfiguration = Configuration<UIPinchGestureRecognizer>
 public typealias PinchControlEvent = ControlEvent<UIPinchGestureRecognizer>
 public typealias PinchObservable = Observable<UIPinchGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UIPinchGestureRecognizer`
@@ -37,7 +37,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `UIPinchGestureRecognizer` events sequence

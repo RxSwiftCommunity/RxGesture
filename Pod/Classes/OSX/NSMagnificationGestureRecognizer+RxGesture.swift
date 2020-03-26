@@ -26,7 +26,7 @@ public typealias MagnificationConfiguration = Configuration<NSMagnificationGestu
 public typealias MagnificationControlEvent = ControlEvent<NSMagnificationGestureRecognizer>
 public typealias MagnificationObservable = Observable<NSMagnificationGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `NSMagnificationGestureRecognizer`
@@ -37,7 +37,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `NSMagnificationGestureRecognizer` events sequence

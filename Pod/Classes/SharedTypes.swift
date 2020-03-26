@@ -22,24 +22,24 @@ import Foundation
 
 #if os(iOS)
     import UIKit
-    public typealias Touch = UITouch
-    public typealias GestureRecognizer = UIGestureRecognizer
+    public typealias RxGestureTouch = UITouch
+    public typealias RxGestureRecognizer = UIGestureRecognizer
     #if swift(>=4.2)
-        public typealias GestureRecognizerState = UIGestureRecognizer.State
+        public typealias RxGestureRecognizerState = UIGestureRecognizer.State
     #else
-        public typealias GestureRecognizerState = UIGestureRecognizerState
+        public typealias RxGestureRecognizerState = UIGestureRecognizerState
     #endif
-    public typealias GestureRecognizerDelegate = UIGestureRecognizerDelegate
-    public typealias View = UIView
-    public typealias Point = CGPoint
+    public typealias RxGestureRecognizerDelegate = UIGestureRecognizerDelegate
+    public typealias RxGestureView = UIView
+    public typealias RxGesturePoint = CGPoint
 #elseif os(OSX)
     import AppKit
-    public typealias Touch = NSTouch
-    public typealias GestureRecognizer = NSGestureRecognizer
-    public typealias GestureRecognizerState = NSGestureRecognizer.State
-    public typealias GestureRecognizerDelegate = NSGestureRecognizerDelegate
-    public typealias View = NSView
-    public typealias Point = NSPoint
+    public typealias RxGestureTouch = NSTouch
+    public typealias RxGestureRecognizer = NSGestureRecognizer
+    public typealias RxGestureRecognizerState = NSGestureRecognizer.State
+    public typealias RxGestureRecognizerDelegate = NSGestureRecognizerDelegate
+    public typealias RxGestureView = NSView
+    public typealias RxGesturePoint = NSPoint
 #endif
 
 public enum TargetView {
@@ -53,9 +53,9 @@ public enum TargetView {
     case window
 
     /// The target view will be the given view
-    case this(View)
+    case this(RxGestureView)
 
-    public func targetView(for gestureRecognizer: GestureRecognizer) -> View? {
+    public func targetView(for gestureRecognizer: RxGestureRecognizer) -> RxGestureView? {
         switch self {
         case .view:
             return gestureRecognizer.view
@@ -70,21 +70,5 @@ public enum TargetView {
         case .this(let view):
             return view
         }
-    }
-}
-
-extension GestureRecognizerState: CustomStringConvertible {
-    public var description: String {
-        return String(describing: type(of: self)) + {
-            switch self {
-            case .possible:   return ".possible"
-            case .began:      return ".began"
-            case .changed:    return ".changed"
-            case .ended:      return ".ended"
-            case .cancelled:  return ".cancelled"
-            case .failed:     return ".failed"
-            @unknown default: return ".failed"
-            }
-        }()
     }
 }

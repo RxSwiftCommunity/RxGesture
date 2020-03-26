@@ -26,7 +26,7 @@ public typealias ScreenEdgePanConfiguration = Configuration<UIScreenEdgePanGestu
 public typealias ScreenEdgePanControlEvent = ControlEvent<UIScreenEdgePanGestureRecognizer>
 public typealias ScreenEdgePanObservable = Observable<UIScreenEdgePanGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UIScreenEdgePanGestureRecognizer`
@@ -37,7 +37,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `UIScreenEdgePanGestureRecognizer` events sequence

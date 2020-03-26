@@ -5,12 +5,6 @@ import RxCocoa
 @available(iOS 9.0, *)
 public class ForceTouchGestureRecognizer: UIGestureRecognizer {
 
-    public override var state: UIGestureRecognizer.State {
-        didSet {
-//            Swift.print("State:", oldValue, "->", state)
-        }
-    }
-
     private var touch: UITouch?
     public var force: CGFloat {
         return touch?.force ?? 0
@@ -38,24 +32,7 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
         )
     }
 
-    private func print(_ event: UIEvent, _ touches: Set<UITouch>, _ function: StaticString = #function) {
-        return;
-
-        Swift.print()
-        Swift.print(function)
-        Swift.print("\tevent.allTouches")
-        for touch in event.allTouches ?? [] {
-            Swift.print("\t\t\(touch.phase):", touch.location(in: self.view), touch.force, "(tapCount: \(touch.tapCount))")
-        }
-        Swift.print("\tevent.touches")
-        for touch in touches {
-            Swift.print("\t\t\(touch.phase):", touch.location(in: self.view), touch.force, "(tapCount: \(touch.tapCount))")
-        }
-        Swift.print()
-    }
-
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
-        print(event, touches)
         super.touchesBegan(touches, with: event)
 
         guard state == .possible else { return }
@@ -66,15 +43,12 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
     }
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
-        print(event, touches)
         super.touchesMoved(touches, with: event)
         guard let touch = touch, touches.contains(touch), touch.phase == .moved else { return }
         state = .changed
-//        handle(event)
     }
     
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
-        print(event, touches)
         super.touchesEnded(touches, with: event)
         guard let touch = touch, touches.contains(touch), touch.phase == .ended else { return }
         self.touch = nil
@@ -82,48 +56,11 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
     }
 
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
-        print(event, touches)
         super.touchesCancelled(touches, with: event)
         guard let touch = touch, touches.contains(touch), touch.phase == .cancelled else { return }
         self.touch = nil
         state = .cancelled
     }
-
-//    private func handle(_ event: UIEvent) {
-//        if setForce(for: event) {
-//            if state == .possible {
-//                state = .began
-//            } else {
-//                state = .changed
-//            }
-//        } else {
-//            if state == .possible {
-//                state = .cancelled
-//            } else {
-//                state = .ended
-//            }
-//        }
-//    }
-//
-//    private let validPhases = [UITouch.Phase.began, .stationary, .moved]
-//    private func setForce(for event: UIEvent) -> Bool {
-//        let touches = Array(
-//            event.allTouches?.filter { validPhases.contains($0.phase) } ?? []
-//        )
-//        guard
-//            touches.count >= numberOfTouchesRequired,
-//            let touch = touches.max(by: { $0.force < $1.force })
-//        else {
-//            self.force = 0
-//            self.maximumPossibleForce = 0
-//            return false
-//        }
-//
-//        force = touch.force
-//        maximumPossibleForce = touch.maximumPossibleForce
-//
-//        return true
-//    }
 }
 
 @available(iOS 9.0, *)
@@ -134,7 +71,7 @@ public typealias ForceTouchControlEvent = ControlEvent<ForceTouchGestureRecogniz
 public typealias ForceTouchObservable = Observable<ForceTouchGestureRecognizer>
 
 @available(iOS 9.0, *)
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `ForceTouchGestureRecognizer`
@@ -146,7 +83,7 @@ extension Factory where Gesture == GestureRecognizer {
 }
 
 @available(iOS 9.0, *)
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `ForceTouchGestureRecognizer` events sequence
@@ -167,7 +104,7 @@ extension ObservableType where Element: ForceTouchGestureRecognizer {
         return self.map { $0.force }
     }
 
-    public func when(fractionCompletedExceeds threshold: CGFloat) -> Observable<E> {
+    public func when(fractionCompletedExceeds threshold: CGFloat) -> Observable<Element> {
         let source = asObservable()
         return source
             .when(.began)
@@ -192,21 +129,4 @@ private func lerp<T : FloatingPoint>(_ v0: T, _ v1: T, _ t: T) -> T {
 
 private func lerp<T : FloatingPoint>(mapMin: T, to min: T, mapMax: T, to max: T, value: T) -> T {
     return  lerp(min, max, (value - mapMin) / (mapMax - mapMin))
-}
-
-extension UITouch.Phase : CustomStringConvertible {
-    public var description: String {
-        switch self {
-        case .began:
-            return ".began"
-        case .moved:
-            return ".moved"
-        case .stationary:
-            return ".stationary"
-        case .ended:
-            return ".ended"
-        case .cancelled:
-            return ".cancelled"
-        }
-    }
 }

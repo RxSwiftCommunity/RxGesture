@@ -26,7 +26,7 @@ public typealias RotationConfiguration = Configuration<NSRotationGestureRecogniz
 public typealias RotationControlEvent = ControlEvent<NSRotationGestureRecognizer>
 public typealias RotationObservable = Observable<NSRotationGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `NSRotationGestureRecognizer`
@@ -37,7 +37,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `NSRotationGestureRecognizer` events sequence

@@ -12,7 +12,7 @@ public class TouchDownGestureRecognizer: UILongPressGestureRecognizer {
                 let trigger = Observable.just(())
                 if self.state == .possible {
                     return trigger.delay(
-                        self.minimumTouchDuration,
+                        .milliseconds(Int(self.minimumTouchDuration * 1000)),
                         scheduler: MainScheduler.asyncInstance
                     )
                 } else {
@@ -100,7 +100,7 @@ public typealias TouchDownConfiguration = Configuration<TouchDownGestureRecogniz
 public typealias TouchDownControlEvent = ControlEvent<TouchDownGestureRecognizer>
 public typealias TouchDownObservable = Observable<TouchDownGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `TouchDownGestureRecognizer`
@@ -111,7 +111,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `TouchDownGestureRecognizer` events sequence
