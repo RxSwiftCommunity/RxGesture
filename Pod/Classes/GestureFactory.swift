@@ -22,13 +22,13 @@ import RxSwift
 import RxCocoa
 import ObjectiveC
 
-public typealias Configuration<Gesture> = (Gesture, RxGestureRecognizerDelegate) -> Void
+public typealias Configuration<Gesture: RxGestureRecognizer> = (Gesture, GenericRxGestureRecognizerDelegate<Gesture>) -> Void
 
 public struct Factory<Gesture: RxGestureRecognizer> {
     public let gesture: Gesture
     public init(_ configuration: Configuration<Gesture>?) {
         let gesture = Gesture()
-        let delegate = GenericRxGestureRecognizerDelegate()
+        let delegate = GenericRxGestureRecognizerDelegate<Gesture>()
         objc_setAssociatedObject(
             gesture,
             &gestureRecognizerStrongDelegateKey,

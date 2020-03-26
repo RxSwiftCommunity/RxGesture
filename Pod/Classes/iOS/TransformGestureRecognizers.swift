@@ -34,15 +34,11 @@ public struct TransformVelocity {
     let scale: CGFloat
 }
 
-public typealias TransformConfiguration = Configuration<TransformGestureRecognizers>
 public typealias TransformControlEvent = ControlEvent<TransformGestureRecognizers>
 public typealias TransformObservable = Observable<TransformGestureRecognizers>
 
 extension Reactive where Base: RxGestureView {
-    public func transformGestures(
-        configuration: TransformConfiguration? = nil
-        ) -> TransformControlEvent {
-
+    public func transformGestures() -> TransformControlEvent {
         let source = Observable.combineLatest(panGesture(), rotationGesture(), pinchGesture()) {
             return TransformGestureRecognizers(
                 panGesture: $0,
@@ -50,7 +46,6 @@ extension Reactive where Base: RxGestureView {
                 pinchGesture: $2
             )
         }
-
         return ControlEvent(events: source)
     }
 }

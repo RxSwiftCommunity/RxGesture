@@ -21,7 +21,7 @@
 import RxSwift
 import RxCocoa
 
-public typealias LocationInView = (UIView) -> CGPoint
+public typealias LocationInView = (RxGestureView) -> CGPoint
 
 extension ObservableType where Element: RxGestureRecognizer {
 

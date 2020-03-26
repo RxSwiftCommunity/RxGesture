@@ -2,7 +2,7 @@ import UIKit.UIGestureRecognizerSubclass
 import RxSwift
 import RxCocoa
 
-public class TouchDownGestureRecognizer: UILongPressGestureRecognizer {
+public class TouchDownGestureRecognizer: UIGestureRecognizer {
 
     public override init(target: Any?, action: Selector?) {
         super.init(target: target, action: action)
@@ -10,14 +10,13 @@ public class TouchDownGestureRecognizer: UILongPressGestureRecognizer {
         trigger
             .flatMapFirst { [unowned self] _ -> Observable<Void> in
                 let trigger = Observable.just(())
-                if self.state == .possible {
-                    return trigger.delay(
-                        .milliseconds(Int(self.minimumTouchDuration * 1000)),
-                        scheduler: MainScheduler.asyncInstance
-                    )
-                } else {
+                guard self.state == .possible else {
                     return trigger
                 }
+                return trigger.delay(
+                    .milliseconds(Int(self.minimumTouchDuration * 1000)),
+                    scheduler: MainScheduler.instance
+                )
             }
             .subscribe(onNext: { [unowned self] _ in
                 self.touches = self._touches
