@@ -48,7 +48,7 @@ extension Reactive where Base: View {
     }
 }
 
-extension ObservableType where E: NSPanGestureRecognizer {
+extension ObservableType where Element: NSPanGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of translation values of the pan gesture in the coordinate system of the specified `view` alongside the gesture velocity.

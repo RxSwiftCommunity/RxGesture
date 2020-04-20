@@ -48,7 +48,7 @@ extension Reactive where Base: View {
     }
 }
 
-extension ObservableType where E: NSMagnificationGestureRecognizer {
+extension ObservableType where Element: NSMagnificationGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of magnification amounts alongside the gesture velocity.
