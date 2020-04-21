@@ -48,7 +48,7 @@ extension Reactive where Base: View {
     }
 }
 
-extension ObservableType where E: NSRotationGestureRecognizer {
+extension ObservableType where Element: NSRotationGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of rotation values of the gesture in radians.
