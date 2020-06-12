@@ -51,6 +51,7 @@ view.rx.panGesture()           -> ControlEvent<UIPanGestureRecognizer>
 view.rx.longPressGesture()     -> ControlEvent<UILongPressGestureRecognizer>
 view.rx.rotationGesture()      -> ControlEvent<UIRotationGestureRecognizer>
 view.rx.screenEdgePanGesture() -> ControlEvent<UIScreenEdgePanGestureRecognizer>
+view.rx.hoverGesture()         -> ControlEvent<UIHoverGestureRecognizer>
 
 view.rx.anyGesture(.tap(), ...)           -> ControlEvent<UIGestureRecognizer>
 view.rx.anyGesture(.pinch(), ...)         -> ControlEvent<UIGestureRecognizer>
@@ -59,6 +60,7 @@ view.rx.anyGesture(.pan(), ...)           -> ControlEvent<UIGestureRecognizer>
 view.rx.anyGesture(.longPress(), ...)     -> ControlEvent<UIGestureRecognizer>
 view.rx.anyGesture(.rotation(), ...)      -> ControlEvent<UIGestureRecognizer>
 view.rx.anyGesture(.screenEdgePan(), ...) -> ControlEvent<UIGestureRecognizer>
+view.rx.anyGesture(.hover(), ...)         -> ControlEvent<UIGestureRecognizer>
 ```
 
 #### On macOS, RxGesture supports:
