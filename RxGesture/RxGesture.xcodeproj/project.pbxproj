@@ -45,6 +45,7 @@
 		87F8F7371E511E9D00C3B1BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */; };
 		8EF89008244DC70300BD054D /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF89006244DC70300BD054D /* RxCocoa.framework */; };
 		8EF89009244DC70300BD054D /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF89007244DC70300BD054D /* RxSwift.framework */; };
+		C556E5A724937DEE006139E1 /* UIHoverGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C556E5A624937DEE006139E1 /* UIHoverGestureRecognizer+RxGesture.swift */; };
 		F4CC4C221DEBA895009ED835 /* RxGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CC4C201DEBA895009ED835 /* RxGesture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4CC4C571DEBAF98009ED835 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -92,6 +93,7 @@
 		87F8F7221E511E2E00C3B1BE /* RxGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF89006244DC70300BD054D /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = ../Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
 		8EF89007244DC70300BD054D /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = ../Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
+		C556E5A624937DEE006139E1 /* UIHoverGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIHoverGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		F4CC4C1D1DEBA895009ED835 /* RxGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CC4C201DEBA895009ED835 /* RxGesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxGesture.h; sourceTree = "<group>"; };
 		F4CC4C211DEBA895009ED835 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		87A517681E4FED3900A65547 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C556E5A624937DEE006139E1 /* UIHoverGestureRecognizer+RxGesture.swift */,
 				87A5176B1E4FED3900A65547 /* UILongPressGestureRecognizer+RxGesture.swift */,
 				87A5176C1E4FED3900A65547 /* UIPanGestureRecognizer+RxGesture.swift */,
 				87A5176D1E4FED3900A65547 /* UIPinchGestureRecognizer+RxGesture.swift */,
@@ -452,6 +455,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C556E5A724937DEE006139E1 /* UIHoverGestureRecognizer+RxGesture.swift in Sources */,
 				87A517861E4FED3900A65547 /* UITapGestureRecognizer+RxGesture.swift in Sources */,
 				87A5178F1E4FED3900A65547 /* RxGestureRecognizerDelegate.swift in Sources */,
 				87A517801E4FED3900A65547 /* UILongPressGestureRecognizer+RxGesture.swift in Sources */,
