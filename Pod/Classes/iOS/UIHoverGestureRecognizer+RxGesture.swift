@@ -17,46 +17,40 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-#if canImport(AppKit) && !targetEnvironment(macCatalyst)
-import AppKit
+
+import UIKit
 import RxSwift
 import RxCocoa
 
-public typealias RotationConfiguration = Configuration<NSRotationGestureRecognizer>
-public typealias RotationControlEvent = ControlEvent<NSRotationGestureRecognizer>
-public typealias RotationObservable = Observable<NSRotationGestureRecognizer>
 
+@available(iOS 13.0, *)
+public typealias HoverConfiguration = Configuration<UIHoverGestureRecognizer>
+@available(iOS 13.0, *)
+public typealias HoverControlEvent = ControlEvent<UIHoverGestureRecognizer>
+@available(iOS 13.0, *)
+public typealias HoverObservable = Observable<UIHoverGestureRecognizer>
+
+
+@available(iOS 13.0, *)
 extension Factory where Gesture == RxGestureRecognizer {
 
     /**
-     Returns an `AnyFactory` for `NSRotationGestureRecognizer`
+     Returns an `AnyFactory` for `UIHoverGestureRecognizer`
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public static func rotation(configuration: RotationConfiguration? = nil) -> AnyFactory {
+    public static func hover(configuration: HoverConfiguration? = nil) -> AnyFactory {
         return make(configuration: configuration).abstracted()
     }
 }
 
+@available(iOS 13.0, *)
 extension Reactive where Base: RxGestureView {
 
     /**
-     Returns an observable `NSRotationGestureRecognizer` events sequence
+     Returns an observable `UIHoverGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
-    public func rotationGesture(configuration: RotationConfiguration? = nil) -> RotationControlEvent {
+    public func hoverGesture(configuration: HoverConfiguration? = nil) -> HoverControlEvent {
         return gesture(make(configuration: configuration))
     }
 }
-
-extension ObservableType where Element: NSRotationGestureRecognizer {
-
-    /**
-     Maps the observable `GestureRecognizer` events sequence to an observable sequence of rotation values of the gesture in radians.
-     */
-    public func asRotation() -> Observable<CGFloat> {
-        return self.map { gesture in
-            return gesture.rotation
-        }
-    }
-}
-#endif
