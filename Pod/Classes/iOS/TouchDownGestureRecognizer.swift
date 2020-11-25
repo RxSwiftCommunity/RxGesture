@@ -1,3 +1,6 @@
+
+#if canImport(UIKit)
+
 import UIKit.UIGestureRecognizerSubclass
 import RxSwift
 import RxCocoa
@@ -131,3 +134,5 @@ extension ObservableType where Element: TouchDownGestureRecognizer {
         return self.map { $0.touches }
     }
 }
+
+#endif

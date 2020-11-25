@@ -1,3 +1,6 @@
+
+#if canImport(UIKit)
+
 import UIKit.UIGestureRecognizerSubclass
 import RxSwift
 import RxCocoa
@@ -130,3 +133,5 @@ private func lerp<T : FloatingPoint>(_ v0: T, _ v1: T, _ t: T) -> T {
 private func lerp<T : FloatingPoint>(mapMin: T, to min: T, mapMax: T, to max: T, value: T) -> T {
     return  lerp(min, max, (value - mapMin) / (mapMax - mapMin))
 }
+
+#endif

@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit)
+
 import UIKit
 import RxSwift
 import RxCocoa
@@ -47,3 +49,5 @@ extension Reactive where Base: RxGestureView {
         return gesture(make(configuration: configuration))
     }
 }
+
+#endif
