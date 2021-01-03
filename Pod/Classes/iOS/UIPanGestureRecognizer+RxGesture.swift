@@ -40,7 +40,7 @@ extension Factory where Gesture == GestureRecognizer {
 }
 
 extension Reactive where Base: View {
-    
+
     /**
      Returns an observable `UIPanGestureRecognizer` events sequence
      - parameter configuration: A closure that allows to fully configure the gesture recognizer

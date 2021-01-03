@@ -44,7 +44,7 @@ extension Reactive where Base: View {
     public func transformGestures(
         configuration: TransformConfiguration? = nil
     ) -> TransformControlEvent {
-        
+
         let source = Observable.combineLatest(panGesture(), rotationGesture(), pinchGesture()) {
             TransformGestureRecognizers(
                 panGesture: $0,
@@ -52,7 +52,7 @@ extension Reactive where Base: View {
                 pinchGesture: $2
             )
         }
-        
+
         return ControlEvent(events: source)
     }
 }

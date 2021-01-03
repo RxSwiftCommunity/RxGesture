@@ -25,7 +25,7 @@ extension ObservableType where Element: GestureRecognizer {
 
     /**
      Filters the observable `GestureRecognizer` events sequence based on the `GestureRecognizer` state.
-     
+
      - parameter state: An `GestureRecognizerState` that is used to filter the `GestureRecognizer` events sequence.
      - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match the given `state`.
      */
@@ -34,10 +34,10 @@ extension ObservableType where Element: GestureRecognizer {
             states.contains(gesture.state)
         }
     }
-    
+
     /**
      Filters the observable `GestureRecognizer` events sequence based on the `GestureRecognizer` state.
-     
+
      - parameter state: An `GestureRecognizerState` that is used to filter the `GestureRecognizer` events sequence.
      - returns: An observable `GestureRecognizer` events sequence that only contains events emitted while the `GestureRecognizer`'s state match the given `state`.
      */
@@ -46,10 +46,10 @@ extension ObservableType where Element: GestureRecognizer {
             states.contains(gesture.state)
         }
     }
-    
+
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of points computed as the location in the given `view` of the gesture.
-     
+
      - parameter view: A `TargetView` value on which the gesture took place.
      */
     public func asLocation(in view: TargetView = .view) -> Observable<Point> {

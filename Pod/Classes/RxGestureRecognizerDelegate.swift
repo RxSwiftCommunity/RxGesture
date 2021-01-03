@@ -98,7 +98,7 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
     ) -> Bool {
         beginPolicy.isPolicyPassing(with: gestureRecognizer)
     }
-    
+
     public func gestureRecognizer(
         _ gestureRecognizer: GestureRecognizer,
         shouldReceive touch: Touch
@@ -107,7 +107,7 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
             with: (gestureRecognizer, touch)
         )
     }
-    
+
     public func gestureRecognizer(
         _ gestureRecognizer: GestureRecognizer,
         shouldRequireFailureOf otherGestureRecognizer: GestureRecognizer
@@ -116,7 +116,7 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
             with: (gestureRecognizer, otherGestureRecognizer)
         )
     }
-    
+
     public func gestureRecognizer(
         _ gestureRecognizer: GestureRecognizer,
         shouldBeRequiredToFailBy otherGestureRecognizer: GestureRecognizer
@@ -125,7 +125,7 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
             with: (gestureRecognizer, otherGestureRecognizer)
         )
     }
-    
+
     public func gestureRecognizer(
         _ gestureRecognizer: GestureRecognizer,
         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: GestureRecognizer
@@ -158,7 +158,7 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
             with: (gestureRecognizer, event)
         )
     }
-    
+
     #endif
 
 }
