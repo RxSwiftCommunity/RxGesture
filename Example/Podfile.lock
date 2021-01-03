@@ -1,20 +1,20 @@
 PODS:
-  - RxCocoa (5.0.0):
-    - RxRelay (~> 5)
-    - RxSwift (~> 5)
-  - RxGesture (3.0.0):
-    - RxCocoa (~> 5.0)
-    - RxSwift (~> 5.0)
-  - RxRelay (5.0.0):
-    - RxSwift (~> 5)
-  - RxSwift (5.0.0)
+  - RxCocoa (6.0.0):
+    - RxRelay (= 6.0.0)
+    - RxSwift (= 6.0.0)
+  - RxGesture (4.0.0):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRelay (6.0.0):
+    - RxSwift (= 6.0.0)
+  - RxSwift (6.0.0)
 
 DEPENDENCIES:
   - RxGesture (from `../`)
-  - RxSwift (~> 5.0)
+  - RxSwift (~> 6.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - RxCocoa
     - RxRelay
     - RxSwift
@@ -24,11 +24,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
-  RxGesture: 0cd8e37ff9a266e1c31f46bcaed6de1c536bc81e
-  RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
-  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
+  RxCocoa: 3f79328fafa3645b34600f37c31e64c73ae3a80e
+  RxGesture: 11c8959d9161deb7da24a12e91f3ebdf40256747
+  RxRelay: 8d593be109c06ea850df027351beba614b012ffb
+  RxSwift: c14e798c59b9f6e9a2df8fd235602e85cc044295
 
-PODFILE CHECKSUM: a8cc21e089344ff9252f7f3ac8d5361ebffc1d6d
+PODFILE CHECKSUM: 41b5a0f1fcc3d9137e772d5249c15454c63bde88
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.10.0

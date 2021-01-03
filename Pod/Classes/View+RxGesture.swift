@@ -96,13 +96,13 @@ extension Reactive where Base: View {
             control.addGestureRecognizer(gesture)
 
             return genericGesture.rx.event
-                .map { $0 as! G }
+                .compactMap { $0 as? G }
                 .startWith(gesture)
                 .do(onDispose: { [weak control, weak gesture] () in
                     guard let gesture = gesture else { return }
                     control?.removeGestureRecognizer(gesture)
                 })
-                .takeUntil(control.rx.deallocated)
+                .take(until: control.rx.deallocated)
         }
 
         return ControlEvent(events: source)

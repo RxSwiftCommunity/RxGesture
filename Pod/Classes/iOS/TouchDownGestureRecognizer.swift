@@ -66,7 +66,7 @@ extension Factory where Gesture == GestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func touchDown(configuration: TouchDownConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
@@ -77,8 +77,7 @@ extension Reactive where Base: View {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func touchDownGesture(configuration: TouchDownConfiguration? = nil) -> TouchDownControlEvent {
-
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 
@@ -88,7 +87,7 @@ extension ObservableType where Element: TouchDownGestureRecognizer {
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of force values.
      */
     public func asTouches() -> Observable<Set<UITouch>> {
-        return self.map { $0.touches }
+        self.map { $0.touches }
     }
 }
 

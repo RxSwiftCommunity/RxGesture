@@ -27,12 +27,8 @@ import RxCocoa
 public enum SwipeDirection {
     case right, left, up, down
 
-    #if swift(>=4.2)
     fileprivate typealias SwipeGestureRecognizerDirection = UISwipeGestureRecognizer.Direction
-    #else
-    fileprivate typealias SwipeGestureRecognizerDirection = UISwipeGestureRecognizerDirection
-    #endif
-
+    
     fileprivate var direction: SwipeGestureRecognizerDirection {
         switch self {
         case .right: return .right
@@ -44,7 +40,7 @@ public enum SwipeDirection {
 }
 
 private func make(direction: SwipeDirection, configuration: Configuration<UISwipeGestureRecognizer>?) -> Factory<UISwipeGestureRecognizer> {
-    return make {
+    make {
         $0.direction = direction.direction
         configuration?($0, $1)
     }
@@ -61,7 +57,7 @@ extension Factory where Gesture == GestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func swipe(direction: SwipeDirection, configuration: SwipeConfiguration? = nil) -> AnyFactory {
-        return make(direction: direction, configuration: configuration).abstracted()
+        make(direction: direction, configuration: configuration).abstracted()
     }
 }
 
@@ -72,7 +68,7 @@ extension Reactive where Base: View {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     private func swipeGesture(direction: SwipeDirection,configuration: SwipeConfiguration? = nil) -> SwipeControlEvent {
-        return gesture(make(direction: direction, configuration: configuration))
+        gesture(make(direction: direction, configuration: configuration))
     }
 
     /**
@@ -91,7 +87,7 @@ extension Reactive where Base: View {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func swipeGesture(_ directions: SwipeDirection...,configuration: SwipeConfiguration? = nil) -> SwipeControlEvent {
-        return swipeGesture(Set(directions), configuration: configuration)
+        swipeGesture(Set(directions), configuration: configuration)
     }
 
 }

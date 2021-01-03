@@ -41,7 +41,7 @@ extension Factory where Gesture == GestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func hover(configuration: HoverConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
@@ -53,7 +53,7 @@ extension Reactive where Base: View {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func hoverGesture(configuration: HoverConfiguration? = nil) -> HoverControlEvent {
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 
