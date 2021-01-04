@@ -28,21 +28,10 @@ class Step {
 
 class MacViewController: NSViewController {
 
-    #if compiler(>=5.2)
-    /// Typed parent object.
-    ///
-    /// - note: Since Swift 5.2 and Xcode 11.4, Apple have suddenly
-    ///         disallowed using `weak` for NSTextView. For more details
-    ///         see this GitHub Issue: https://git.io/JvSRn
-    @IBOutlet private var code: NSTextView!
-    #else
-    /// Typed parent object.
-    @IBOutlet private weak var code: NSTextView!
-    #endif
-
     @IBOutlet private weak var myView: NSView!
     @IBOutlet private weak var myViewText: NSTextField!
     @IBOutlet private weak var info: NSTextField!
+    @IBOutlet private var code: NSTextView!
     
     fileprivate let nextStepObserver = PublishSubject<Step.Action>()
     fileprivate let bag = DisposeBag()
