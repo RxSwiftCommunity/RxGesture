@@ -67,7 +67,7 @@ extension Reactive where Base: View {
      - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
      */
     public func gesture<G>(_ factory: Factory<G>) -> ControlEvent<G> {
-        return self.gesture(factory.gesture)
+        self.gesture(factory.gesture)
     }
 
     /**
@@ -81,8 +81,7 @@ extension Reactive where Base: View {
      */
     public func gesture<G: GestureRecognizer>(_ gesture: G) -> ControlEvent<G> {
 
-        let source = Observable.deferred {
-            [weak control = self.base] () -> Observable<G> in
+        let source = Observable.deferred { [weak control = self.base] () -> Observable<G> in
             MainScheduler.ensureExecutingOnScheduler()
 
             guard let control = control else { return .empty() }

@@ -77,10 +77,7 @@ public final class RxGestureRecognizerDelegate: NSObject, GestureRecognizerDeleg
     /// Corresponding delegate method: gestureRecognizer(_:shouldReceive:)
     public var pressReceptionPolicy: GestureRecognizerDelegatePolicy<(GestureRecognizer, UIPress)> {
         get {
-            if let policy = _pressReceptionPolicy as? GestureRecognizerDelegatePolicy<(GestureRecognizer, UIPress)> {
-                return policy
-            }
-            return GestureRecognizerDelegatePolicy<(GestureRecognizer, UIPress)>.always
+            _pressReceptionPolicy as? GestureRecognizerDelegatePolicy<(GestureRecognizer, UIPress)> ?? .always
         }
         set {
             _pressReceptionPolicy = newValue

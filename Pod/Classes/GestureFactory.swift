@@ -41,12 +41,12 @@ public struct Factory<Gesture: GestureRecognizer> {
     }
 
     internal func abstracted() -> AnyFactory {
-        return AnyFactory(self.gesture)
+        AnyFactory(self.gesture)
     }
 }
 
 internal func make<G>(configuration: Configuration<G>? = nil) -> Factory<G> {
-    return Factory<G>(configuration)
+    Factory<G>(configuration)
 }
 
 public typealias AnyFactory = Factory<GestureRecognizer>

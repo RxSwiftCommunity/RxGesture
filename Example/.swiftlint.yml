@@ -1,5 +1,6 @@
 excluded:
   - Pods
+
 opt_in_rules:
   - overridden_super_call
   - private_outlet
@@ -11,6 +12,8 @@ opt_in_rules:
   - pattern_matching_keywords
   - explicit_init
   - contains_over_first_not_nil
+  - implicit_return
+
 disabled_rules:
   - line_length
   - trailing_whitespace

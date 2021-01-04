@@ -1,4 +1,3 @@
-
 #if canImport(UIKit)
 
 import UIKit.UIGestureRecognizerSubclass
@@ -42,12 +41,12 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
         }
         force = Array(touches)[1...]
             .lazy
-            .map { $0.force}
+            .map { $0.force }
             .reduce(touch.force, +) / CGFloat(touches.count)
 
         maximumPossibleForce = Array(touches)[1...]
             .lazy
-            .map { $0.maximumPossibleForce}
+            .map { $0.maximumPossibleForce }
             .reduce(touch.maximumPossibleForce, +) / CGFloat(touches.count)
     }
 }
