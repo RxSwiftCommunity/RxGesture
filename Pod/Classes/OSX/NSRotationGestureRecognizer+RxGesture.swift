@@ -33,7 +33,7 @@ extension Factory where Gesture == GestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func rotation(configuration: RotationConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
@@ -44,7 +44,7 @@ extension Reactive where Base: View {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func rotationGesture(configuration: RotationConfiguration? = nil) -> RotationControlEvent {
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 
@@ -54,8 +54,8 @@ extension ObservableType where Element: NSRotationGestureRecognizer {
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of rotation values of the gesture in radians.
      */
     public func asRotation() -> Observable<CGFloat> {
-        return self.map { gesture in
-            return gesture.rotation
+        self.map { gesture in
+            gesture.rotation
         }
     }
 }

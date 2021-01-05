@@ -5,9 +5,9 @@
 
 Pod::Spec.new do |s|
   s.name             = "RxGesture"
-  s.version          = "3.0.2"
+  s.version          = "4.0.0"
   s.summary          = "RxSwift reactive wrapper for view gestures."
-  s.swift_version    = "5.0"
+  s.swift_version    = "5.1"
 
   s.description      = <<-DESC
 					  RxSwift reactive wrapper for view gestures. It lets you to easily observe
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.osx.deployment_target = '10.10'
 
   s.source_files = 'Pod/Classes/*.swift'
@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.ios.source_files      = 'Pod/Classes/iOS/*.swift'
   s.osx.source_files      = 'Pod/Classes/OSX/*.swift'
 
-  s.dependency 'RxSwift', '~> 5.1'
-  s.dependency 'RxCocoa', '~> 5.1'
+  s.dependency 'RxSwift', '~> 6.0'
+  s.dependency 'RxCocoa', '~> 6.0'
 
 end

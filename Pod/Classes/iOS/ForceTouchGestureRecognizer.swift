@@ -1,11 +1,9 @@
-
 #if canImport(UIKit)
 
 import UIKit.UIGestureRecognizerSubclass
 import RxSwift
 import RxCocoa
 
-@available(iOS 9.0, *)
 public class ForceTouchGestureRecognizer: UIGestureRecognizer {
 
     public var numberOfTouchesRequired: Int = 1
@@ -43,24 +41,20 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
         }
         force = Array(touches)[1...]
             .lazy
-            .map { $0.force}
+            .map { $0.force }
             .reduce(touch.force, +) / CGFloat(touches.count)
 
         maximumPossibleForce = Array(touches)[1...]
             .lazy
-            .map { $0.maximumPossibleForce}
+            .map { $0.maximumPossibleForce }
             .reduce(touch.maximumPossibleForce, +) / CGFloat(touches.count)
     }
 }
 
-@available(iOS 9.0, *)
 public typealias ForceTouchConfiguration = Configuration<ForceTouchGestureRecognizer>
-@available(iOS 9.0, *)
 public typealias ForceTouchControlEvent = ControlEvent<ForceTouchGestureRecognizer>
-@available(iOS 9.0, *)
 public typealias ForceTouchObservable = Observable<ForceTouchGestureRecognizer>
 
-@available(iOS 9.0, *)
 extension Factory where Gesture == GestureRecognizer {
 
     /**
@@ -68,11 +62,10 @@ extension Factory where Gesture == GestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func forceTouch(configuration: ForceTouchConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
-@available(iOS 9.0, *)
 extension Reactive where Base: View {
 
     /**
@@ -80,18 +73,17 @@ extension Reactive where Base: View {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func forceTouchGesture(configuration: ForceTouchConfiguration? = nil) -> ForceTouchControlEvent {
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 
-@available(iOS 9.0, *)
 extension ObservableType where Element: ForceTouchGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of force values.
      */
     public func asForce() -> Observable<CGFloat> {
-        return self.map { $0.force }
+        self.map { $0.force }
     }
 }
 

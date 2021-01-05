@@ -1,14 +1,13 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 use_frameworks!
 
 def commonDependencies
     pod 'RxGesture', :path => '../'
-    pod 'RxSwift', '~> 5.0'
-    pod 'RxSwift', '~> 5.0'
+    pod 'RxSwift', '~> 6.0'
 end
 
 target 'RxGesture_iOS_Demo' do
-    platform :ios, '8.0'
+    platform :ios, '9.0'
     commonDependencies
 end
 

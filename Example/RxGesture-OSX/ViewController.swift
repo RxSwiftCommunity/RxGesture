@@ -31,8 +31,8 @@ class MacViewController: NSViewController {
     @IBOutlet private weak var myView: NSView!
     @IBOutlet private weak var myViewText: NSTextField!
     @IBOutlet private weak var info: NSTextField!
-    @IBOutlet private weak var code: NSTextView!
-
+    @IBOutlet private var code: NSTextView!
+    
     fileprivate let nextStepObserver = PublishSubject<Step.Action>()
     fileprivate let bag = DisposeBag()
     fileprivate var stepBag = DisposeBag()
