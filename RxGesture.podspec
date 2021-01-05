@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.homepage         = "https://github.com/RxSwiftCommunity/RxGesture"
   s.license          = 'MIT'
-  s.authors          = { "Marin Todorov" => "touch-code-magazine@underplot.com", "Jérôme Alves" => "j.alves@me.com" }
+  s.authors          = { "RxSwiftCommunity" => "https://github.com/RxSwiftCommunity", "Jérôme Alves" => "j.alves@me.com" }
   s.source           = { :git => "https://github.com/RxSwiftCommunity/RxGesture.git", :tag => s.version.to_s }
 
   s.requires_arc = true
