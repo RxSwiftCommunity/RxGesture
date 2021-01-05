@@ -26,7 +26,7 @@ public typealias PanConfiguration = Configuration<NSPanGestureRecognizer>
 public typealias PanControlEvent = ControlEvent<NSPanGestureRecognizer>
 public typealias PanObservable = Observable<NSPanGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `NSPanGestureRecognizer`
@@ -37,7 +37,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `NSPanGestureRecognizer` events sequence

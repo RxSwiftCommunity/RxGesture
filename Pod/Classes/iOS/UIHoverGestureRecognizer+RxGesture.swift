@@ -34,7 +34,7 @@ public typealias HoverObservable = Observable<UIHoverGestureRecognizer>
 
 
 @available(iOS 13.0, *)
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UIHoverGestureRecognizer`
@@ -46,7 +46,7 @@ extension Factory where Gesture == GestureRecognizer {
 }
 
 @available(iOS 13.0, *)
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `UIHoverGestureRecognizer` events sequence

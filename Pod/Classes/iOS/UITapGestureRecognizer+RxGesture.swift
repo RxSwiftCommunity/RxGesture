@@ -28,7 +28,7 @@ public typealias TapConfiguration = Configuration<UITapGestureRecognizer>
 public typealias TapControlEvent = ControlEvent<UITapGestureRecognizer>
 public typealias TapObservable = Observable<UITapGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UITapGestureRecognizer`
@@ -39,7 +39,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `UITapGestureRecognizer` events sequence

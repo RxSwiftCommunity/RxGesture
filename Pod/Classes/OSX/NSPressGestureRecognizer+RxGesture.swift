@@ -26,7 +26,7 @@ public typealias PressConfiguration = Configuration<NSPressGestureRecognizer>
 public typealias PressControlEvent = ControlEvent<NSPressGestureRecognizer>
 public typealias PressObservable = Observable<NSPressGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `NSPressGestureRecognizer`
@@ -37,7 +37,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `NSPressGestureRecognizer` events sequence

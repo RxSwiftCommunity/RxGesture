@@ -28,7 +28,7 @@ public typealias LongPressConfiguration = Configuration<UILongPressGestureRecogn
 public typealias LongPressControlEvent = ControlEvent<UILongPressGestureRecognizer>
 public typealias LongPressObservable = Observable<UILongPressGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UILongPressGestureRecognizer`
@@ -39,7 +39,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `UILongPressGestureRecognizer` events sequence

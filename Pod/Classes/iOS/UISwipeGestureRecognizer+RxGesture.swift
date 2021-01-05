@@ -50,7 +50,7 @@ public typealias SwipeConfiguration = Configuration<UISwipeGestureRecognizer>
 public typealias SwipeControlEvent = ControlEvent<UISwipeGestureRecognizer>
 public typealias SwipeObservable = Observable<UISwipeGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `UISwipeGestureRecognizer`
@@ -61,7 +61,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `UISwipeGestureRecognizer` events sequence

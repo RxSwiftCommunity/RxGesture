@@ -17,9 +17,9 @@ class Step {
 
     let title: String
     let code: String
-    let install: (NSView, NSTextField, AnyObserver<Action>, DisposeBag) -> Void
+    let install: (NSView, NSTextField, @escaping () -> Void, DisposeBag) -> Void
 
-    init(title: String, code: String, install: @escaping (NSView, NSTextField, AnyObserver<Action>, DisposeBag) -> Void) {
+    init(title: String, code: String, install: @escaping (NSView, NSTextField, @escaping () -> Void, DisposeBag) -> Void) {
         self.title = title
         self.code = code
         self.install = install
@@ -60,9 +60,9 @@ class MacViewController: NSViewController {
         func newIndex(for index: Int, action: Step.Action) -> Int {
             switch action {
             case .previous:
-                return index > 0 ? index - 1 : steps.count - 1
+                return (steps.count + index - 1) % steps.count
             case .next:
-                return index < steps.count - 1 ? index + 1 : 0
+                return (steps.count + index + 1) % steps.count
             }
         }
 
@@ -100,7 +100,7 @@ class MacViewController: NSViewController {
         code.string = step.code
 
         myViewText.stringValue = ""
-        step.install(myView, myViewText, nextStepObserver.asObserver(), stepBag)
+        step.install(myView, myViewText, { [nextStepObserver] in nextStepObserver.onNext(.next) }, stepBag)
 
         print("active gestures: \(myView.gestureRecognizers.count)")
     }
@@ -125,7 +125,7 @@ class MacViewController: NSViewController {
                 .leftClickGesture()
                 .when(.recognized)
                 .subscribe(onNext: { _ in
-                    nextStep.onNext(.next)
+                    nextStep()
                 })
                 .disposed(by: stepBag)
     })
@@ -154,7 +154,7 @@ class MacViewController: NSViewController {
                 }
                 .when(.recognized)
                 .subscribe(onNext: { _ in
-                    nextStep.onNext(.next)
+                    nextStep()
                 })
                 .disposed(by: stepBag)
     })
@@ -179,7 +179,7 @@ class MacViewController: NSViewController {
                 .rightClickGesture()
                 .when(.recognized)
                 .subscribe(onNext: { _ in
-                    nextStep.onNext(.next)
+                    nextStep()
                 })
                 .disposed(by: stepBag)
     })
@@ -204,7 +204,7 @@ class MacViewController: NSViewController {
                 .anyGesture(.leftClick(), .rightClick())
                 .when(.recognized)
                 .subscribe(onNext: { _ in
-                    nextStep.onNext(.next)
+                    nextStep()
                 })
                 .disposed(by: stepBag)
     })
@@ -229,7 +229,7 @@ class MacViewController: NSViewController {
                 .pressGesture()
                 .when(.began)
                 .subscribe(onNext: { _ in
-                    nextStep.onNext(.next)
+                    nextStep()
                 })
                 .disposed(by: stepBag)
     })
@@ -276,7 +276,7 @@ class MacViewController: NSViewController {
                     (.leftClick(), when: .recognized)
                 )
                 .subscribe(onNext: { _ in
-                    nextStep.onNext(.next)
+                    nextStep()
                 })
                 .disposed(by: stepBag)
     })
@@ -312,7 +312,7 @@ class MacViewController: NSViewController {
                 .when(.changed)
                 .asRotation()
                 .subscribe(onNext: { rotation in
-                    label.stringValue = String(format: "angle: %.2f", rotation)
+                    label.stringValue = String(format: "%.0fº", rotation * 180 / .pi)
                     view.layer!.transform = CATransform3DMakeRotation(rotation, 0, 0, 1)
                 })
                 .disposed(by: stepBag)
@@ -323,7 +323,7 @@ class MacViewController: NSViewController {
                     (.leftClick(), when: .recognized)
                 )
                 .subscribe(onNext: { _ in
-                    nextStep.onNext(.next)
+                    nextStep()
                 })
                 .disposed(by: stepBag)
     })
@@ -370,7 +370,7 @@ class MacViewController: NSViewController {
                     (.leftClick(), when: .recognized)
                 )
                 .subscribe(onNext: { _ in
-                    nextStep.onNext(.next)
+                    nextStep()
                 })
                 .disposed(by: stepBag)
     })
@@ -380,7 +380,7 @@ class MacViewController: NSViewController {
 private extension NSView {
 
     func animateTransform(to transform: CATransform3D) {
-        let initialTransform = self.layer!.transform
+        let initialTransform = self.layer?.presentation()?.transform ?? self.layer!.model().transform
 
         let anim = CABasicAnimation(keyPath: "transform")
         anim.duration = 0.5
@@ -391,7 +391,7 @@ private extension NSView {
     }
 
     func animateBackgroundColor(to color: NSColor) {
-        let initialColor = self.layer!.backgroundColor!
+        let initialColor = self.layer?.presentation()?.backgroundColor ?? self.layer?.model().backgroundColor
 
         let anim = CABasicAnimation(keyPath: "backgroundColor")
         anim.duration = 0.5

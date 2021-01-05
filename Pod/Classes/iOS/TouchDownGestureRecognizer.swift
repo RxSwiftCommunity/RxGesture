@@ -4,12 +4,29 @@ import UIKit.UIGestureRecognizerSubclass
 import RxSwift
 import RxCocoa
 
-public class TouchDownGestureRecognizer: UILongPressGestureRecognizer {
+public class TouchDownGestureRecognizer: UIGestureRecognizer {
 
     public override init(target: Any?, action: Selector?) {
         super.init(target: target, action: action)
-        minimumPressDuration = 0.0
+
+        trigger
+            .flatMapFirst { [unowned self] _ -> Observable<Void> in
+                let trigger = Observable.just(())
+                guard self.state == .possible else {
+                    return trigger
+                }
+                return trigger.delay(
+                    .milliseconds(Int(self.minimumTouchDuration * 1000)),
+                    scheduler: MainScheduler.instance
+                )
+            }
+            .subscribe(onNext: { [unowned self] _ in
+                self.touches = self._touches
+            })
+            .disposed(by: triggerDisposeBag)
     }
+
+    public var minimumTouchDuration: TimeInterval = 0
 
     /**
      When set to `false`, it allows to bypass the touch ignoring mechanism in order to get absolutely all touch down events.
@@ -18,26 +35,52 @@ public class TouchDownGestureRecognizer: UILongPressGestureRecognizer {
      */
     public var isTouchIgnoringEnabled: Bool = true
 
-    @nonobjc public var touches: Set<UITouch> = []
+    @nonobjc public var touches: Set<UITouch> = [] {
+        didSet {
+            if touches.isEmpty {
+                if state == .possible {
+                    state = .cancelled
+                } else {
+                    state = .ended
+                }
+            } else {
+                if state == .possible {
+                    state = .began
+                } else {
+                    state = .changed
+                }
+            }
+        }
+    }
 
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
-        self.touches.formUnion(touches)
+        setTouches(from: event)
     }
-    
+
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesMoved(touches, with: event)
-        self.touches.formUnion(touches)
+        setTouches(from: event)
     }
-    
+
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesEnded(touches, with: event)
-        self.touches.subtract(touches)
+        setTouches(from: event)
     }
 
     public override  func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesCancelled(touches, with: event)
-        self.touches.subtract(touches)
+        setTouches(from: event)
+    }
+
+    private let triggerDisposeBag = DisposeBag()
+    private let trigger = PublishSubject<Void>()
+    private var _touches: Set<UITouch> = []
+    private func setTouches(from event: UIEvent) {
+        _touches = (event.allTouches ?? []).filter { touch in
+            [.began, .stationary, .moved].contains(touch.phase)
+        }
+        trigger.onNext(())
     }
 
     public override func reset() {
@@ -58,7 +101,7 @@ public typealias TouchDownConfiguration = Configuration<TouchDownGestureRecogniz
 public typealias TouchDownControlEvent = ControlEvent<TouchDownGestureRecognizer>
 public typealias TouchDownObservable = Observable<TouchDownGestureRecognizer>
 
-extension Factory where Gesture == GestureRecognizer {
+extension Factory where Gesture == RxGestureRecognizer {
 
     /**
      Returns an `AnyFactory` for `TouchDownGestureRecognizer`
@@ -69,7 +112,7 @@ extension Factory where Gesture == GestureRecognizer {
     }
 }
 
-extension Reactive where Base: View {
+extension Reactive where Base: RxGestureView {
 
     /**
      Returns an observable `TouchDownGestureRecognizer` events sequence
