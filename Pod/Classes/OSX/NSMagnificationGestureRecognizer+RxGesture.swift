@@ -33,7 +33,7 @@ extension Factory where Gesture == RxGestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func magnification(configuration: MagnificationConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
@@ -44,7 +44,7 @@ extension Reactive where Base: RxGestureView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func magnificationGesture(configuration: MagnificationConfiguration? = nil) -> MagnificationControlEvent {
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 
@@ -54,8 +54,8 @@ extension ObservableType where Element: NSMagnificationGestureRecognizer {
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of magnification amounts alongside the gesture velocity.
      */
     public func asMagnification() -> Observable<CGFloat> {
-        return self.map { gesture in
-            return gesture.magnification
+        self.map { gesture in
+            gesture.magnification
         }
     }
 
@@ -63,8 +63,8 @@ extension ObservableType where Element: NSMagnificationGestureRecognizer {
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of scale factors relative to the points of the two touches in screen coordinates alongside the gesture velocity.
      */
     public func asScale() -> Observable<CGFloat> {
-        return self.map { gesture in
-            return 1.0 + gesture.magnification
+        self.map { gesture in
+            1.0 + gesture.magnification
         }
     }
 }

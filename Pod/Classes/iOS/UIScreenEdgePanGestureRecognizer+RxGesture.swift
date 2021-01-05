@@ -35,7 +35,7 @@ extension Factory where Gesture == RxGestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func screenEdgePan(configuration: ScreenEdgePanConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
@@ -46,7 +46,7 @@ extension Reactive where Base: RxGestureView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func screenEdgePanGesture(configuration: ScreenEdgePanConfiguration? = nil) -> ScreenEdgePanControlEvent {
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 

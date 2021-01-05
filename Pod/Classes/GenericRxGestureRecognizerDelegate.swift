@@ -30,27 +30,27 @@ public struct GestureRecognizerDelegatePolicy<PolicyInput> {
     public typealias PolicyBody = (PolicyInput) -> Bool
 
     private let policy: PolicyBody
+
     private init(policy: @escaping PolicyBody) {
         self.policy = policy
     }
 
     public static func custom(_ policy: @escaping PolicyBody)
         -> GestureRecognizerDelegatePolicy<PolicyInput> {
-            return .init(policy: policy)
+            .init(policy: policy)
     }
 
     public static var always: GestureRecognizerDelegatePolicy<PolicyInput> {
-        return .init { _ in true }
+        .init { _ in true }
     }
 
     public static var never: GestureRecognizerDelegatePolicy<PolicyInput> {
-        return .init { _ in false }
+        .init { _ in false }
     }
 
     public func isPolicyPassing(with args: PolicyInput) -> Bool {
-        return policy(args)
+        policy(args)
     }
-
 }
 
 public func || <PolicyInput>(lhs: GestureRecognizerDelegatePolicy<PolicyInput>, rhs: GestureRecognizerDelegatePolicy<PolicyInput>) -> GestureRecognizerDelegatePolicy<PolicyInput>  {
@@ -86,14 +86,10 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: RxGestureRecogniz
     // Workaround because we can't have stored properties with @available annotation
     private var _pressReceptionPolicy: Any?
 
-    @available(iOS 9.0, *)
     /// Corresponding delegate method: gestureRecognizer(_:shouldReceive:)
     public var pressReceptionPolicy: GestureRecognizerDelegatePolicy<(Gesture, UIPress)> {
         get {
-            if let policy = _pressReceptionPolicy as? GestureRecognizerDelegatePolicy<(Gesture, UIPress)> {
-                return policy
-            }
-            return GestureRecognizerDelegatePolicy<(Gesture, UIPress)>.always
+            _pressReceptionPolicy as? GestureRecognizerDelegatePolicy<(Gesture, UIPress)> ?? .always
         }
         set {
             _pressReceptionPolicy = newValue
@@ -109,14 +105,14 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: RxGestureRecogniz
     public func gestureRecognizerShouldBegin(
         _ gestureRecognizer: RxGestureRecognizer
         ) -> Bool {
-        return beginPolicy.isPolicyPassing(with: gestureRecognizer as! Gesture)
+        beginPolicy.isPolicyPassing(with: gestureRecognizer as! Gesture)
     }
 
     public func gestureRecognizer(
         _ gestureRecognizer: RxGestureRecognizer,
         shouldReceive touch: RxGestureTouch
         ) -> Bool {
-        return touchReceptionPolicy.isPolicyPassing(
+        touchReceptionPolicy.isPolicyPassing(
             with: (gestureRecognizer as! Gesture, touch)
         )
     }
@@ -125,7 +121,7 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: RxGestureRecogniz
         _ gestureRecognizer: RxGestureRecognizer,
         shouldRequireFailureOf otherGestureRecognizer: RxGestureRecognizer
         ) -> Bool {
-        return otherFailureRequirementPolicy.isPolicyPassing(
+        otherFailureRequirementPolicy.isPolicyPassing(
             with: (gestureRecognizer as! Gesture, otherGestureRecognizer)
         )
     }
@@ -134,7 +130,7 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: RxGestureRecogniz
         _ gestureRecognizer: RxGestureRecognizer,
         shouldBeRequiredToFailBy otherGestureRecognizer: RxGestureRecognizer
         ) -> Bool {
-        return selfFailureRequirementPolicy.isPolicyPassing(
+        selfFailureRequirementPolicy.isPolicyPassing(
             with: (gestureRecognizer as! Gesture, otherGestureRecognizer)
         )
     }
@@ -143,19 +139,18 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: RxGestureRecogniz
         _ gestureRecognizer: RxGestureRecognizer,
         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: RxGestureRecognizer
         ) -> Bool {
-        return simultaneousRecognitionPolicy.isPolicyPassing(
+        simultaneousRecognitionPolicy.isPolicyPassing(
             with: (gestureRecognizer as! Gesture, otherGestureRecognizer)
         )
     }
 
     #if os(iOS)
 
-    @available(iOS 9.0, *)
     public func gestureRecognizer(
         _ gestureRecognizer: RxGestureRecognizer,
         shouldReceive press: UIPress
         ) -> Bool {
-        return pressReceptionPolicy.isPolicyPassing(
+        pressReceptionPolicy.isPolicyPassing(
             with: (gestureRecognizer as! Gesture, press)
         )
     }
@@ -168,7 +163,7 @@ public final class GenericRxGestureRecognizerDelegate<Gesture: RxGestureRecogniz
         _ gestureRecognizer: RxGestureRecognizer,
         shouldAttemptToRecognizeWith event: NSEvent
         ) -> Bool {
-        return eventRecognitionAttemptPolicy.isPolicyPassing(
+        eventRecognitionAttemptPolicy.isPolicyPassing(
             with: (gestureRecognizer as! Gesture, event)
         )
     }

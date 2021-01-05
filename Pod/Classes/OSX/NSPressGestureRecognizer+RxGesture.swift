@@ -33,7 +33,7 @@ extension Factory where Gesture == RxGestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func press(configuration: PressConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
@@ -44,7 +44,7 @@ extension Reactive where Base: RxGestureView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func pressGesture(configuration: PressConfiguration? = nil) -> PressControlEvent {
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 #endif

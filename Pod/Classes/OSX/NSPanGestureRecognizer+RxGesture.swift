@@ -33,7 +33,7 @@ extension Factory where Gesture == RxGestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func pan(configuration: PanConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
@@ -44,7 +44,7 @@ extension Reactive where Base: RxGestureView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func panGesture(configuration: PanConfiguration? = nil) -> PanControlEvent {
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 
@@ -56,7 +56,7 @@ extension ObservableType where Element: NSPanGestureRecognizer {
      - parameter view: A `TargetView` value on which the gesture took place.
      */
     public func asTranslation(in view: TargetView = .view) -> Observable<(translation: NSPoint, velocity: NSPoint)> {
-        return self.map { gesture in
+        self.map { gesture in
             let view = view.targetView(for: gesture)
             return (
                 gesture.translation(in: view),

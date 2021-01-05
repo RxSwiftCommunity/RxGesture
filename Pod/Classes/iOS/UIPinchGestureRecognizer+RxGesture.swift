@@ -35,7 +35,7 @@ extension Factory where Gesture == RxGestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func pinch(configuration: PinchConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
@@ -46,7 +46,7 @@ extension Reactive where Base: RxGestureView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func pinchGesture(configuration: PinchConfiguration? = nil) -> PinchControlEvent {
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 
@@ -56,8 +56,8 @@ extension ObservableType where Element: UIPinchGestureRecognizer {
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of scale factors relative to the points of the two touches in screen coordinates alongside the gesture velocity.
      */
     public func asScale() -> Observable<(scale: CGFloat, velocity: CGFloat)> {
-        return self.map { gesture in
-            return (gesture.scale, gesture.velocity)
+        self.map { gesture in
+            (gesture.scale, gesture.velocity)
         }
     }
 }

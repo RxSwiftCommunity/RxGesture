@@ -9,6 +9,7 @@ DerivedData
 ## SPM Generated
 *.xcodeproj
 *.resolved
+.swiftpm/
 
 ## Various settings
 *.pbxuser

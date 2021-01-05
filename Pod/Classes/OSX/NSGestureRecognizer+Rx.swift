@@ -24,7 +24,9 @@ import RxCocoa
 
 private class GestureTarget {
 
-    fileprivate var retainedSelf: GestureTarget?
+    private var retainedSelf: GestureTarget?
+
+    var handler: (() -> Void)?
 
     init() {
         retainedSelf = self
@@ -37,8 +39,6 @@ private class GestureTarget {
     @objc func controlEvent() {
         handler?()
     }
-
-    var handler: (() -> Void)?
 }
 
 extension Reactive where Base: NSGestureRecognizer {
@@ -67,7 +67,7 @@ extension Reactive where Base: NSGestureRecognizer {
                 }
                 gestureTarget.dispose()
             }
-        }.takeUntil(self.deallocated)
+        }.take(until: self.deallocated)
 
         return ControlEvent(events: source)
     }

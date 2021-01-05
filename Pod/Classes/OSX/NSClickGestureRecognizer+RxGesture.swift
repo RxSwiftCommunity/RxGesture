@@ -23,7 +23,7 @@ import RxSwift
 import RxCocoa
 
 private func make(mask: Int, configuration: Configuration<NSClickGestureRecognizer>?) -> Factory<NSClickGestureRecognizer> {
-    return make {
+    make {
         $0.buttonMask = mask
         configuration?($0, $1)
     }
@@ -41,7 +41,7 @@ extension Factory where Gesture == RxGestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func click(buttonMask: Int, configuration: ClickConfiguration? = nil) -> AnyFactory {
-        return make(mask: buttonMask, configuration: configuration).abstracted()
+        make(mask: buttonMask, configuration: configuration).abstracted()
     }
 
     /**
@@ -49,7 +49,7 @@ extension Factory where Gesture == RxGestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func leftClick(configuration: ClickConfiguration? = nil) -> AnyFactory {
-        return click(buttonMask: 0x1, configuration: configuration)
+        click(buttonMask: 0x1, configuration: configuration)
     }
 
     /**
@@ -57,7 +57,7 @@ extension Factory where Gesture == RxGestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func rightClick(configuration: ClickConfiguration? = nil) -> AnyFactory {
-        return click(buttonMask: 0x2, configuration: configuration)
+        click(buttonMask: 0x2, configuration: configuration)
     }
 }
 
@@ -68,7 +68,7 @@ extension Reactive where Base: RxGestureView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func clickGesture(buttonMask: Int, configuration: ClickConfiguration? = nil) -> ClickControlEvent {
-        return gesture(make(mask: buttonMask, configuration: configuration))
+        gesture(make(mask: buttonMask, configuration: configuration))
     }
 
     /**
@@ -76,7 +76,7 @@ extension Reactive where Base: RxGestureView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func leftClickGesture(configuration: ClickConfiguration? = nil) -> ClickControlEvent {
-        return gesture(make(mask: 0x1, configuration: configuration))
+        gesture(make(mask: 0x1, configuration: configuration))
     }
 
     /**
@@ -84,7 +84,7 @@ extension Reactive where Base: RxGestureView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func rightClickGesture(configuration: ClickConfiguration? = nil) -> ClickControlEvent {
-        return gesture(make(mask: 0x2, configuration: configuration))
+        gesture(make(mask: 0x2, configuration: configuration))
     }
 
 }

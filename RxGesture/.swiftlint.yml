@@ -9,6 +9,8 @@ opt_in_rules:
   - pattern_matching_keywords
   - explicit_init
   - contains_over_first_not_nil
+  - implicit_return
+
 disabled_rules:
   - line_length
   - trailing_whitespace
@@ -32,3 +34,6 @@ disabled_rules:
   - type_body_length
   - function_body_length
   - cyclomatic_complexity
+
+included:
+  - ../Pod/Classes

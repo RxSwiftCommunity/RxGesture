@@ -24,11 +24,7 @@ import Foundation
     import UIKit
     public typealias RxGestureTouch = UITouch
     public typealias RxGestureRecognizer = UIGestureRecognizer
-    #if swift(>=4.2)
-        public typealias RxGestureRecognizerState = UIGestureRecognizer.State
-    #else
-        public typealias RxGestureRecognizerState = UIGestureRecognizerState
-    #endif
+    public typealias RxGestureRecognizerState = UIGestureRecognizer.State
     public typealias RxGestureRecognizerDelegate = UIGestureRecognizerDelegate
     public typealias RxGestureView = UIView
     public typealias RxGesturePoint = CGPoint
@@ -67,7 +63,7 @@ public enum TargetView {
             #elseif os(OSX)
                 return gestureRecognizer.view?.window?.contentView
             #endif
-        case .this(let view):
+        case let .this(view):
             return view
         }
     }

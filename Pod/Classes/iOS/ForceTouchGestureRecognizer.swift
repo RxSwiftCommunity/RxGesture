@@ -1,11 +1,9 @@
-
 #if canImport(UIKit)
 
 import UIKit.UIGestureRecognizerSubclass
 import RxSwift
 import RxCocoa
 
-@available(iOS 9.0, *)
 public class ForceTouchGestureRecognizer: UIGestureRecognizer {
 
     private var touch: UITouch?
@@ -66,14 +64,10 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
     }
 }
 
-@available(iOS 9.0, *)
 public typealias ForceTouchConfiguration = Configuration<ForceTouchGestureRecognizer>
-@available(iOS 9.0, *)
 public typealias ForceTouchControlEvent = ControlEvent<ForceTouchGestureRecognizer>
-@available(iOS 9.0, *)
 public typealias ForceTouchObservable = Observable<ForceTouchGestureRecognizer>
 
-@available(iOS 9.0, *)
 extension Factory where Gesture == RxGestureRecognizer {
 
     /**
@@ -81,11 +75,10 @@ extension Factory where Gesture == RxGestureRecognizer {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public static func forceTouch(configuration: ForceTouchConfiguration? = nil) -> AnyFactory {
-        return make(configuration: configuration).abstracted()
+        make(configuration: configuration).abstracted()
     }
 }
 
-@available(iOS 9.0, *)
 extension Reactive where Base: RxGestureView {
 
     /**
@@ -93,18 +86,17 @@ extension Reactive where Base: RxGestureView {
      - parameter configuration: A closure that allows to fully configure the gesture recognizer
      */
     public func forceTouchGesture(configuration: ForceTouchConfiguration? = nil) -> ForceTouchControlEvent {
-        return gesture(make(configuration: configuration))
+        gesture(make(configuration: configuration))
     }
 }
 
-@available(iOS 9.0, *)
 extension ObservableType where Element: ForceTouchGestureRecognizer {
 
     /**
      Maps the observable `GestureRecognizer` events sequence to an observable sequence of force values.
      */
     public func asForce() -> Observable<CGFloat> {
-        return self.map { $0.force }
+        self.map { $0.force }
     }
 
     public func when(fractionCompletedExceeds threshold: CGFloat) -> Observable<Element> {

@@ -67,7 +67,7 @@ extension Reactive where Base: RxGestureView {
      - returns: a `ControlEvent<G>` that re-emit the gesture recognizer itself
      */
     public func gesture<G>(_ factory: Factory<G>) -> ControlEvent<G> {
-        return self.gesture(factory.gesture)
+        self.gesture(factory.gesture)
     }
 
     /**
@@ -81,8 +81,7 @@ extension Reactive where Base: RxGestureView {
      */
     public func gesture<G: RxGestureRecognizer>(_ gesture: G) -> ControlEvent<G> {
 
-        let source = Observable.deferred {
-            [weak control = self.base] () -> Observable<G> in
+        let source = Observable.deferred { [weak control = self.base] () -> Observable<G> in
             MainScheduler.ensureExecutingOnScheduler()
 
             guard let control = control else { return .empty() }
@@ -96,7 +95,7 @@ extension Reactive where Base: RxGestureView {
             control.addGestureRecognizer(gesture)
 
             return genericGesture.rx.event
-                .map { $0 as! G }
+                .compactMap { $0 as? G }
                 .startWith(gesture)
                 .do(onDispose: { [weak control, weak gesture] () in
                     guard let gesture = gesture else { return }
@@ -104,7 +103,7 @@ extension Reactive where Base: RxGestureView {
                         control?.removeGestureRecognizer(gesture)
                     }
                 })
-                .takeUntil(control.rx.deallocated)
+                .take(until: control.rx.deallocated)
         }
 
         return ControlEvent(events: source)
