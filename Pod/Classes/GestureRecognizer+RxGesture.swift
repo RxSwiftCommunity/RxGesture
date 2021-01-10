@@ -20,6 +20,7 @@
 
 import RxSwift
 import RxCocoa
+import struct CoreGraphics.CGPoint
 
 public typealias LocationInView = (RxGestureView) -> CGPoint
 

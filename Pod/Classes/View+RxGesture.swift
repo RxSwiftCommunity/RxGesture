@@ -20,6 +20,7 @@
 
 import RxSwift
 import RxCocoa
+import Dispatch
 
 extension Reactive where Base: RxGestureView {
 
