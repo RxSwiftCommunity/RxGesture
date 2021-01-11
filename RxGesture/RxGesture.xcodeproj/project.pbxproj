@@ -26,7 +26,6 @@
 		87A517851E4FED3900A65547 /* UISwipeGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517701E4FED3900A65547 /* UISwipeGestureRecognizer+RxGesture.swift */; };
 		87A517861E4FED3900A65547 /* UITapGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517711E4FED3900A65547 /* UITapGestureRecognizer+RxGesture.swift */; };
 		87A5178E1E4FED3900A65547 /* GestureFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177A1E4FED3900A65547 /* GestureFactory.swift */; };
-		87A5178F1E4FED3900A65547 /* RxGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177B1E4FED3900A65547 /* RxGestureRecognizerDelegate.swift */; };
 		87A517901E4FED3900A65547 /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177C1E4FED3900A65547 /* SharedTypes.swift */; };
 		87A517911E4FED3900A65547 /* View+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177D1E4FED3900A65547 /* View+RxGesture.swift */; };
 		87AF2B581FAE51680002FC29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */; };
@@ -39,12 +38,13 @@
 		87F8F72F1E511E7F00C3B1BE /* NSPressGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517781E4FED3900A65547 /* NSPressGestureRecognizer+RxGesture.swift */; };
 		87F8F7301E511E7F00C3B1BE /* NSRotationGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A517791E4FED3900A65547 /* NSRotationGestureRecognizer+RxGesture.swift */; };
 		87F8F7311E511E8600C3B1BE /* GestureFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177A1E4FED3900A65547 /* GestureFactory.swift */; };
-		87F8F7321E511E8600C3B1BE /* RxGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177B1E4FED3900A65547 /* RxGestureRecognizerDelegate.swift */; };
 		87F8F7331E511E8600C3B1BE /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177C1E4FED3900A65547 /* SharedTypes.swift */; };
 		87F8F7341E511E8600C3B1BE /* View+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5177D1E4FED3900A65547 /* View+RxGesture.swift */; };
 		87F8F7371E511E9D00C3B1BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */; };
 		8EF89008244DC70300BD054D /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF89006244DC70300BD054D /* RxCocoa.framework */; };
 		8EF89009244DC70300BD054D /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF89007244DC70300BD054D /* RxSwift.framework */; };
+		A3D3395C25AC81E400B70216 /* GenericRxGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D3395B25AC81E400B70216 /* GenericRxGestureRecognizerDelegate.swift */; };
+		A3D3395D25AC81E400B70216 /* GenericRxGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D3395B25AC81E400B70216 /* GenericRxGestureRecognizerDelegate.swift */; };
 		C556E5A724937DEE006139E1 /* UIHoverGestureRecognizer+RxGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = C556E5A624937DEE006139E1 /* UIHoverGestureRecognizer+RxGesture.swift */; };
 		F4CC4C221DEBA895009ED835 /* RxGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CC4C201DEBA895009ED835 /* RxGesture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4CC4C571DEBAF98009ED835 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CC4C4F1DEBACC7009ED835 /* Foundation.framework */; };
@@ -86,13 +86,13 @@
 		87A517781E4FED3900A65547 /* NSPressGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPressGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		87A517791E4FED3900A65547 /* NSRotationGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRotationGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		87A5177A1E4FED3900A65547 /* GestureFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureFactory.swift; sourceTree = "<group>"; };
-		87A5177B1E4FED3900A65547 /* RxGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxGestureRecognizerDelegate.swift; sourceTree = "<group>"; };
 		87A5177C1E4FED3900A65547 /* SharedTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedTypes.swift; sourceTree = "<group>"; };
 		87A5177D1E4FED3900A65547 /* View+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+RxGesture.swift"; sourceTree = "<group>"; };
 		87AF2B5F1FAF1D3E0002FC29 /* RxGestureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxGestureTests.swift; sourceTree = "<group>"; };
 		87F8F7221E511E2E00C3B1BE /* RxGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF89006244DC70300BD054D /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = ../Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
 		8EF89007244DC70300BD054D /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = ../Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
+		A3D3395B25AC81E400B70216 /* GenericRxGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericRxGestureRecognizerDelegate.swift; sourceTree = "<group>"; };
 		C556E5A624937DEE006139E1 /* UIHoverGestureRecognizer+RxGesture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIHoverGestureRecognizer+RxGesture.swift"; sourceTree = "<group>"; };
 		F4CC4C1D1DEBA895009ED835 /* RxGesture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxGesture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CC4C201DEBA895009ED835 /* RxGesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxGesture.h; sourceTree = "<group>"; };
@@ -210,8 +210,8 @@
 		F4CC4C2A1DEBAA40009ED835 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A3D3395B25AC81E400B70216 /* GenericRxGestureRecognizerDelegate.swift */,
 				87A5177A1E4FED3900A65547 /* GestureFactory.swift */,
-				87A5177B1E4FED3900A65547 /* RxGestureRecognizerDelegate.swift */,
 				87A5177C1E4FED3900A65547 /* SharedTypes.swift */,
 				87A5177D1E4FED3900A65547 /* View+RxGesture.swift */,
 				874DD3DC1FAD067200A61D4F /* GestureRecognizer+RxGesture.swift */,
@@ -438,8 +438,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				87F8F7301E511E7F00C3B1BE /* NSRotationGestureRecognizer+RxGesture.swift in Sources */,
-				87F8F7321E511E8600C3B1BE /* RxGestureRecognizerDelegate.swift in Sources */,
 				87F8F72E1E511E7F00C3B1BE /* NSPanGestureRecognizer+RxGesture.swift in Sources */,
+				A3D3395D25AC81E400B70216 /* GenericRxGestureRecognizerDelegate.swift in Sources */,
 				87F8F72D1E511E7F00C3B1BE /* NSMagnificationGestureRecognizer+RxGesture.swift in Sources */,
 				87F8F7341E511E8600C3B1BE /* View+RxGesture.swift in Sources */,
 				87F8F72F1E511E7F00C3B1BE /* NSPressGestureRecognizer+RxGesture.swift in Sources */,
@@ -457,7 +457,6 @@
 			files = (
 				C556E5A724937DEE006139E1 /* UIHoverGestureRecognizer+RxGesture.swift in Sources */,
 				87A517861E4FED3900A65547 /* UITapGestureRecognizer+RxGesture.swift in Sources */,
-				87A5178F1E4FED3900A65547 /* RxGestureRecognizerDelegate.swift in Sources */,
 				87A517801E4FED3900A65547 /* UILongPressGestureRecognizer+RxGesture.swift in Sources */,
 				87A517811E4FED3900A65547 /* UIPanGestureRecognizer+RxGesture.swift in Sources */,
 				87A5178E1E4FED3900A65547 /* GestureFactory.swift in Sources */,
@@ -468,6 +467,7 @@
 				87A5177E1E4FED3900A65547 /* TransformGestureRecognizers.swift in Sources */,
 				87A517901E4FED3900A65547 /* SharedTypes.swift in Sources */,
 				87A517851E4FED3900A65547 /* UISwipeGestureRecognizer+RxGesture.swift in Sources */,
+				A3D3395C25AC81E400B70216 /* GenericRxGestureRecognizerDelegate.swift in Sources */,
 				874DD3DD1FAD067200A61D4F /* GestureRecognizer+RxGesture.swift in Sources */,
 				87A517821E4FED3900A65547 /* UIPinchGestureRecognizer+RxGesture.swift in Sources */,
 				87A517831E4FED3900A65547 /* UIRotationGestureRecognizer+RxGesture.swift in Sources */,
