@@ -54,13 +54,13 @@ public struct GestureRecognizerDelegatePolicy<PolicyInput> {
 }
 
 public func || <PolicyInput>(lhs: GestureRecognizerDelegatePolicy<PolicyInput>, rhs: GestureRecognizerDelegatePolicy<PolicyInput>) -> GestureRecognizerDelegatePolicy<PolicyInput>  {
-    return .custom { input in
+    .custom { input in
         lhs.isPolicyPassing(with: input) || rhs.isPolicyPassing(with: input)
     }
 }
 
 public func && <PolicyInput>(lhs: GestureRecognizerDelegatePolicy<PolicyInput>, rhs: GestureRecognizerDelegatePolicy<PolicyInput>) -> GestureRecognizerDelegatePolicy<PolicyInput>  {
-    return .custom { input in
+    .custom { input in
         lhs.isPolicyPassing(with: input) && rhs.isPolicyPassing(with: input)
     }
 }

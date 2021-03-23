@@ -8,11 +8,11 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
 
     private var touch: UITouch?
     public var force: CGFloat {
-        return touch?.force ?? 0
+        touch?.force ?? 0
     }
     
     public var maximumPossibleForce: CGFloat {
-        return touch?.maximumPossibleForce ?? 0
+        touch?.maximumPossibleForce ?? 0
     }
 
     public var absoluteFractionCompleted: CGFloat {
@@ -26,7 +26,7 @@ public class ForceTouchGestureRecognizer: UIGestureRecognizer {
     public var maximumFractionCompletedRequired: CGFloat = 1
 
     public var fractionCompleted: CGFloat {
-        return lerp(
+        lerp(
             mapMin: minimumFractionCompletedRequired, to: 0,
             mapMax: maximumFractionCompletedRequired, to: 1,
             value: absoluteFractionCompleted
@@ -104,7 +104,7 @@ extension ObservableType where Element: ForceTouchGestureRecognizer {
         return source
             .when(.began)
             .flatMapLatest { [unowned source] _ in
-                return source
+                source
                     .when(.changed)
                     .filter {
                         if threshold == 0 {
@@ -119,11 +119,11 @@ extension ObservableType where Element: ForceTouchGestureRecognizer {
 }
 
 private func lerp<T : FloatingPoint>(_ v0: T, _ v1: T, _ t: T) -> T {
-    return v0 + (v1 - v0) * t
+    v0 + (v1 - v0) * t
 }
 
 private func lerp<T : FloatingPoint>(mapMin: T, to min: T, mapMax: T, to max: T, value: T) -> T {
-    return  lerp(min, max, (value - mapMin) / (mapMax - mapMin))
+    lerp(min, max, (value - mapMin) / (mapMax - mapMin))
 }
 
 #endif
