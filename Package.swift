@@ -14,7 +14,7 @@ let package = Package(
             name: "RxGesture",
             dependencies: ["RxSwift", "RxCocoa"],
             path: "Pod",
-            exclude: ["Pod/Classes/OSX"]
+            exclude: ["Classes/OSX"]
         )
     ]
 )
