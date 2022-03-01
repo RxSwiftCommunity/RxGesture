@@ -6,4 +6,4 @@ if ! command -v carthage > /dev/null; then
   exit 1
 fi
 
-carthage update --use-submodules --no-use-binaries
+carthage update --use-submodules --no-use-binaries --use-xcframeworks
