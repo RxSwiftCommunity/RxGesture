@@ -283,9 +283,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 87F8F7291E511E2E00C3B1BE /* Build configuration list for PBXNativeTarget "RxGesture-OSX" */;
 			buildPhases = (
+				87F8F71F1E511E2E00C3B1BE /* Headers */,
 				87F8F71D1E511E2E00C3B1BE /* Sources */,
 				87F8F71E1E511E2E00C3B1BE /* Frameworks */,
-				87F8F71F1E511E2E00C3B1BE /* Headers */,
 				87F8F7201E511E2E00C3B1BE /* Resources */,
 			);
 			buildRules = (
@@ -302,9 +302,9 @@
 			buildConfigurationList = F4CC4C251DEBA895009ED835 /* Build configuration list for PBXNativeTarget "RxGesture-iOS" */;
 			buildPhases = (
 				784D1E3522A84EE300082659 /* Swiftlint */,
+				F4CC4C1A1DEBA895009ED835 /* Headers */,
 				F4CC4C181DEBA895009ED835 /* Sources */,
 				F4CC4C191DEBA895009ED835 /* Frameworks */,
-				F4CC4C1A1DEBA895009ED835 /* Headers */,
 				F4CC4C1B1DEBA895009ED835 /* Resources */,
 			);
 			buildRules = (
