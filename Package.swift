@@ -12,7 +12,10 @@ let package = Package(
     targets: [
         .target(
             name: "RxGesture",
-            dependencies: ["RxSwift", "RxCocoa"],
+            dependencies: [
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxCocoa", package: "RxSwift")
+            ],
             path: "Pod",
             exclude: ["Classes/OSX"]
         )
