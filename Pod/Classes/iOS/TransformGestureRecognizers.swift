@@ -40,8 +40,14 @@ public typealias TransformControlEvent = ControlEvent<TransformGestureRecognizer
 public typealias TransformObservable = Observable<TransformGestureRecognizers>
 
 extension Reactive where Base: RxGestureView {
-    public func transformGestures() -> TransformControlEvent {
-        let source = Observable.combineLatest(panGesture(), rotationGesture(), pinchGesture()) {
+    public func transformGestures(
+		panConfiguration: PanConfiguration? = nil,
+		rotationConfiguration: RotationConfiguration? = nil,
+		pinchConfiguration: PinchConfiguration? = nil
+	) -> TransformControlEvent {
+        let source = Observable.combineLatest(panGesture(configuration: panConfiguration),
+											  rotationGesture(configuration: rotationConfiguration),
+											  pinchGesture(configuration: pinchConfiguration)) {
             TransformGestureRecognizers(
                 panGesture: $0,
                 rotationGesture: $1,
